@@ -12,7 +12,7 @@ Copyright 2019
 using namespace Progrado;
 using namespace Ui;
 
-int main(int argc, char* argv)
+int main(int argc, char **argv)
 
 {
     UserInterface* app;
