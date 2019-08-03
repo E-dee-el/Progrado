@@ -20,5 +20,6 @@ int main(int argc, char **argv)
     app->setup();
     app->run();
 
+    delete app;
     return 0;
 }
