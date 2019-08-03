@@ -15,7 +15,7 @@ using namespace Ui;
 int main(int argc, char **argv)
 
 {
-    UserInterface* app;
+    UserInterface* app = new UserInterface();
 
     app->setup();
     app->run();
