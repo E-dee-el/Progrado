@@ -41,3 +41,38 @@ Progrado::User::~User()
 
 
 }
+
+inline std::string Progrado::User::get_lastName()
+ {
+     return m_lastName;
+ }
+
+inline std::string Progrado::User::get_firstName()
+ {
+     return m_firstName;
+ }
+
+inline std::string Progrado::User::get_yearInCollege()
+{
+    return m_yearInCollege;
+}
+
+inline std::string Progrado::User::get_userName()
+{
+    return m_userName;
+}
+
+inline std::string Progrado::User::get_password()
+{
+    return m_password;
+}
+
+inline std::string Progrado::User::get_major()
+{
+    return m_major;
+}
+
+inline std::string Progrado::User::get_minor()
+{
+    return m_minor;
+}

@@ -17,13 +17,20 @@ Copyright 2019
 namespace Progrado{
     class User;
 }
-
+// store user info in class instead of struct to hide info like password
 class Progrado::User
 {
     public:
         User();
         User(const std::string []);
         ~User();
+        inline std::string get_lastName();
+        inline std::string get_firstName();
+        inline std::string get_yearInCollege();
+        inline std::string get_userName();
+        inline std::string get_password();
+        inline std::string get_major();
+        inline std::string get_minor();
 
     private:
         std::string m_lastName;

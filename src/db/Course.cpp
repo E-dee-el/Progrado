@@ -19,6 +19,21 @@ m_numCredits(4)
 
 }
 
+Progrado::Course::Course(int t_credits = 4,
+                            std::string t_cname,
+                            std::string t_cId,
+                            std::string t_cType ,
+                            std::string t_sem
+                        ):
+m_courseName(t_cname),
+m_courseId(t_cId),
+m_courseType(t_cType),
+m_numCredits(t_credits)
+{
+
+}
+
+
 Progrado::Course::~Course()
 {
     

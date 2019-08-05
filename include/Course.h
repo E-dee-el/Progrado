@@ -23,6 +23,8 @@ class Progrado::Course{
     public:
         Course();
         ~Course();
+        Course(int, std::string, std::string,
+                std::string, std::string);
     private:
         std::string m_courseName;
         std::string m_semesterOffered;
