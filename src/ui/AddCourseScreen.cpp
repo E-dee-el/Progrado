@@ -2,21 +2,25 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-CreateAccountScreen Implementation
+AddCourseScreen Implementation
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"CreateAccountScreen.h"
+#include"AddCourseScreen.h"
 
-Ui::CreateAccountScreen::CreateAccountScreen()
+Ui::AddCourseScreen::AddCourseScreen()
 {
     //default constructor
 }
 
-Ui::CreateAccountScreen::~CreateAccountScreen()
+Ui::AddCourseScreen::~AddCourseScreen()
 {
     //destructor
 }
 
+void Ui::AddCourseScreen::display()
+{
+
+}

@@ -2,21 +2,25 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-ScheduleSummaryScreen Implementation
+RemoveCourseScreen Implementation
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"ScheduleSummaryScreen.h"
+#include"RemoveCourseScreen.h"
 
-Ui::ScheduleSummaryScreen::ScheduleSummaryScreen()
+Ui::RemoveCourseScreen::RemoveCourseScreen()
 {
     //default constructor
 }
 
-Ui::ScheduleSummaryScreen::~ScheduleSummaryScreen()
+Ui::RemoveCourseScreen::~RemoveCourseScreen()
 {
     //destructor
 }
 
+void Ui::RemoveCourseScreen::display()
+{
+
+}

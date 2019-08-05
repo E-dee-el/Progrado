@@ -2,21 +2,25 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-RemoveCourseScreen Implementation
+LoginScreen Implementation
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"RemoveCourseScreen.h"
+#include"LoginScreen.h"
 
-Ui::RemoveCourseScreen::RemoveCourseScreen()
+Ui::LoginScreen::LoginScreen()
 {
     //default constructor
 }
 
-Ui::RemoveCourseScreen::~RemoveCourseScreen()
+Ui::LoginScreen::~LoginScreen()
 {
     //destructor
 }
 
+void Ui::LoginScreen::display()
+{
+
+}

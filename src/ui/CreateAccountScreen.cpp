@@ -2,21 +2,25 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-MainMenuScreen Implementation
+CreateAccountScreen Implementation
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"MainMenuScreen.h"
+#include"CreateAccountScreen.h"
 
-Ui::MainMenuScreen::MainMenuScreen()
+Ui::CreateAccountScreen::CreateAccountScreen()
 {
     //default constructor
 }
 
-Ui::MainMenuScreen::~MainMenuScreen()
+Ui::CreateAccountScreen::~CreateAccountScreen()
 {
     //destructor
 }
 
+void Ui::CreateAccountScreen::display()
+{
+
+}

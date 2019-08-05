@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef CREATE_ACCT_H
 #define CREATE_ACCT_H
 
+#include"User.h"
+
 namespace Ui
 {
   class CreateAccountScreen;  
@@ -25,8 +27,7 @@ public:
 
 private:
 // private members go here
-
-
+Progrado::User *m_user;
 
 
 };

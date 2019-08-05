@@ -2,21 +2,25 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-LoginScreen Implementation
+LoginErrorScreen Implementation
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"LoginScreen.h"
+#include"LoginErrorScreen.h"
 
-Ui::LoginScreen::LoginScreen()
+Ui::LoginErrorScreen::LoginErrorScreen()
 {
     //default constructor
 }
 
-Ui::LoginScreen::~LoginScreen()
+Ui::LoginErrorScreen::~LoginErrorScreen()
 {
     //destructor
 }
 
+void Ui::LoginErrorScreen::display()
+{
+
+}

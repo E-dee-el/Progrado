@@ -2,21 +2,24 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-UpdateCourseScreen Implementation
+Course implementation file
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"UpdateCourseScreen.h"
+#include"Course.h"
 
-Ui::UpdateCourseScreen::UpdateCourseScreen()
+Progrado::Course::Course():
+m_courseName("Not set"),
+m_courseId("0"),
+m_courseType("N/A"),
+m_numCredits(4)
 {
-    //default constructor
+
 }
 
-Ui::UpdateCourseScreen::~UpdateCourseScreen()
+Progrado::Course::~Course()
 {
-    //destructor
+    
 }
-

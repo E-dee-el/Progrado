@@ -2,21 +2,25 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-ListAllCoursesScreen Implementation
+UpdateCourseScreen Implementation
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"ListAllCoursesScreen.h"
+#include"UpdateCourseScreen.h"
 
-Ui::ListAllCoursesScreen::ListAllCoursesScreen()
+Ui::UpdateCourseScreen::UpdateCourseScreen()
 {
     //default constructor
 }
 
-Ui::ListAllCoursesScreen::~ListAllCoursesScreen()
+Ui::UpdateCourseScreen::~UpdateCourseScreen()
 {
     //destructor
 }
 
+void Ui::UpdateCourseScreen::display()
+{
+
+}

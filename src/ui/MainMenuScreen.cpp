@@ -2,21 +2,25 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-AddCourseScreen Implementation
+MainMenuScreen Implementation
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"AddCourseScreen.h"
+#include"MainMenuScreen.h"
 
-Ui::AddCourseScreen::AddCourseScreen()
+Ui::MainMenuScreen::MainMenuScreen()
 {
     //default constructor
 }
 
-Ui::AddCourseScreen::~AddCourseScreen()
+Ui::MainMenuScreen::~MainMenuScreen()
 {
     //destructor
 }
 
+void Ui::MainMenuScreen::display()
+{
+
+}

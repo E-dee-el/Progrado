@@ -2,21 +2,25 @@
 **************************************
 *************PROGRADO*****************
 **************************************
-LoginErrorScreen Implementation
+ScheduleSummaryScreen Implementation
 Authors: Ibrahim Suleiman, Yusuf Jimoh
 Copyright 2019
 ***************************************
  */
 
-#include"LoginErrorScreen.h"
+#include"ScheduleSummaryScreen.h"
 
-Ui::LoginErrorScreen::LoginErrorScreen()
+Ui::ScheduleSummaryScreen::ScheduleSummaryScreen()
 {
     //default constructor
 }
 
-Ui::LoginErrorScreen::~LoginErrorScreen()
+Ui::ScheduleSummaryScreen::~ScheduleSummaryScreen()
 {
     //destructor
 }
 
+void Ui::ScheduleSummaryScreen::display()
+{
+
+}
