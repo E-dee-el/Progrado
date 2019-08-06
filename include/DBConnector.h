@@ -24,11 +24,13 @@ class DB::DBConnector{
 public:
     DBConnector();
     ~DBConnector();
-    void addNewUser(const Progrado::User&);
-    void modifyUserDetails(const Progrado::User&);
-    void addCourse(const Progrado::Course&);
-    void updateCourse(const Progrado::Course&, const Progrado::Course&);
-    void removeCourse(const Progrado::Course&);
+    int addNewUser(const Progrado::User&);
+    int modifyUserDetails(const Progrado::User&);
+    bool coursesTableExists();
+    int createCoursesTable();
+    int addCourse(const Progrado::Course&);
+    int updateCourse(const Progrado::Course&, const Progrado::Course&);
+    int removeCourse(const Progrado::Course&);
 
 
 private: 

@@ -11,12 +11,11 @@ Copyright 2019
 #include"DBConnector.h"
 
 DB::DBConnector::DBConnector():
-m_ptr_progradoDatabase(NULL) // using NULL here instead of nullptr because we don't know
-                            // the possible consequences (we're dealing with C code)
+m_ptr_progradoDatabase(nullptr) 
 {
     // open DB connection
     sqlite3_initialize();
-    int rc = sqlite3_open_v2(Progrado::PROGRADO_DB_LOCATION,
+    int rc = sqlite3_open_v2(Progrado::DB_LOCATION,
                              &m_ptr_progradoDatabase,
                              SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
                              NULL
@@ -37,77 +36,128 @@ DB::DBConnector::~DBConnector()
 }
 
 
-void DB::DBConnector::addNewUser(const Progrado::User& t_user)
+int DB::DBConnector::addNewUser(const Progrado::User& t_user)
 {   
-    sqlite3_stmt *stmt = nullptr;
+   sqlite3_stmt *addUserStmt = nullptr;
 
     // prepare SQL create statement
    int rc_create = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                       Progrado::PROGRADO_NEW_USER_TABLE,
+                       Progrado::NEW_USER_TABLE,
                         -1,
-                        &stmt,
-                        NULL);
+                        &addUserStmt,
+                        nullptr);
 
-    if(rc_create != SQLITE_OK){/*/ error */ return; }
+    if(rc_create != SQLITE_OK){ return Progrado::FAIL;}
 
     
-    if(sqlite3_step(stmt) != SQLITE_DONE){/*/ error */ return;}
+    if(sqlite3_step(addUserStmt) != SQLITE_DONE){ return Progrado::FAIL; }
 
     // prepare to insert new user details
 
-    stmt = nullptr; // reset stmt to null
+    addUserStmt = nullptr; // reset addUserStmt to null
     int rc_insert = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                                        Progrado::PROGRADO_INSERT_NEW_USER,
-                                        -1,            // negative parameter makes sqlite calculate stmt size automatically
-                                        &stmt,
-                                        NULL);
+                                        Progrado::INSERT_NEW_USER,
+                                        -1,            // negative parameter makes sqlite calculate addUserStmt size automatically
+                                        &addUserStmt,
+                                        nullptr);
 
-     if(rc_insert != SQLITE_OK){/*/ send error */ return; }
+     if(rc_insert != SQLITE_OK){ return Progrado::FAIL; }
 
 
     // bind the values here
-    sqlite3_bind_text(stmt, sqlite3_bind_parameter_index(stmt, ":lastName"),
+    sqlite3_bind_text(addUserStmt, sqlite3_bind_parameter_index(addUserStmt, ":lastName"),
                         t_user.get_lastName().c_str(), -1, SQLITE_STATIC);
 
-    sqlite3_bind_text(stmt, sqlite3_bind_parameter_index(stmt, ":firstName"),
+    sqlite3_bind_text(addUserStmt, sqlite3_bind_parameter_index(addUserStmt, ":firstName"),
                         t_user.get_firstName().c_str(), -1, SQLITE_STATIC);
 
-    sqlite3_bind_text(stmt, sqlite3_bind_parameter_index(stmt, ":yearInCollege"),
+    sqlite3_bind_text(addUserStmt, sqlite3_bind_parameter_index(addUserStmt, ":yearInCollege"),
                         t_user.get_yearInCollege().c_str(), -1, SQLITE_STATIC);
 
-    sqlite3_bind_text(stmt, sqlite3_bind_parameter_index(stmt, ":userName"),
+    sqlite3_bind_text(addUserStmt, sqlite3_bind_parameter_index(addUserStmt, ":userName"),
                         t_user.get_userName().c_str(), -1, SQLITE_STATIC);  
 
-    sqlite3_bind_text(stmt, sqlite3_bind_parameter_index(stmt, ":password"),
+    sqlite3_bind_text(addUserStmt, sqlite3_bind_parameter_index(addUserStmt, ":password"),
                         t_user.get_password().c_str(), -1, SQLITE_STATIC);
 
-    sqlite3_bind_text(stmt, sqlite3_bind_parameter_index(stmt, ":major"),
+    sqlite3_bind_text(addUserStmt, sqlite3_bind_parameter_index(addUserStmt, ":major"),
                         t_user.get_major().c_str(), -1, SQLITE_STATIC);   
 
-    sqlite3_bind_text(stmt, sqlite3_bind_parameter_index(stmt, ":minor"),
+    sqlite3_bind_text(addUserStmt, sqlite3_bind_parameter_index(addUserStmt, ":minor"),
                         t_user.get_minor().c_str(), -1, SQLITE_STATIC);  
 
     // execute statement                                   
-     if(sqlite3_step(stmt) != SQLITE_DONE){/*/ send error */ return;}
+     if(sqlite3_step(addUserStmt) != SQLITE_DONE){ return Progrado::FAIL; }
 
-    // finalize statement
-     sqlite3_finalize(stmt);
+    // finalize statement and release resources
+     sqlite3_finalize(addUserStmt);
+     
+     return Progrado::SUCCESS;
       
 }
 
-
-void DB::DBConnector::addCourse(const Progrado::Course& t_course)
+bool DB::DBConnector::coursesTableExists()
 {
+    // call this function to check if the courses table is empty
+
+    sqlite3_stmt* coursesExists = nullptr;
+    bool exists =  false;
+
+    int rc_exists = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                        Progrado::CHECK_IF_COURSE_TABLE_EXISTS,
+                        -1,
+                        &coursesExists,
+                        nullptr);
+
+    // yes, table doesnot exits
+    if(rc_exists != SQLITE_OK) {return Progrado::FAIL; }
+
+    int rc_exec = sqlite3_step(coursesExists);
+
+    if(rc_exec != SQLITE_DONE) {exists = false;}
+    else {exists = true;}
+
+    sqlite3_finalize(coursesExists);
+
+    return exists;
+}
+
+int DB::DBConnector::createCoursesTable()
+{
+    sqlite3_stmt* createCoursesTable = nullptr;
+
+    int rc_create = sqlite3_prepare_v2(  m_ptr_progradoDatabase,
+                                         Progrado::CREATE_COURSE_TABLE,
+                                         -1,
+                                         &createCoursesTable,
+                                         nullptr );
+
+    if(rc_create != SQLITE_OK) { return Progrado::FAIL; } 
+
+    int rc_exec = sqlite3_step(createCoursesTable);
+
+    if(rc_exec != SQLITE_DONE) { return Progrado::FAIL; }   
+
+    sqlite3_finalize(createCoursesTable);
+
+    return Progrado::SUCCESS;   
 
 }
 
-void DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
+int DB::DBConnector::addCourse(const Progrado::Course& t_course)
+{
+    // must be guaranteed that course table is not empty createCoursesTable should verify
+
+
+}
+
+int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
                                    const Progrado::Course& t_newCourse)
 {
 
 }
 
-void DB::DBConnector::removeCourse(const Progrado::Course& t_course)
+int DB::DBConnector::removeCourse(const Progrado::Course& t_course)
 {
-
+  
 }

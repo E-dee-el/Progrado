@@ -25,13 +25,13 @@ m_ptr_scheduleSummaryScreen(nullptr),
 m_ptr_UpdateCourseScreen(nullptr)
 {
     //default constructor
-    std::cout << "User Interface instantiated\n";
+    std::cout << "User Interface instantiated\n"; // for testing purposes only
 }
 
 Progrado::UserInterface::~UserInterface()
 {
     //destructor 
-    std::cout << "User Interface destruyed\n";
+    std::cout << "User Interface destruyed\n"; // for testing purposes only
 }
 
 void Progrado::UserInterface::setup()
