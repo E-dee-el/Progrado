@@ -10,6 +10,7 @@ Copyright 2019
 
 
 #include"UserInterface.h"
+#include<iostream>
 
 Progrado::UserInterface::UserInterface():
 m_ptr_addCourseScreen(nullptr),
@@ -24,11 +25,13 @@ m_ptr_scheduleSummaryScreen(nullptr),
 m_ptr_UpdateCourseScreen(nullptr)
 {
     //default constructor
+    std::cout << "User Interface instantiated\n";
 }
 
 Progrado::UserInterface::~UserInterface()
 {
-    //destructor
+    //destructor 
+    std::cout << "User Interface destruyed\n";
 }
 
 void Progrado::UserInterface::setup()

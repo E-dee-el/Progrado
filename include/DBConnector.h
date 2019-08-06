@@ -25,6 +25,7 @@ public:
     DBConnector();
     ~DBConnector();
     void addNewUser(const Progrado::User&);
+    void modifyUserDetails(const Progrado::User&);
     void addCourse(const Progrado::Course&);
     void updateCourse(const Progrado::Course&, const Progrado::Course&);
     void removeCourse(const Progrado::Course&);
