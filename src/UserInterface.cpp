@@ -31,7 +31,7 @@ m_ptr_UpdateCourseScreen(nullptr)
 Progrado::UserInterface::~UserInterface()
 {
     //destructor 
-    std::cout << "User Interface destruyed\n"; // for testing purposes only
+    std::cout << "User Interface destroyed\n"; // for testing purposes only
 }
 
 void Progrado::UserInterface::setup()
@@ -43,9 +43,26 @@ void Progrado::UserInterface::run()
     //run the application/the user interface
 }
 
-template<typename T>
-void Progrado::UserInterface::instatiateScreen(const T&)
+
+void Progrado::UserInterface::instatiateScreen(const Ui::Screen* screen_ptr)
 {
-    // instantiate screen depending in template argument
-    // call T->display
+    /*  instantiate an appropriate screen using only this one function
+        make sure to call new to make the pointer point to an appropraite screen
+        before passing it to this function. For example, in the main app event loop,
+        if we want to instantiate addCourse screen. do:
+
+            m_ptr_addCourseScreen = new addCourseScreen();
+
+             // this is OK, since addCourseScreen derives from Screen
+               // then pass m_ptr_addCourseScreen to this function like so:
+
+            app->instantiateScreen(m_ptr_addCourseScreen);
+
+            // since this will display the screen, the display() method
+            // of addCourseScreen will be called (recall that the Screen display()
+            // method is pure virtual and must be overridden
+
+
+    */
+
 }

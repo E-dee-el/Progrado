@@ -18,12 +18,12 @@ namespace Ui
   class CreateAccountScreen;  
 } 
 
-class Ui::CreateAccountScreen{
+class Ui::CreateAccountScreen : public Ui::Screen{
 
 public:
     CreateAccountScreen();
     ~CreateAccountScreen();
-    void display();
+    void display()override;
 
 private:
 // private members go here

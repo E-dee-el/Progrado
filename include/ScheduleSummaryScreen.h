@@ -16,12 +16,12 @@ namespace Ui
   class ScheduleSummaryScreen;  
 } 
 
-class Ui::ScheduleSummaryScreen{
+class Ui::ScheduleSummaryScreen : public Ui::Screen{
 
 public:
     ScheduleSummaryScreen();
     ~ScheduleSummaryScreen();
-    void display();
+    void display()override;
 
 private:
 // private members go here

@@ -16,12 +16,12 @@ namespace Ui
   class ListAllCoursesScreen;  
 } 
 
-class Ui::ListAllCoursesScreen{
+class Ui::ListAllCoursesScreen : public Ui::Screen{
 
 public:
     ListAllCoursesScreen();
     ~ListAllCoursesScreen();
-    void display();
+    void display()override;
 
 private:
 // private members go here

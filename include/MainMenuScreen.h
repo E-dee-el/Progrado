@@ -16,12 +16,12 @@ namespace Ui
   class MainMenuScreen;  
 } 
 
-class Ui::MainMenuScreen{
+class Ui::MainMenuScreen : public Ui::Screen{
 
 public:
     MainMenuScreen();
     ~MainMenuScreen();
-    void display();
+    void display()override;
 
 private:
 // private members go here

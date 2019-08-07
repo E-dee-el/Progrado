@@ -16,12 +16,12 @@ namespace Ui
   class UpdateCourseScreen;  
 } 
 
-class Ui::UpdateCourseScreen{
+class Ui::UpdateCourseScreen : public Ui::Screen{
 
 public:
     UpdateCourseScreen();
     ~UpdateCourseScreen();
-    void display();
+    void display()override;
 
 private:
 // private members go here

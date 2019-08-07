@@ -16,12 +16,12 @@ namespace Ui
   class AddCourseScreen;  
 } 
 
-class Ui::AddCourseScreen{
+class Ui::AddCourseScreen : public Ui::Screen{
 
 public:
     AddCourseScreen();
-    ~AddCourseScreen();
-    void display();
+    virtual ~AddCourseScreen();
+    virtual void display()override;
 
 private:
 // private members go here

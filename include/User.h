@@ -41,7 +41,7 @@ class Progrado::User
         std::string m_password;
         std::string m_major;
         std::string m_minor;
-        static const int m_stringArraylength = 7; // this refers to the constructor which accepts an array of 7 strings 
+        
 };
 
 #endif

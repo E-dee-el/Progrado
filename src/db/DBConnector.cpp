@@ -9,7 +9,7 @@ Copyright 2019
  */
 
 #include"DBConnector.h"
-#include <iostream>
+
 
 DB::DBConnector::DBConnector():
 m_ptr_progradoDatabase(nullptr) 

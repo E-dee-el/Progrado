@@ -11,9 +11,10 @@ Copyright 2019
 #define DBCONNECTOR_H
 
 #include"Course.h"
-#include"sqlite3.h"
 #include"Progrado.h"
 #include"User.h"
+#include <iostream>
+#include"sqlite3.h"
 
 namespace DB{
     class DBConnector;

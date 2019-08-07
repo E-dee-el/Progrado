@@ -16,12 +16,12 @@ namespace Ui
   class RemoveCourseScreen;  
 } 
 
-class Ui::RemoveCourseScreen{
+class Ui::RemoveCourseScreen : public Ui::Screen{
 
 public:
     RemoveCourseScreen();
     ~RemoveCourseScreen();
-    void display();
+    void display()override;
 
 private:
 // private members go here

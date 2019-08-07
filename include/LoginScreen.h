@@ -16,12 +16,12 @@ namespace Ui
   class LoginScreen;  
 } 
 
-class Ui::LoginScreen{
+class Ui::LoginScreen : public Ui::Screen{
 
 public:
     LoginScreen();
     ~LoginScreen();
-    void display();
+    void display()override;
 
 private:
 // private members go here

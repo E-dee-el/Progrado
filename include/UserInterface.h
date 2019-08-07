@@ -12,6 +12,7 @@ Copyright 2019
 #ifndef USER_INTERFACE_H
 #define USER_INTERFACE_H
 
+#include"Screen.h"
 #include"LoginScreen.h"
 #include"CreateAccountScreen.h"
 #include"LoginErrorScreen.h"
@@ -22,7 +23,7 @@ Copyright 2019
 #include"UpdateCourseScreen.h"
 #include"RemoveCourseScreen.h"
 #include"DBConnector.h"
-#include<memory>
+
 namespace Progrado
 {
   class UserInterface;  
@@ -39,22 +40,21 @@ public:
     void run();
     int connectToDatabase();
     int disconnectFromDatabase();
-    template<typename T>
-    void instatiateScreen(const T&); // instantiate all the different screens using
-                                     // template function 
+    void instatiateScreen(const Ui::Screen*); 
 
 private:
 
-    Ui::MainMenuScreen           *m_ptr_mainMenu;
-    Ui::LoginScreen              *m_ptr_loginScreen;
-    Ui::CreateAccountScreen      *m_ptr_createAccountScreen;
-    Ui::LoginErrorScreen         *m_ptr_loginErrorScreen;
-    Ui::ListAllCoursesScreen     *m_ptr_listAllCoursesScreen;
-    Ui::AddCourseScreen          *m_ptr_addCourseScreen;
-    Ui::ScheduleSummaryScreen    *m_ptr_scheduleSummaryScreen;
-    Ui::UpdateCourseScreen       *m_ptr_UpdateCourseScreen;
-    Ui::RemoveCourseScreen       *m_ptr_RemoveCourseScreen;
-    DB::DBConnector              *m_ptr_DBConnector;
+    Ui::Screen       *m_ptr_addCourseScreen;
+    Ui::Screen       *m_ptr_mainMenu;
+    Ui::Screen       *m_ptr_loginScreen;
+    Ui::Screen       *m_ptr_createAccountScreen;
+    Ui::Screen       *m_ptr_loginErrorScreen;
+    Ui::Screen       *m_ptr_listAllCoursesScreen;
+    Ui::Screen       *m_ptr_scheduleSummaryScreen;
+    Ui::Screen       *m_ptr_UpdateCourseScreen;
+    Ui::Screen       *m_ptr_RemoveCourseScreen;
+    
+    DB::DBConnector  *m_ptr_DBConnector;
 
 };
 
