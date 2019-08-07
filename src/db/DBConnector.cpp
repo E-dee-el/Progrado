@@ -9,6 +9,7 @@ Copyright 2019
  */
 
 #include"DBConnector.h"
+#include <iostream>
 
 DB::DBConnector::DBConnector():
 m_ptr_progradoDatabase(nullptr) 
@@ -23,7 +24,7 @@ m_ptr_progradoDatabase(nullptr)
 
     if(rc != SQLITE_OK)
     {
-        //error and exit
+        std::cout << "Progrado encountered an error an has to quit: Couldn't open database\n";
         exit(-1);
     }
 
