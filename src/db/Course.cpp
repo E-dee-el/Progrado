@@ -33,6 +33,16 @@ m_numCredits(t_credits)
 
 }
 
+inline std::string Progrado::Course::getCourseName() const { return m_courseName;}
+
+inline std::string Progrado::Course::getSemesterOffered() const { return m_semesterOffered;}
+
+inline std::string Progrado::Course::getCourseId() const { return m_courseId;}
+
+inline std::string Progrado::Course::getCourseType() const { return m_courseType;}
+
+inline int Progrado::Course::getNumCredits() const { return m_numCredits;} 
+
 
 Progrado::Course::~Course()
 {

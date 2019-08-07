@@ -15,7 +15,7 @@ m_ptr_progradoDatabase(nullptr)
 {
     // open DB connection
     sqlite3_initialize();
-    int rc = sqlite3_open_v2(Progrado::DB_LOCATION,
+    int rc = sqlite3_open_v2(Progrado::DB_LOCATION.c_str(),
                              &m_ptr_progradoDatabase,
                              SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
                              NULL
@@ -42,7 +42,7 @@ int DB::DBConnector::addNewUser(const Progrado::User& t_user)
 
     // prepare SQL create statement
    int rc_create = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                       Progrado::NEW_USER_TABLE,
+                       Progrado::NEW_USER_TABLE.c_str(),
                         -1,
                         &addUserStmt,
                         nullptr);
@@ -56,7 +56,7 @@ int DB::DBConnector::addNewUser(const Progrado::User& t_user)
 
     addUserStmt = nullptr; // reset addUserStmt to null
     int rc_insert = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                                        Progrado::INSERT_NEW_USER,
+                                        Progrado::INSERT_NEW_USER.c_str(),
                                         -1,            // negative parameter makes sqlite calculate addUserStmt size automatically
                                         &addUserStmt,
                                         nullptr);
@@ -104,7 +104,7 @@ bool DB::DBConnector::coursesTableExists()
     bool exists =  false;
 
     int rc_exists = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                        Progrado::CHECK_IF_COURSE_TABLE_EXISTS,
+                        Progrado::CHECK_IF_COURSE_TABLE_EXISTS.c_str(),
                         -1,
                         &coursesExists,
                         nullptr);
@@ -127,7 +127,7 @@ int DB::DBConnector::createCoursesTable()
     sqlite3_stmt* createCoursesTable = nullptr;
 
     int rc_create = sqlite3_prepare_v2(  m_ptr_progradoDatabase,
-                                         Progrado::CREATE_COURSE_TABLE,
+                                         Progrado::CREATE_COURSE_TABLE.c_str(),
                                          -1,
                                          &createCoursesTable,
                                          nullptr );
@@ -150,12 +150,37 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
     sqlite3_stmt* addCourseStmt = nullptr;
 
     int rc_insert = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                    Progrado::INSERT_NEW_COURSE,
+                    Progrado::INSERT_NEW_COURSE.c_str(),
                     -1,
                     &addCourseStmt,
                      nullptr);
 
     if(rc_insert != SQLITE_OK){return Progrado::FAIL;}
+
+
+    // binding the values
+
+    sqlite3_bind_text(addCourseStmt, 
+                    sqlite3_bind_parameter_index(addCourseStmt, ":courseName"),
+                    t_course.getCourseName().c_str(), -1, SQLITE_STATIC );
+
+
+    sqlite3_bind_text(addCourseStmt, 
+                    sqlite3_bind_parameter_index(addCourseStmt, ":semesterOffered"),
+                    t_course.getSemesterOffered().c_str(), -1, SQLITE_STATIC );
+
+    sqlite3_bind_text(addCourseStmt, 
+                    sqlite3_bind_parameter_index(addCourseStmt, ":courseId"),
+                    t_course.getCourseId().c_str(), -1, SQLITE_STATIC );                
+
+    sqlite3_bind_text(addCourseStmt, 
+                    sqlite3_bind_parameter_index(addCourseStmt, ":courseType"),
+                    t_course.getCourseType().c_str(), -1, SQLITE_STATIC );
+
+    sqlite3_bind_int(addCourseStmt,
+                    sqlite3_bind_parameter_index(addCourseStmt, ":numCredits"),
+                    t_course.getNumCredits());
+
 
     int rc_exec = sqlite3_step(addCourseStmt);
 
@@ -163,16 +188,86 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
 
     sqlite3_finalize(addCourseStmt);
 
+    return Progrado::SUCCESS;
         
 }
 
+/// UPDATE A COURSE
 int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
                                    const Progrado::Course& t_newCourse)
 {
+    sqlite3_stmt* updateCourseStmt = nullptr;
 
+    int rc_update = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                       Progrado::UPDATE_COURSE.c_str(),
+                       -1,
+                       &updateCourseStmt,    
+                        nullptr);
+
+    if(rc_update != SQLITE_OK) {return Progrado::FAIL;}
+
+    //oldcourse
+    sqlite3_bind_text(updateCourseStmt, 
+                    sqlite3_bind_parameter_index(updateCourseStmt, ":courseName"),
+                    t_oldCourse.getCourseName().c_str(), -1, SQLITE_STATIC );
+
+
+    sqlite3_bind_text(updateCourseStmt, 
+                    sqlite3_bind_parameter_index(updateCourseStmt, ":semesterOffered"),
+                    t_oldCourse.getSemesterOffered().c_str(), -1, SQLITE_STATIC );
+
+    sqlite3_bind_text(updateCourseStmt, 
+                    sqlite3_bind_parameter_index(updateCourseStmt, ":courseId"),
+                    t_oldCourse.getCourseId().c_str(), -1, SQLITE_STATIC );                
+
+    sqlite3_bind_text(updateCourseStmt, 
+                    sqlite3_bind_parameter_index(updateCourseStmt, ":courseType"),
+                    t_oldCourse.getCourseType().c_str(), -1, SQLITE_STATIC );
+
+    sqlite3_bind_int(updateCourseStmt,
+                    sqlite3_bind_parameter_index(updateCourseStmt, ":numCredits"),
+                    t_oldCourse.getNumCredits());                   
+    
+    // old course for WHERE clause
+    sqlite3_bind_text(updateCourseStmt, 
+                    sqlite3_bind_parameter_index(updateCourseStmt, ":oldCourseId"),
+                    t_newCourse.getCourseType().c_str(), -1, SQLITE_STATIC );
+
+    //execute
+    int rc_exec = sqlite3_step(updateCourseStmt);
+
+    if(rc_exec!= SQLITE_DONE){return Progrado::FAIL;}
+
+    sqlite3_finalize(updateCourseStmt);
+
+    return Progrado::SUCCESS;   
 }
 
+//CAUTION: CALL WITH CARE | DELETE A COURSE  
 int DB::DBConnector::removeCourse(const Progrado::Course& t_course)
-{
-  
+{   
+    
+    sqlite3_stmt* removeCourseStmt = nullptr;
+
+    int rc_delete = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                       Progrado::REMOVE_COURSE.c_str(),
+                       -1,
+                       &removeCourseStmt,    
+                        nullptr);
+
+    if(rc_delete != SQLITE_OK) {return Progrado::FAIL;}
+
+    // bind
+    sqlite3_bind_text(removeCourseStmt,
+                     sqlite3_bind_parameter_index(removeCourseStmt, ":courseId"),
+                     t_course.getCourseId().c_str(),
+                     -1,
+                     SQLITE_STATIC);
+
+    // execute
+    int rc_exec = sqlite3_step(removeCourseStmt);
+
+    if(rc_exec != SQLITE_DONE) {return Progrado::FAIL;}
+
+    return Progrado::SUCCESS;                 
 }

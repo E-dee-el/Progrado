@@ -22,7 +22,8 @@ class Progrado::User
 {
     public:
         User();
-        User(const std::string []);
+        User(const std::string&, const std::string&, const std::string&,
+                const std::string&, const std::string&, const std::string&, const std::string&); // 7-arg constructor
         ~User();
         inline std::string get_lastName()const;
         inline std::string get_firstName()const;

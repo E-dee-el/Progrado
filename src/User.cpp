@@ -22,17 +22,26 @@ m_minor("none")
     // default constructor
 }
 
-Progrado::User::User(const std::string t_userArray[]):
-m_firstName(t_userArray[0]),
-m_lastName(t_userArray[1]),
-m_yearInCollege(t_userArray[2]),
-m_userName(t_userArray[3]),
-m_major(t_userArray[4]),
-m_minor(t_userArray[5]),
-m_password(t_userArray[6])
+Progrado::User::User
+(
+const std::string& t_firstName,
+const std::string& t_lastName,
+const std::string& t_yearInCollege,
+const std::string& t_userName,
+const std::string& t_major,
+const std::string& t_minor,
+const std::string& t_password
+):
+m_firstName(t_firstName),
+m_lastName(t_lastName),
+m_yearInCollege(t_yearInCollege),
+m_userName(t_userName),
+m_major(t_major),
+m_minor(t_minor),
+m_password(t_password)
 
 {
-    // multi-arg constructor
+    // 7-arg constructor
 
 }
 
@@ -42,37 +51,16 @@ Progrado::User::~User()
 
 }
 
-inline std::string Progrado::User::get_lastName()
- {
-     return m_lastName;
- }
+inline std::string Progrado::User::get_lastName() const {return m_lastName;}
 
-inline std::string Progrado::User::get_firstName()
- {
-     return m_firstName;
- }
+inline std::string Progrado::User::get_firstName() const {return m_firstName;}
 
-inline std::string Progrado::User::get_yearInCollege()
-{
-    return m_yearInCollege;
-}
+inline std::string Progrado::User::get_yearInCollege() const { return m_yearInCollege;}
 
-inline std::string Progrado::User::get_userName()
-{
-    return m_userName;
-}
+inline std::string Progrado::User::get_userName()const {return m_userName;}
 
-inline std::string Progrado::User::get_password()
-{
-    return m_password;
-}
+inline std::string Progrado::User::get_password() const {return m_password;}
 
-inline std::string Progrado::User::get_major()
-{
-    return m_major;
-}
+inline std::string Progrado::User::get_major() const {return m_major;}
 
-inline std::string Progrado::User::get_minor()
-{
-    return m_minor;
-}
+inline std::string Progrado::User::get_minor() const {return m_minor;}
