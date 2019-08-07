@@ -9,6 +9,7 @@ namespace Progrado
     const int FAIL = -1; // return this on any failed procedures
     const int SUCCESS = 0;     // return this on any successful procedures   
 
+
     const char* DB_LOCATION = "data/progrado.db"; 
     const char* NEW_USER_TABLE = 
     "CREATE TABLE IF NOT EXISTS user(lastName TEXT,"
@@ -28,9 +29,12 @@ namespace Progrado
     const char* CHECK_IF_COURSE_TABLE_EXISTS = "SELECT * FROM courses";  
 
     // use this to create a new course table
-    const char*  CREATE_COURSE_TABLE = "CREATE TABLE IF NOT EXITS courses(courseName TEXT, semesterOffered TEXT,"
+    const char*  CREATE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS courses(courseName TEXT, semesterOffered TEXT,"
                                        " courseId TEXT PRIMARY KEY, courseType TEXT, numCredits INTEGER)";   
 
+    const char* INSERT_NEW_COURSE = "INSERT INTO courses" 
+                                    " VALUES(:courseName, :semesterOffered, :courseId, :courseType, :numCredits)";
+                                    
 
 
 }

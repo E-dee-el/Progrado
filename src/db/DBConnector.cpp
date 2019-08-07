@@ -146,9 +146,24 @@ int DB::DBConnector::createCoursesTable()
 
 int DB::DBConnector::addCourse(const Progrado::Course& t_course)
 {
-    // must be guaranteed that course table is not empty createCoursesTable should verify
+    // must be guaranteed that course table is not empty. Verify from UI class
+    sqlite3_stmt* addCourseStmt = nullptr;
 
+    int rc_insert = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                    Progrado::INSERT_NEW_COURSE,
+                    -1,
+                    &addCourseStmt,
+                     nullptr);
 
+    if(rc_insert != SQLITE_OK){return Progrado::FAIL;}
+
+    int rc_exec = sqlite3_step(addCourseStmt);
+
+    if(rc_exec != SQLITE_DONE){return Progrado::FAIL;}
+
+    sqlite3_finalize(addCourseStmt);
+
+        
 }
 
 int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
