@@ -63,8 +63,8 @@ void Progrado::UserInterface::instatiateScreen(const Ui::Screen* screen_ptr)
             // method is pure virtual and must be overridden)
             
             // from here on, if you need to use any specific methods of addCourseScreen,
-            you must use dynamic cast to cast the pointer from type Ui::Screen to 
-            Ui::addCourseScreen
+            you must use dynamic cast to cast the pointer from type Ui::Screen* to 
+            Ui::addCourseScreen*
 
 
     */
