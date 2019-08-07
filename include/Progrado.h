@@ -28,7 +28,7 @@ namespace Progrado
     const char* CHECK_IF_COURSE_TABLE_EXISTS = "SELECT * FROM courses";  
 
     // use this to create a new course table
-    const char*  CREATE_COURSE_TABLE = "CREATE TABLE IF NOT EXITS courses(courseName TEXT, semesterOffered TEXT,"
+    const char*  CREATE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS courses(courseName TEXT, semesterOffered TEXT,"
                                        " courseId TEXT PRIMARY KEY, courseType TEXT, numCredits INTEGER)";   
 
 
