@@ -24,7 +24,7 @@ m_ptr_progradoDatabase(nullptr)
 
     if(rc != SQLITE_OK)
     {
-        std::cout << "Progrado encountered an error an has to quit: Couldn't open database\n";
+        std::cout << "Progrado encountered an error and has to quit: Couldn't open database\n";
         exit(-1);
     }
 
