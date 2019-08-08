@@ -20,8 +20,8 @@ class Ui::ScheduleSummaryScreen : public Ui::Screen{
 
 public:
     ScheduleSummaryScreen();
-    ~ScheduleSummaryScreen();
-    void display()override;
+    virtual ~ScheduleSummaryScreen();
+    virtual void display()override;
 
 private:
 // private members go here

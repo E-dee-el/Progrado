@@ -20,8 +20,8 @@ class Ui::RemoveCourseScreen : public Ui::Screen{
 
 public:
     RemoveCourseScreen();
-    ~RemoveCourseScreen();
-    void display()override;
+    virtual ~RemoveCourseScreen();
+    virtual void display()override;
 
 private:
 // private members go here

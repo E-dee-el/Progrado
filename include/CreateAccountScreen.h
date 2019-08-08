@@ -22,8 +22,8 @@ class Ui::CreateAccountScreen : public Ui::Screen{
 
 public:
     CreateAccountScreen();
-    ~CreateAccountScreen();
-    void display()override;
+    virtual ~CreateAccountScreen();
+    virtual void display()override;
 
 private:
 // private members go here

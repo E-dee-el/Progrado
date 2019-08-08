@@ -20,8 +20,8 @@ class Ui::UpdateCourseScreen : public Ui::Screen{
 
 public:
     UpdateCourseScreen();
-    ~UpdateCourseScreen();
-    void display()override;
+    virtual ~UpdateCourseScreen();
+    virtual void display()override;
 
 private:
 // private members go here

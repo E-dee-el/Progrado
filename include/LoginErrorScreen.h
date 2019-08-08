@@ -20,8 +20,8 @@ class Ui::LoginErrorScreen : public Ui::Screen{
 
 public:
     LoginErrorScreen();
-    ~LoginErrorScreen();
-    void display()override;
+    virtual ~LoginErrorScreen();
+    virtual void display()override;
 
 private:
 // private members go here

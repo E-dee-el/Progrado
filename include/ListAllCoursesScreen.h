@@ -20,8 +20,8 @@ class Ui::ListAllCoursesScreen : public Ui::Screen{
 
 public:
     ListAllCoursesScreen();
-    ~ListAllCoursesScreen();
-    void display()override;
+    virtual ~ListAllCoursesScreen();
+    virtual void display()override;
 
 private:
 // private members go here

@@ -20,8 +20,8 @@ class Ui::LoginScreen : public Ui::Screen{
 
 public:
     LoginScreen();
-    ~LoginScreen();
-    void display()override;
+    virtual ~LoginScreen();
+    virtual void display()override;
 
 private:
 // private members go here

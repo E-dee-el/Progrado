@@ -20,8 +20,8 @@ class Ui::MainMenuScreen : public Ui::Screen{
 
 public:
     MainMenuScreen();
-    ~MainMenuScreen();
-    void display()override;
+    virtual ~MainMenuScreen();
+    virtual void display()override;
 
 private:
 // private members go here
