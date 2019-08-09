@@ -23,13 +23,13 @@ class Progrado::Course{
     public:
         Course();
         ~Course();
-        Course(int, std::string, std::string,
-                std::string, std::string);
-        inline std::string getCourseName()const;
-        inline std::string getSemesterOffered()const; 
-        inline std::string getCourseId()const; 
-        inline std::string getCourseType()const;
-        inline int getNumCredits()const;
+        Course(std::string, std::string,
+                std::string, std::string, int t_credits = 4);
+          std::string getCourseName()const;
+          std::string getSemesterOffered()const; 
+          std::string getCourseId()const; 
+          std::string getCourseType()const;
+          int getNumCredits()const;
 
     private:
         std::string m_courseName;

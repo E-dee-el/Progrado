@@ -25,13 +25,13 @@ class Progrado::User
         User(const std::string&, const std::string&, const std::string&,
                 const std::string&, const std::string&, const std::string&, const std::string&); // 7-arg constructor
         ~User();
-        inline std::string get_lastName()const;
-        inline std::string get_firstName()const;
-        inline std::string get_yearInCollege()const;
-        inline std::string get_userName()const;
-        inline std::string get_password()const;
-        inline std::string get_major()const;
-        inline std::string get_minor()const;
+          std::string get_lastName()const;
+          std::string get_firstName()const;
+          std::string get_yearInCollege()const;
+          std::string get_userName()const;
+          std::string get_password()const;
+          std::string get_major()const;
+          std::string get_minor()const;
 
     private:
         std::string m_lastName;

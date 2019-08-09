@@ -1,0 +1,7 @@
+
+HOW I COMPILED testDBConn.cpp
+
+g++ testDBConn.cpp Course.cpp User.cpp DBConnector.cpp -I../include/  -L. -lsqlite3 -pthread -ldl  -o test
+
+
+
