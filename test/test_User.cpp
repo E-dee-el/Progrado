@@ -11,18 +11,15 @@ Copyright 2019
 
 #include"User.h"
 
-Progrado::User::User():
-m_lastName("Not set"),
-m_firstName("Not set"),
-m_yearInCollege("Not set"),
-m_userName("Not set"),
-m_password("admin"),
-m_major("Undecided"),
-m_minor("none")
-{
-    // default constructor
+// not safe , doesnt check for size 
+// maybe we should be using std::array for this
+Progrado::User::User(const std::vector<std::string>& t_user)
+{      
+    //call the copy constructor for std::vector
+    m_userData = t_user;
 }
 
+// better use this constructor
 Progrado::User::User
 (
 const std::string& t_lastName,
@@ -32,20 +29,21 @@ const std::string& t_userName,
 const std::string& t_major,
 const std::string& t_minor,
 const std::string& t_password
-):
-m_lastName(t_lastName),
-m_firstName(t_firstName),
-m_yearInCollege(t_yearInCollege),
-m_userName(t_userName),
-m_password(t_password),
-m_major(t_major),
-m_minor(t_minor)
-
-
+)
+: m_userData(7)
 {
     // 7-arg constructor
+    // order is important!
+    m_userData[lastName] = t_lastName;
+    m_userData[firstName] = t_firstName;
+    m_userData[yearInCollege] = t_yearInCollege;
+    m_userData[userName] = t_userName;
+    m_userData[major] = t_major;
+    m_userData[minor] = t_minor;
+    m_userData[password] = t_password;
 
 }
+ 
 
 Progrado::User::~User()
 {
@@ -53,16 +51,21 @@ Progrado::User::~User()
 
 }
 
- std::string Progrado::User::get_lastName() const {return m_lastName;}
+int Progrado::User::get_numUserDetails()const { return m_userData.size();}
 
- std::string Progrado::User::get_firstName() const {return m_firstName;}
+std::string& Progrado::User::operator [] (int t_idx) {return m_userData[t_idx];}
 
- std::string Progrado::User::get_yearInCollege() const { return m_yearInCollege;}
+// these are here a back up, if you will. the overloaded [] operator is preferred
+ std::string Progrado::User::get_lastName() const {return m_userData[lastName];}
 
- std::string Progrado::User::get_userName()const {return m_userName;}
+ std::string Progrado::User::get_firstName() const {return m_userData[firstName];}
 
- std::string Progrado::User::get_password() const {return m_password;}
+ std::string Progrado::User::get_yearInCollege() const { return m_userData[yearInCollege];}
 
- std::string Progrado::User::get_major() const {return m_major;}
+ std::string Progrado::User::get_userName()const {return m_userData[userName];}
 
- std::string Progrado::User::get_minor() const {return m_minor;}
+ std::string Progrado::User::get_password() const {return m_userData[password];}
+
+ std::string Progrado::User::get_major() const {return m_userData[major];}
+
+ std::string Progrado::User::get_minor() const {return m_userData[minor];}

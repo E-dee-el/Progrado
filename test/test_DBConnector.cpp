@@ -74,7 +74,9 @@ int DB::DBConnector::addNewUser(const Progrado::User& t_user)
     // only valid throughout the lifetime of the temporary/ 
     // end of the full expression (i.e. semi colon)
 
-    // bind last Name
+    // call the default copy constructor. For some reason, I feel uneasy about this
+
+  // bind last Name
     std::string str_last_name = t_user.get_lastName();
     const char* last_name = str_last_name.c_str();
 
