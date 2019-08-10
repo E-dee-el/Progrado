@@ -116,7 +116,7 @@ bool DB::DBConnector::coursesTableExists()
                         &coursesExists,
                         nullptr);
 
-    // yes, table doesnot exits
+ 
     if(rc_exists != SQLITE_OK) {return Progrado::FAIL; }
 
     int rc_exec = sqlite3_step(coursesExists);
@@ -167,7 +167,6 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
 
     // binding the values
    
-    // bind course name
     for (int i = 0; i < t_course.getCountCourseDetails(); i++)
     {    
         std::string str =  t_course[i];
@@ -186,7 +185,7 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
         );
 
     }
- 
+ //bind num credits 
     sqlite3_bind_int
     (
      addCourseStmt,
@@ -219,10 +218,8 @@ int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
 
     if(rc_update != SQLITE_OK) {return Progrado::FAIL;}
 
-    //oldcourse
 
-    // bind course name
-
+    // bind new course details here
     for(int i = 0; i < t_newCourse.getCountCourseDetails(); ++i)
     {
         std::string str_new_course_detail = t_newCourse[i];
@@ -244,7 +241,7 @@ int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
     }
 
   
- // bind num credits
+ // bind num credits (new course)
     sqlite3_bind_int
     (
     updateCourseStmt,
