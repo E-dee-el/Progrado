@@ -66,15 +66,15 @@ int DB::DBConnector::addNewUser(const Progrado::User& t_user)
      if(rc_insert != SQLITE_OK){ return Progrado::FAIL; }
 
 
-    // bind the values here
+ 
 
-    // bind lastname
 
     // t_user.get_lastName returns a temporary and the results of c_str is
     // only valid throughout the lifetime of the temporary/ 
     // end of the full expression (i.e. semi colon)
 
 
+    // bind values
   for(int i = 0; i < t_user.get_countUserDetails(); i++)
   {
     std::string str = t_user[i];
