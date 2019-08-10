@@ -13,6 +13,7 @@ Copyright 2019
 #define USER_H
 
 #include<string>
+#include<vector>
 
 namespace Progrado{
     class User;
@@ -21,7 +22,7 @@ namespace Progrado{
 class Progrado::User
 {
     public:
-        User();
+        User(const std::vector<std::string>&);
         User(const std::string&, const std::string&, const std::string&,
                 const std::string&, const std::string&, const std::string&, const std::string&); // 7-arg constructor
         ~User();
@@ -32,16 +33,30 @@ class Progrado::User
           std::string get_password()const;
           std::string get_major()const;
           std::string get_minor()const;
+          std::string get_BindParam(int)const;
+          int get_countUserDetails()const;
+          const std::string& operator [] (int)const;
+          int get_numUserDetails()const;
 
+          
     private:
-        std::string m_lastName;
-        std::string m_firstName;
-        std::string m_yearInCollege;
-        std::string m_userName;
-        std::string m_password;
-        std::string m_major;
-        std::string m_minor;
-        
+
+        enum 
+        {
+        lastName,
+        firstName,
+        yearInCollege,
+        userName,
+        password,
+        major,
+        minor
+        };
+
+        std::vector<std::string> m_userData;
+        const std::vector<std::string> m_BindParams = {":lastName", ":firstName", ":yearInCollege",
+        ":userName", ":password", ":major", ":minor"};
+       
+               
 };
 
 #endif

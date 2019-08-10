@@ -2,3 +2,5 @@
 .vscode/
 ./test/*.txt
 ./*.db
+test
+progrado.db

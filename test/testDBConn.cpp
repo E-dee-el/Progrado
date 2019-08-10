@@ -45,7 +45,7 @@ DB_ptr->addCourse(*course_ptr);
 DB_ptr->addCourse(*new_course_ptr2);
 
 DB_ptr->updateCourse(*course_ptr, *new_course_ptr1);
-std::cout << DB_ptr->removeCourse(*course_ptr) << std::endl;
+//std::cout << DB_ptr->removeCourse(*course_ptr) << std::endl;
 
 //////////////////////////
 

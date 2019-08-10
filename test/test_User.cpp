@@ -51,9 +51,11 @@ Progrado::User::~User()
 
 }
 
-int Progrado::User::get_numUserDetails()const { return m_userData.size();}
+int Progrado::User::get_countUserDetails()const { return m_userData.size();}
 
-std::string& Progrado::User::operator [] (int t_idx) {return m_userData[t_idx];}
+const std::string& Progrado::User::operator [] (int t_idx)const {return m_userData[t_idx];}
+
+std::string Progrado::User::get_BindParam(int idx) const {return m_BindParams[idx];}
 
 // these are here a back up, if you will. the overloaded [] operator is preferred
  std::string Progrado::User::get_lastName() const {return m_userData[lastName];}

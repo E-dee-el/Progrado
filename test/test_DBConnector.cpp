@@ -74,90 +74,24 @@ int DB::DBConnector::addNewUser(const Progrado::User& t_user)
     // only valid throughout the lifetime of the temporary/ 
     // end of the full expression (i.e. semi colon)
 
-    // call the default copy constructor. For some reason, I feel uneasy about this
 
-  // bind last Name
-    std::string str_last_name = t_user.get_lastName();
-    const char* last_name = str_last_name.c_str();
+  for(int i = 0; i < t_user.get_countUserDetails(); i++)
+  {
+    std::string str = t_user[i];
+    const char* str_to_bind = str.c_str();
+    
+    std::string str_bind_parameter = t_user.get_BindParam(i);
+    const char* bind_parameter = str_bind_parameter.c_str();
 
     sqlite3_bind_text
     (addUserStmt,
-    sqlite3_bind_parameter_index(addUserStmt, ":lastName"),
-    last_name,
+    sqlite3_bind_parameter_index(addUserStmt, bind_parameter),
+    str_to_bind,
     -1, 
-    SQLITE_STATIC
+    SQLITE_TRANSIENT  // tells SQLITE that str_to_bind won't be alive when the stmt is executed
     );
 
-    // bind first name
-    std::string str_first_name = t_user.get_firstName();
-    const char* first_name = str_first_name.c_str();
-
-    sqlite3_bind_text
-    (addUserStmt,
-    sqlite3_bind_parameter_index(addUserStmt, ":firstName"),
-    first_name,
-    -1,
-    SQLITE_STATIC
-    );
-
-    // bind year in college
-    std::string str_year = t_user.get_yearInCollege();
-    const char* year_in_college = str_year.c_str();
-
-    sqlite3_bind_text
-    (addUserStmt,
-    sqlite3_bind_parameter_index(addUserStmt, ":yearInCollege"),
-    year_in_college,
-    -1,
-    SQLITE_STATIC
-    );
-
-    // bind username
-    std::string str_user_name = t_user.get_userName();
-    const char* user_name = str_user_name.c_str();
-
-    sqlite3_bind_text
-    (addUserStmt,
-     sqlite3_bind_parameter_index(addUserStmt, ":userName"),
-     user_name,
-    -1,
-    SQLITE_STATIC
-    );
-
-    // bind password
-    std::string str_pwd = t_user.get_password();
-    const char* password = str_pwd.c_str(); 
-
-    sqlite3_bind_text
-    (addUserStmt,
-    sqlite3_bind_parameter_index(addUserStmt, ":password"),
-    password,
-    -1,
-    SQLITE_STATIC
-    );
-    // bind major
-    std::string str_major = t_user.get_major();
-    const char* major = str_major.c_str();
-
-    sqlite3_bind_text
-    (addUserStmt,
-    sqlite3_bind_parameter_index(addUserStmt, ":major"),
-    major,
-    -1,
-    SQLITE_STATIC);   
-
-    // bind minor
-    std::string str_minor = t_user.get_minor();
-    const char* minor = str_minor.c_str();
-
-    sqlite3_bind_text
-    (addUserStmt,
-     sqlite3_bind_parameter_index(addUserStmt, ":minor"),
-    minor,
-    -1,
-    SQLITE_STATIC
-    );  
-
+    }
 
     // execute statement                                   
      if(sqlite3_step(addUserStmt) != SQLITE_DONE){ return Progrado::FAIL; }
@@ -232,60 +166,27 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
 
 
     // binding the values
-
+   
     // bind course name
-    std::string str_course_name =  t_course.getCourseName();
-    const char* course_name = str_course_name.c_str();
+    for (int i = 0; i < t_course.getCountCourseDetails(); i++)
+    {    
+        std::string str =  t_course[i];
+        const char* str_to_bind = str.c_str();
 
-    sqlite3_bind_text
-    (
-    addCourseStmt, 
-    sqlite3_bind_parameter_index(addCourseStmt, ":courseName"),
-    course_name,
-     -1,
-    SQLITE_STATIC 
-    );
-    //bind semester
-    std::string str_sem =  t_course.getSemesterOffered();
-    const char* semester = str_sem.c_str();
+        std::string bind_str = t_course.getCourseBindParam(i);
+        const char* bind_param = bind_str.c_str();
 
-    sqlite3_bind_text
-    (
-    addCourseStmt, 
-    sqlite3_bind_parameter_index(addCourseStmt, ":semesterOffered"),
-    semester,
-    -1,
-    SQLITE_STATIC
-    );
+        sqlite3_bind_text
+        (
+        addCourseStmt, 
+        sqlite3_bind_parameter_index(addCourseStmt, bind_param),
+        str_to_bind,
+        -1,
+        SQLITE_TRANSIENT 
+        );
 
-
-    // bind course Id
-    std::string str_course_id =  t_course.getCourseId();
-    const char* course_id = str_course_id.c_str();
-
-    sqlite3_bind_text
-    (
-    addCourseStmt, 
-    sqlite3_bind_parameter_index(addCourseStmt, ":courseId"),
-    course_id,
-    -1,
-    SQLITE_STATIC
-    );                
-
-    //bind course type
-    std::string str_course_type =  t_course.getCourseType();
-    const char* course_type = str_course_type.c_str();
-
-    sqlite3_bind_text
-    (
-    addCourseStmt, 
-    sqlite3_bind_parameter_index(addCourseStmt, ":courseType"),
-    course_type,
-    -1,
-    SQLITE_STATIC
-    );
-
-    // bind num credits
+    }
+ 
     sqlite3_bind_int
     (
      addCourseStmt,
@@ -321,58 +222,29 @@ int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
     //oldcourse
 
     // bind course name
-    std::string str_new_course_name = t_newCourse.getCourseName();
-    const char* new_course_name = str_new_course_name.c_str();
 
-    sqlite3_bind_text
-    (
-    updateCourseStmt, 
-    sqlite3_bind_parameter_index(updateCourseStmt, ":courseName"),
-    new_course_name,
-    -1,
-    SQLITE_STATIC
-    );
+    for(int i = 0; i < t_newCourse.getCountCourseDetails(); ++i)
+    {
+        std::string str_new_course_detail = t_newCourse[i];
+        const char* bind_new_course_detail = str_new_course_detail.c_str();
+        
+        std::string str_bind_param = t_newCourse.getCourseBindParam(i);
+        const char* bind_param = str_bind_param.c_str();
 
-    // bind semester
-    std::string str_new_sem = t_newCourse.getSemesterOffered();
-    const char* new_sem = str_new_sem.c_str();
+        std::cout << bind_param << "\n";
+        std::cout << bind_new_course_detail <<"\n";
+        sqlite3_bind_text
+        (
+        updateCourseStmt, 
+        sqlite3_bind_parameter_index(updateCourseStmt, bind_param),
+        bind_new_course_detail,
+        -1,
+        SQLITE_TRANSIENT
+        );
+    }
 
-    sqlite3_bind_text
-    (
-    updateCourseStmt, 
-    sqlite3_bind_parameter_index(updateCourseStmt, ":semesterOffered"),
-    new_sem,
-    -1,
-    SQLITE_STATIC
-    );
-
-    // bind course id
-    std::string str_new_course_id = t_newCourse.getCourseId();
-    const char* new_course_id = str_new_course_id.c_str();
-    sqlite3_bind_text
-    (
-    updateCourseStmt, 
-    sqlite3_bind_parameter_index(updateCourseStmt, ":courseId"),
-    new_course_id,
-    -1,
-    SQLITE_STATIC
-    );                
-
-    // bind course type
-    std::string str_new_course_type = t_newCourse.getCourseType();
-    const char* new_course_type = str_new_course_type.c_str();
-
-
-    sqlite3_bind_text
-    (
-    updateCourseStmt, 
-    sqlite3_bind_parameter_index(updateCourseStmt, ":courseType"),
-    new_course_type,
-    -1,
-    SQLITE_STATIC
-    );
-
-    // bind num credits
+  
+ // bind num credits
     sqlite3_bind_int
     (
     updateCourseStmt,

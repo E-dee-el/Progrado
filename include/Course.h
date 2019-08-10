@@ -13,6 +13,8 @@ Copyright 2019
 #define COURSE_H
 
 #include<string>
+#include<vector>
+#include<iostream>
 
 namespace Progrado{
     class Course;
@@ -23,6 +25,7 @@ class Progrado::Course{
     public:
         Course();
         ~Course();
+        Course(std::vector<std::string>, int);
         Course(std::string, std::string,
                 std::string, std::string, int t_credits = 4);
           std::string getCourseName()const;
@@ -30,12 +33,15 @@ class Progrado::Course{
           std::string getCourseId()const; 
           std::string getCourseType()const;
           int getNumCredits()const;
+          int getCountCourseDetails()const;
+          std::string getCourseBindParam(int) const;
+          const std::string& operator [] (int)const;
 
     private:
-        std::string m_courseName;
-        std::string m_semesterOffered;
-        std::string m_courseId; 
-        std::string m_courseType; // major/minor/gen elective, etc
+        enum{courseName, semesterOffered, courseId, courseType};
+        std::vector<std::string> m_courseDetails;
+        const std::vector<std::string> m_CourseBindParams = {":courseName", ":semesterOffered",
+        ":courseId", ":courseType"};  // DO NOT CHANGE ORDER
         int m_numCredits;
            
 };

@@ -16,6 +16,8 @@ namespace Progrado
     //instead of const char* since it manages its resources on the heap
 
     const std::string DB_LOCATION = "progrado.db"; 
+
+    const std::string CHECK_IF_USER_TABLE_EXISTS = "SELECT * FROM user"; 
     const std::string NEW_USER_TABLE = 
     "CREATE TABLE IF NOT EXISTS user(lastName TEXT,"
                                "firstName TEXT,"
@@ -29,7 +31,7 @@ namespace Progrado
     " VALUES(:lastName, :firstName, :yearInCollege, :userName, :password, :major, :minor)";                           
 
 
-
+    /****** INPUTTING***/
     // use this to check if the user hasn't added any courses
     const std::string CHECK_IF_COURSE_TABLE_EXISTS = "SELECT * FROM courses";  
 
@@ -47,7 +49,13 @@ namespace Progrado
                                 " WHERE courseId = :OldCourseId";  
 
     // use this to delete an existing course, HANDLE WITH CARE                                                          
-    const std::string REMOVE_COURSE = "DELETE FROM course WHERE courseId = :courseId";
+    const std::string REMOVE_COURSE = "DELETE FROM courses WHERE courseId = :courseId";
+
+
+    /****** OUTPUTTING***/
+
+    const std::string GET_ALL_COURSES = "SELECT courseName AS Name, semesterOffered as TERM, courseId as ID, "
+    "courseType AS CATEGORY, numCredits AS CREDITS FROM courses";
 
 }
 
