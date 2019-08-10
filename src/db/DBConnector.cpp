@@ -37,26 +37,30 @@ DB::DBConnector::~DBConnector()
     sqlite3_shutdown(); // shut down sqlite3 engine
 }
 
-
-int DB::DBConnector::addNewUser(const Progrado::User& t_user)
-{   
-   sqlite3_stmt *addUserStmt = nullptr;
+int DB::DBConnector::createUserTable()
+{
+    sqlite3_stmt *creatUserTableStmt = nullptr;
 
     // prepare SQL create statement
    int rc_create = sqlite3_prepare_v2(m_ptr_progradoDatabase,
                        Progrado::NEW_USER_TABLE.c_str(),
                         -1,
-                        &addUserStmt,
+                        &creatUserTableStmt,
                         nullptr);
 
     if(rc_create != SQLITE_OK){ return Progrado::FAIL;}
 
     
-    if(sqlite3_step(addUserStmt) != SQLITE_DONE){ return Progrado::FAIL; }
+    if(sqlite3_step(creatUserTableStmt) != SQLITE_DONE){ return Progrado::FAIL; }
 
-    // prepare to insert new user details
+    return Progrado::SUCCESS;
+}
+int DB::DBConnector::addNewUser(const Progrado::User& t_user)
+{   
+   
+    this->createUserTable();  // create user table
+    sqlite3_stmt *addUserStmt = nullptr;
 
-    addUserStmt = nullptr; // reset addUserStmt to null
     int rc_insert = sqlite3_prepare_v2(m_ptr_progradoDatabase,
                                         Progrado::INSERT_NEW_USER.c_str(),
                                         -1,            // negative parameter makes sqlite calculate addUserStmt size automatically
@@ -64,9 +68,6 @@ int DB::DBConnector::addNewUser(const Progrado::User& t_user)
                                         nullptr);
 
      if(rc_insert != SQLITE_OK){ return Progrado::FAIL; }
-
-
- 
 
 
     // t_user.get_lastName returns a temporary and the results of c_str is
@@ -228,8 +229,6 @@ int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
         std::string str_bind_param = t_newCourse.getCourseBindParam(i);
         const char* bind_param = str_bind_param.c_str();
 
-        std::cout << bind_param << "\n";
-        std::cout << bind_new_course_detail <<"\n";
         sqlite3_bind_text
         (
         updateCourseStmt, 

@@ -28,6 +28,7 @@ public:
 
     bool userTableExists();
     bool coursesTableExists();
+    int createUserTable();
     int addNewUser(const Progrado::User&);
     int modifyUserDetails(const Progrado::User&); 
     int createCoursesTable();

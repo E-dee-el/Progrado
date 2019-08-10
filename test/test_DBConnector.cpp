@@ -231,8 +231,6 @@ int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
         std::string str_bind_param = t_newCourse.getCourseBindParam(i);
         const char* bind_param = str_bind_param.c_str();
 
-        std::cout << bind_param << "\n";
-        std::cout << bind_new_course_detail <<"\n";
         sqlite3_bind_text
         (
         updateCourseStmt, 
