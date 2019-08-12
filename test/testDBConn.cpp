@@ -47,9 +47,17 @@ DB_ptr->addCourse(*new_course_ptr2);
 DB_ptr->updateCourse(*course_ptr, *new_course_ptr1);
 //std::cout << DB_ptr->removeCourse(*course_ptr) << std::endl;
 
+// v is a vector of smart pointers to Course objects
+std::vector<std::shared_ptr<Progrado::Course> > v;
+
+v = DB_ptr->getAllCourses();
+
+for(int i = 0; i < v.size(); i++)
+{
+    v[i]->displayCourse();
+}
+
 //////////////////////////
-
-
 
 return 0;
 }

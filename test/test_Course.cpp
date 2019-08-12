@@ -9,6 +9,7 @@ Copyright 2019
  */
 
 #include"Course.h"
+#include<iomanip>
 
 Progrado::Course::Course():
 m_courseDetails(4),
@@ -59,6 +60,21 @@ const std::string& Progrado::Course::operator [] (int idx)const { return m_cours
 int Progrado::Course::getCountCourseDetails()const {return m_courseDetails.size();}
 
 std::string Progrado::Course::getCourseBindParam(int idx)const {return m_CourseBindParams[idx];}
+
+
+/// testing only
+void Progrado::Course::displayCourse()const
+{   int n = 0;
+    for (int i = 0; i < m_courseDetails.size(); i++)
+    {
+       if(i == 0) n = 35;
+       else n = 20;
+        std::cout << std::left << std::setw(n)<< m_courseDetails[i];
+    }
+    
+    std::cout << std::setw(2) << m_numCredits << std::endl;
+}
+
 
 Progrado::Course::~Course()
 {

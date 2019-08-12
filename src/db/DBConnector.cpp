@@ -37,30 +37,26 @@ DB::DBConnector::~DBConnector()
     sqlite3_shutdown(); // shut down sqlite3 engine
 }
 
-int DB::DBConnector::createUserTable()
-{
-    sqlite3_stmt *creatUserTableStmt = nullptr;
+
+int DB::DBConnector::addNewUser(const Progrado::User& t_user)
+{   
+   sqlite3_stmt *addUserStmt = nullptr;
 
     // prepare SQL create statement
    int rc_create = sqlite3_prepare_v2(m_ptr_progradoDatabase,
                        Progrado::NEW_USER_TABLE.c_str(),
                         -1,
-                        &creatUserTableStmt,
+                        &addUserStmt,
                         nullptr);
 
     if(rc_create != SQLITE_OK){ return Progrado::FAIL;}
 
     
-    if(sqlite3_step(creatUserTableStmt) != SQLITE_DONE){ return Progrado::FAIL; }
+    if(sqlite3_step(addUserStmt) != SQLITE_DONE){ return Progrado::FAIL; }
 
-    return Progrado::SUCCESS;
-}
-int DB::DBConnector::addNewUser(const Progrado::User& t_user)
-{   
-   
-    this->createUserTable();  // create user table
-    sqlite3_stmt *addUserStmt = nullptr;
+    // prepare to insert new user details
 
+    addUserStmt = nullptr; // reset addUserStmt to null
     int rc_insert = sqlite3_prepare_v2(m_ptr_progradoDatabase,
                                         Progrado::INSERT_NEW_USER.c_str(),
                                         -1,            // negative parameter makes sqlite calculate addUserStmt size automatically
@@ -70,12 +66,15 @@ int DB::DBConnector::addNewUser(const Progrado::User& t_user)
      if(rc_insert != SQLITE_OK){ return Progrado::FAIL; }
 
 
+    // bind the values here
+
+    // bind lastname
+
     // t_user.get_lastName returns a temporary and the results of c_str is
     // only valid throughout the lifetime of the temporary/ 
     // end of the full expression (i.e. semi colon)
 
 
-    // bind values
   for(int i = 0; i < t_user.get_countUserDetails(); i++)
   {
     std::string str = t_user[i];
@@ -117,7 +116,7 @@ bool DB::DBConnector::coursesTableExists()
                         &coursesExists,
                         nullptr);
 
- 
+    // yes, table doesnot exits
     if(rc_exists != SQLITE_OK) {return Progrado::FAIL; }
 
     int rc_exec = sqlite3_step(coursesExists);
@@ -168,6 +167,7 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
 
     // binding the values
    
+    // bind course name
     for (int i = 0; i < t_course.getCountCourseDetails(); i++)
     {    
         std::string str =  t_course[i];
@@ -186,7 +186,7 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
         );
 
     }
- //bind num credits 
+ 
     sqlite3_bind_int
     (
      addCourseStmt,
@@ -219,8 +219,10 @@ int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
 
     if(rc_update != SQLITE_OK) {return Progrado::FAIL;}
 
+    //oldcourse
 
-    // bind new course details here
+    // bind course name
+
     for(int i = 0; i < t_newCourse.getCountCourseDetails(); ++i)
     {
         std::string str_new_course_detail = t_newCourse[i];
@@ -240,7 +242,7 @@ int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
     }
 
   
- // bind num credits (new course)
+ // bind num credits
     sqlite3_bind_int
     (
     updateCourseStmt,
@@ -304,4 +306,46 @@ int DB::DBConnector::removeCourse(const Progrado::Course& t_course)
     if(rc_exec != SQLITE_DONE) {return Progrado::FAIL;}
 
     return Progrado::SUCCESS;                 
+}
+
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getAllCourses()
+{
+    sqlite3_stmt* getCourseStmt = nullptr;
+    std::vector< std::shared_ptr<Progrado::Course> > r_AllCoursesVector;
+
+    sqlite3_prepare_v2(
+        m_ptr_progradoDatabase,
+        Progrado::GET_ALL_COURSES.c_str(),
+        -1,
+        &getCourseStmt,
+        nullptr);
+
+    while (sqlite3_step(getCourseStmt) == SQLITE_ROW)
+    {   
+        int ct = sqlite3_column_count(getCourseStmt);
+
+        std::vector<std::string> l_course;
+        int l_numCredits(-1);
+       
+
+        for( int i = 0; i < ct; i++ )
+        {   
+            /* the following if assumes the last column is always Progrado::Course::numCredits
+            sqlite3_column_decltype should be the appropriate method, but it doesn't work for
+            some reason. Will try to fix this.
+            */
+            if(ct - 1 == i) 
+                l_numCredits = sqlite3_column_int(getCourseStmt, i);
+            else  /* cast const unsigned char* returned by sqlite3_column_text to const char* */   
+                l_course.push_back(std::string(reinterpret_cast<const char*>(sqlite3_column_text(getCourseStmt, i))));
+            
+        }
+
+        r_AllCoursesVector.push_back(
+        std::make_shared<Progrado::Course>(l_course, l_numCredits)
+        );
+    }    
+
+    return r_AllCoursesVector;
 }

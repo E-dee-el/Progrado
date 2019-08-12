@@ -13,8 +13,10 @@ Copyright 2019
 #include"Course.h"
 #include"Progrado.h"
 #include"User.h"
-#include <iostream>
 #include"sqlite3.h"
+#include<iostream>
+#include<memory>
+#include<iomanip>
 
 namespace DB{
     class DBConnector;
@@ -35,7 +37,9 @@ public:
     int addCourse(const Progrado::Course&);
     int updateCourse(const Progrado::Course&, const Progrado::Course&);
     int removeCourse(const Progrado::Course&);
-    int getAllCourses();
+
+    std::vector< std::shared_ptr<Progrado::Course> >
+    getAllCourses();
 
 
 

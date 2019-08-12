@@ -36,6 +36,7 @@ class Progrado::Course{
           int getCountCourseDetails()const;
           std::string getCourseBindParam(int) const;
           const std::string& operator [] (int)const;
+          void displayCourse()const;
 
     private:
         enum{courseName, semesterOffered, courseId, courseType};
