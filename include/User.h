@@ -41,7 +41,7 @@ class Progrado::User
           
     private:
 
-        enum 
+        enum   // declares these as integral constants, starting from 0
         {
         lastName,
         firstName,

@@ -37,9 +37,9 @@ public:
     int addCourse(const Progrado::Course&);
     int updateCourse(const Progrado::Course&, const Progrado::Course&);
     int removeCourse(const Progrado::Course&);
-
     std::vector< std::shared_ptr<Progrado::Course> >
     getAllCourses();
+    
 
 
 

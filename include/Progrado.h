@@ -37,14 +37,14 @@ namespace Progrado
 
     // use this to create a new course table
     const std::string  CREATE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS courses(courseName TEXT, semesterOffered TEXT,"
-                                       " courseId TEXT PRIMARY KEY, courseType TEXT, numCredits INTEGER)";   
+                                       "yearOffered TEXT, courseId TEXT PRIMARY KEY, courseType TEXT, numCredits INTEGER)";   
 
     // use this to insert a new course
-    const std::string INSERT_NEW_COURSE = "INSERT INTO courses (courseName, semesterOffered, courseId, courseType, numCredits)" 
-                                    " VALUES(:courseName, :semesterOffered, :courseId, :courseType, :numCredits)";
+    const std::string INSERT_NEW_COURSE = "INSERT INTO courses (courseName, semesterOffered, yearOffered, courseId, courseType, numCredits)" 
+                                    " VALUES(:courseName, :semesterOffered, :yearOffered, :courseId, :courseType, :numCredits)";
     // use this to update an existing course
     const std::string UPDATE_COURSE = "UPDATE courses SET courseName = :courseName, "
-                                " courseId = :courseId, courseType = :courseType,"
+                                "semesterOffered = :semesterOffered, courseId = :courseId, courseType = :courseType,"
                                 " numCredits = :numCredits "
                                 " WHERE courseId = :OldCourseId";  
 
@@ -54,7 +54,7 @@ namespace Progrado
 
     /****** OUTPUTTING***/
 
-    const std::string GET_ALL_COURSES = "SELECT courseName AS Name, semesterOffered as TERM, courseId as ID, "
+    const std::string GET_ALL_COURSES = "SELECT courseName AS Name, semesterOffered AS TERM, yearOffered AS YEAR, courseId as ID, "
     "courseType AS CATEGORY, numCredits AS CREDITS FROM courses";
 
 }

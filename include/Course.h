@@ -27,7 +27,7 @@ class Progrado::Course{
         ~Course();
         Course(std::vector<std::string>, int);
         Course(std::string, std::string,
-                std::string, std::string, int t_credits = 4);
+                std::string, std::string, std::string, int t_credits = 4);
           std::string getCourseName()const;
           std::string getSemesterOffered()const; 
           std::string getCourseId()const; 
@@ -39,10 +39,10 @@ class Progrado::Course{
           void displayCourse()const;
 
     private:
-        enum{courseName, semesterOffered, courseId, courseType};
+        enum{courseName, semesterOffered, yearOffered, courseId, courseType};
         std::vector<std::string> m_courseDetails;
-        const std::vector<std::string> m_CourseBindParams = {":courseName", ":semesterOffered",
-        ":courseId", ":courseType"};  // DO NOT CHANGE ORDER
+        const std::vector<std::string> m_CourseBindParams = {":courseName", ":semesterOffered", ":yearOffered",
+        ":courseId", ":courseType"};  // DO NOT THE CHANGE ORDER!!!
         int m_numCredits;
            
 };
