@@ -10,6 +10,7 @@ Copyright 2019
 
 #include"Course.h"
 #include<iomanip>
+#include<fstream>
 
 Progrado::Course::Course():
 m_courseDetails(5),
@@ -67,15 +68,20 @@ std::string Progrado::Course::getCourseBindParam(int idx)const {return m_CourseB
 
 /// testing only
 void Progrado::Course::displayCourse()const
-{   int n = 0;
+{   
+    std::ofstream outfile;
+    outfile.open("result.csv", std::fstream::app);
+
+    if(outfile.fail()) std:: cout << "error!\n";
+
     for (int i = 0; i < m_courseDetails.size(); i++)
     {
-       if(i == 0) n = 35;
-       else n = 20;
-        std::cout << std::left << std::setw(n)<< m_courseDetails[i];
+     outfile << m_courseDetails[i] << ",";
     }
+    outfile << m_numCredits << "\n";
+
+    outfile.close();
     
-    std::cout << std::setw(2) << m_numCredits << std::endl;
 }
 
 

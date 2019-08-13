@@ -29,6 +29,9 @@ auto new_course_ptr1 = std::unique_ptr<Progrado::Course>
 
 auto new_course_ptr2 = std::unique_ptr<Progrado::Course>
 (new Progrado::Course("Introduction to Computer Science", "CS-UH 1000","Minor","Spring", "Sophomore"));
+
+auto new_course_ptr3 = std::unique_ptr<Progrado::Course>
+(new Progrado::Course("Justice In Theory and Practice", "CCOL 1001","Colloquium","Spring", "Freshman"));
 // create user with smart pointer
 auto user_ptr = std::unique_ptr<Progrado::User>
 (new Progrado::User("Ibrahim",
@@ -43,6 +46,7 @@ DB_ptr->createCoursesTable();
 DB_ptr->addNewUser(*user_ptr);
 DB_ptr->addCourse(*course_ptr);
 DB_ptr->addCourse(*new_course_ptr2);
+DB_ptr->addCourse(*new_course_ptr3);
 
 DB_ptr->updateCourse(*course_ptr, *new_course_ptr1);
 //std::cout << DB_ptr->removeCourse(*course_ptr) << std::endl;
