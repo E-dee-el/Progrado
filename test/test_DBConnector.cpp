@@ -176,6 +176,7 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
         std::string bind_str = t_course.getCourseBindParam(i);
         const char* bind_param = bind_str.c_str();
 
+
         sqlite3_bind_text
         (
         addCourseStmt, 
@@ -324,6 +325,7 @@ DB::DBConnector::getAllCourses()
     while (sqlite3_step(getCourseStmt) == SQLITE_ROW)
     {   
         int ct = sqlite3_column_count(getCourseStmt);
+        
 
         std::vector<std::string> l_course;
         int l_numCredits(-1);

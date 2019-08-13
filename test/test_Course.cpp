@@ -12,13 +12,14 @@ Copyright 2019
 #include<iomanip>
 
 Progrado::Course::Course():
-m_courseDetails(4),
+m_courseDetails(5),
 m_numCredits(4)
 {
     m_courseDetails[courseName] = "Not set";
     m_courseDetails[courseId] = "Not set";
     m_courseDetails[semesterOffered] = "not set";
     m_courseDetails[courseType] = "Major";
+    m_courseDetails[yearOffered] = "Freshman";
 }
 
 Progrado::Course::Course(
@@ -26,9 +27,10 @@ Progrado::Course::Course(
                             std::string t_cId,
                             std::string t_cType ,
                             std::string t_sem,
+                            std::string t_yr,
                             int t_credits
                         ):
-m_courseDetails(4),                        
+m_courseDetails(5),                        
 m_numCredits(t_credits)
 
 {
@@ -37,6 +39,7 @@ m_numCredits(t_credits)
     m_courseDetails[courseId] = t_cId;
     m_courseDetails[semesterOffered] = t_sem;
     m_courseDetails[courseType] = t_cType;
+    m_courseDetails[yearOffered] = t_yr;
 }
 
 Progrado::Course::Course(std::vector<std::string> t_V, int t_credits):

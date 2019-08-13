@@ -22,13 +22,13 @@ int main()
 
 // create course object with smart pointer
 auto course_ptr = std::unique_ptr<Progrado::Course>
-(new Progrado::Course("Computer Programming for Engineers", "ENGR-UH 1000","major","Fall"));
+(new Progrado::Course("Computer Programming for Engineers", "ENGR-UH 1000","major","Fall", "Freshman"));
 
 auto new_course_ptr1 = std::unique_ptr<Progrado::Course>
-(new Progrado::Course("Computer Programming", "ENGR-UH 1000","Elective","Fall"));
+(new Progrado::Course("Computer Programming", "ENGR-UH 1000","Elective","Fall", "Freshman"));
 
 auto new_course_ptr2 = std::unique_ptr<Progrado::Course>
-(new Progrado::Course("Introduction to Computer Science", "CS-UH 1000","Minor","Spring"));
+(new Progrado::Course("Introduction to Computer Science", "CS-UH 1000","Minor","Spring", "Sophomore"));
 // create user with smart pointer
 auto user_ptr = std::unique_ptr<Progrado::User>
 (new Progrado::User("Ibrahim",
