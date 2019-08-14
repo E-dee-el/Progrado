@@ -10,6 +10,22 @@ namespace Progrado
     const int FAIL = -1; // return this on any failed procedures
     const int SUCCESS = 0;     // return this on any successful procedures   
 
+    // PROGRADO GLOBAL ENUMS
+ 
+    enum Term
+    {
+    FRESHMAN_FALL,
+    FRESHMAN_SPRING,
+    SOPH_FALL,
+    SOPH_SPRING,
+    JUNIOR_FALL,
+    JUNIOR_SPRING,
+    SENIOR_FALL,
+    SENIOR_SPRING,
+    ALL
+    };
+
+    enum CourseDetails {courseName, semesterOffered, yearOffered, courseId, courseType}; 
 
     // since some of these strings are very long. We dont want to even contemplate stackoverflow, 
     //hence we use const std::string 
@@ -58,20 +74,7 @@ namespace Progrado
     "courseType AS CATEGORY, numCredits AS CREDITS FROM courses";
 
     // Getting full schedule
-   
-   
-    enum Term
-    {
-    FRESHMAN_FALL,
-    FRESHMAN_SPRING,
-    SOPH_FALL,
-    SOPH_SPRING,
-    JUNIOR_FALL,
-    JUNIOR_SPRING,
-    SENIOR_FALL,
-    SENIOR_SPRING,
-    ALL
-    };
+ 
 
     const std::string GET_FRHMN_FALL_COURSES = 
     "SELECT * FROM COURSES WHERE (semesterOffered = 'Fall' OR semesterOffered = 'fall' OR semesterOffered = 'FALL') "

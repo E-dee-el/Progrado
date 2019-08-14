@@ -15,6 +15,7 @@ Copyright 2019
 #include<string>
 #include<vector>
 #include<iostream>
+#include"Progrado.h"
 
 namespace Progrado{
     class Course;
@@ -39,7 +40,7 @@ class Progrado::Course{
           void displayCourse()const;
 
     private:
-        enum{courseName, semesterOffered, yearOffered, courseId, courseType};
+        
         std::vector<std::string> m_courseDetails;
         const std::vector<std::string> m_CourseBindParams = {":courseName", ":semesterOffered", ":yearOffered",
         ":courseId", ":courseType"};  // DO NOT THE CHANGE ORDER!!!

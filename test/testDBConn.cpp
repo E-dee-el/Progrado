@@ -52,31 +52,29 @@ DB_ptr->addCourse(*new_course_ptr3);
 DB_ptr->updateCourse(*course_ptr, *new_course_ptr1);
 //std::cout << DB_ptr->removeCourse(*course_ptr) << std::endl;
 
+std::string ansr = "yes";
 
-while (true)
+while (ansr == "yes")
 {
     std::vector<std::string> add_course_vector(5);
     int l_credits = 0;
 
+    using namespace Progrado;
     std::cout << "Enter course details for course you want to add\n";
-    std::cout << "Course Name: ";  std::getline(std::cin, add_course_vector[0]);
-    std::cout << "Course ID: "; std::getline(std::cin, add_course_vector[1]);
-    std::cout << "Course Type: "; std::getline(std::cin, add_course_vector[2]);
-    std::cout << "Semester: "; std::getline(std::cin, add_course_vector[3]);
-    std::cout << "Year: "; std::getline(std::cin, add_course_vector[4]);
+    std::cout << "Course Name: ";  std::getline(std::cin, add_course_vector[courseName]);
+    std::cout << "Course ID: "; std::getline(std::cin, add_course_vector[courseId]);
+    std::cout << "Course Type: "; std::getline(std::cin, add_course_vector[courseType]);
+    std::cout << "Semester: "; std::getline(std::cin, add_course_vector[semesterOffered]);
+    std::cout << "Year: "; std::getline(std::cin, add_course_vector[yearOffered]);
     std::cout << "Credits: "; std::cin >> l_credits;
 
     if(l_credits == 0) DB_ptr->addCourse(Progrado::Course(add_course_vector));
     else DB_ptr->addCourse(Progrado::Course(add_course_vector, l_credits));
     
-    
-
-    char ansr;
-    std::cout << "Do you want to add another course? [y/n]";
+    std::cout << "Add another course? [yes/no] ";
     std::cin >> ansr;
-
-    if(ansr == 'y')continue;
-    else break;
+    std::cin.ignore();   
+    
 }
 
 
@@ -84,7 +82,7 @@ while (true)
 // v is a vector of smart pointers to Course objects
 std::vector<std::shared_ptr<Progrado::Course> > v;
 
-//v = DB_ptr->getAllCourses();
+v = DB_ptr->getCoursesMatching(Progrado::FRESHMAN_FALL);
 
 for(int i = 0; i < v.size(); i++)
 {
