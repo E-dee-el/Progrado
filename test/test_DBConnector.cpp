@@ -308,7 +308,7 @@ int DB::DBConnector::removeCourse(const Progrado::Course& t_course)
 
     return Progrado::SUCCESS;                 
 }
-
+/* 
 std::vector< std::shared_ptr<Progrado::Course> >
 DB::DBConnector::getAllCourses()
 {
@@ -335,10 +335,10 @@ DB::DBConnector::getAllCourses()
             /* the following if assumes the last column is always Progrado::Course::numCredits
             sqlite3_column_decltype should be the appropriate method, but it doesn't work for
             some reason. Will try to fix this.
-            */
+            
             if(ct - 1 == i) 
                 l_numCredits = sqlite3_column_int(getCourseStmt, i);
-            else  /* cast const unsigned char* returned by sqlite3_column_text to const char* */   
+            else  /* cast const unsigned char* returned by sqlite3_column_text to const char*    
                 l_course.push_back(std::string(reinterpret_cast<const char*>(sqlite3_column_text(getCourseStmt, i))));
             
         }
@@ -349,4 +349,183 @@ DB::DBConnector::getAllCourses()
     }    
 
     return r_AllCoursesVector;
+}
+
+/* 
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getFreshmanFallCourses()
+{
+    sqlite3_stmt* getFrshFallStmt = nullptr;
+    std::vector< std::shared_ptr<Progrado::Course> > r_FrshFallCoursesVector;
+
+    sqlite3_prepare_v2(
+        m_ptr_progradoDatabase,
+        Progrado::GET_FRHMN_FALL_COURSES.c_str(),
+        -1,
+        &getFrshFallStmt,
+        nullptr);
+                
+    while (sqlite3_step(getFrshFallStmt) == SQLITE_ROW)
+    {   
+        int ct = sqlite3_column_count(getFrshFallStmt);
+        
+
+        std::vector<std::string> l_course;
+        int l_numCredits(0);
+        
+        for( int i = 0; i < ct; i++ )
+        {   
+            if(ct - 1 == i) 
+                l_numCredits = sqlite3_column_int(getFrshFallStmt, i);
+            else  /* cast const unsigned char* returned by sqlite3_column_text to const char*   
+                l_course.push_back(std::string(reinterpret_cast<const char*>(sqlite3_column_text(getFrshFallStmt, i))));
+            
+        }
+
+        r_FrshFallCoursesVector.push_back(
+        std::make_shared<Progrado::Course>(l_course, l_numCredits)
+        );
+    }    
+
+    return r_FrshFallCoursesVector;
+}
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getFreshmanSprgCourses()
+{
+
+}
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getSophFallCourses()
+{
+
+}
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getSophSprgCourses()
+{
+
+}
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getJunFallCourses()
+{
+
+}
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getJunSprgCourses()
+{
+
+}
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getSenFallCourses()
+{
+
+}
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getSenSprgCourses()
+{
+
+}
+
+std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
+DB::DBConnector::getScheduleSummary()
+{
+
+
+}
+*/
+
+std::vector< std::shared_ptr<Progrado::Course> >
+DB::DBConnector::getCoursesMatching(const int t_flag)
+{
+    sqlite3_stmt* getCoursesStmt = nullptr;
+
+    using namespace Progrado;
+    
+
+    switch (t_flag)
+    {
+    case(FRESHMAN_FALL):
+                                        sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_FRHMN_FALL_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break;
+    case (FRESHMAN_SPRING):
+                                        sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_FRHMN_SPRG_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break; 
+    case(SOPH_FALL):
+                                            sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_SOPH_FALL_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break;
+    case(SOPH_SPRING):
+                                            sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_SOPH_SPRG_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break;
+    case(JUNIOR_FALL):
+                                            sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_JUN_FALL_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break;
+    case(JUNIOR_SPRING):
+                                            sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_JUN_SPRG_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break; 
+    case(SENIOR_FALL):
+                                            sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_SEN_FALL_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break;   
+    case(SENIOR_SPRING):
+                                            sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_SEN_SPRG_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break;  
+    case(ALL):
+                                            sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_ALL_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break;                                          
+
+    default:
+                                                sqlite3_prepare_v2(
+                                        m_ptr_progradoDatabase,
+                                        GET_ALL_COURSES.c_str(),
+                                        -1,
+                                        &getCoursesStmt,
+                                        nullptr);
+                                        break;
+        break;
+    }
+
+
 }

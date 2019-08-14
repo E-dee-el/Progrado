@@ -25,7 +25,7 @@ class Progrado::Course{
     public:
         Course();
         ~Course();
-        Course(std::vector<std::string>, int);
+        Course(std::vector<std::string>, int t_credits = 4);
         Course(std::string, std::string,
                 std::string, std::string, std::string, int t_credits = 4);
           std::string getCourseName()const;

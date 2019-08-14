@@ -57,6 +57,54 @@ namespace Progrado
     const std::string GET_ALL_COURSES = "SELECT courseName AS Name, semesterOffered AS TERM, yearOffered AS YEAR, courseId as ID, "
     "courseType AS CATEGORY, numCredits AS CREDITS FROM courses";
 
+    // Getting full schedule
+   
+   
+    enum Term
+    {
+    FRESHMAN_FALL,
+    FRESHMAN_SPRING,
+    SOPH_FALL,
+    SOPH_SPRING,
+    JUNIOR_FALL,
+    JUNIOR_SPRING,
+    SENIOR_FALL,
+    SENIOR_SPRING,
+    ALL
+    };
+
+    const std::string GET_FRHMN_FALL_COURSES = 
+    "SELECT * FROM COURSES WHERE (semesterOffered = 'Fall' OR semesterOffered = 'fall' OR semesterOffered = 'FALL') "
+    " AND (yearOffered = 'Freshman' OR yearOffered = 'FRESHMAN' OR yearOffered = 'freshman')";
+
+    const std::string GET_FRHMN_SPRG_COURSES = 
+     "SELECT * FROM COURSES WHERE (semesterOffered = 'Spring' OR semesterOffered = 'spring' OR semesterOffered = 'SPRING') "
+    " AND (yearOffered = 'Freshman' OR yearOffered = 'FRESHMAN' OR yearOffered = 'freshman')";
+
+    const std::string GET_SOPH_FALL_COURSES = 
+     "SELECT * FROM COURSES WHERE (semesterOffered = 'Fall' OR semesterOffered = 'fall' OR semesterOffered = 'FALL') "
+    " AND (yearOffered = 'Sophomore' OR yearOffered = 'SOPHOMORE' OR yearOffered = 'sophomore')";
+
+    const std::string GET_SOPH_SPRG_COURSES =
+     "SELECT * FROM COURSES WHERE (semesterOffered = 'Spring' OR semesterOffered = 'spring' OR semesterOffered = 'SPRING') "
+    " AND (yearOffered = 'Sophomore' OR yearOffered = 'SOPHOMORE' OR yearOffered = 'sophomore')";
+
+    const std::string GET_JUN_FALL_COURSES = 
+     "SELECT * FROM COURSES WHERE (semesterOffered = 'Fall' OR semesterOffered = 'fall' OR semesterOffered = 'FALL') "
+    " AND (yearOffered = 'Junior' OR yearOffered = 'JUNIOR' OR yearOffered = 'junior')";
+
+    const std::string GET_JUN_SPRG_COURSES = 
+    "SELECT * FROM COURSES WHERE (semesterOffered = 'Spring' OR semesterOffered = 'spring' OR semesterOffered = 'SPRING')"
+    " AND (yearOffered = 'Junior' OR yearOffered = 'JUNIOR' OR yearOffered = 'junior')";
+
+    const std::string GET_SEN_FALL_COURSES = 
+     "SELECT * FROM COURSES WHERE (semesterOffered = 'Fall' OR semesterOffered = 'fall' OR semesterOffered = 'FALL') "
+    " AND (yearOffered = 'Senior' OR yearOffered = 'SENIOR' OR yearOffered = 'senior')";
+
+    const std::string GET_SEN_SPRG_COURSES = 
+    "SELECT * FROM COURSES WHERE (semesterOffered = 'Spring' OR semesterOffered = 'spring' OR semesterOffered = 'SPRING')"
+    " AND (yearOffered = 'Senior' OR yearOffered = 'SENIOR' OR yearOffered = 'senior')";
+
 }
 
 #endif
