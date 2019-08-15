@@ -53,7 +53,7 @@ private:
     Ui::Screen       *m_ptr_scheduleSummaryScreen;
     Ui::Screen       *m_ptr_UpdateCourseScreen;
     Ui::Screen       *m_ptr_RemoveCourseScreen;
-    
+    std::unique_ptr<Ui::Screen> m_ptr_FindFriend;
     DB::DBConnector  *m_ptr_DBConnector;
 
 };
