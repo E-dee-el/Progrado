@@ -38,6 +38,73 @@ DB::DBConnector::~DBConnector()
 }
 
 
+bool DB::DBConnector::verifyUserCredentials(const std::string& t_uname, const std::string& t_pword)
+{       
+        sqlite3_stmt *verifystmt = nullptr;
+
+        int rc_verify = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                       Progrado::VERIFY_USER.c_str(),
+                        -1,
+                        &verifystmt,
+                        nullptr);
+        
+        if (rc_verify != SQLITE_OK) {std::cerr << "couldn't verify details\n"; exit(-1);}
+
+        const char* uname_to_bind =  t_uname.c_str();
+        const char* pword_to_bind = t_pword.c_str();
+       
+       // bind username and password from input 
+       sqlite3_bind_text(
+        verifystmt,
+        sqlite3_bind_parameter_index(verifystmt,":userName"),
+        uname_to_bind,
+        -1,
+        SQLITE_TRANSIENT);
+
+        sqlite3_bind_text(
+        verifystmt,
+        sqlite3_bind_parameter_index(verifystmt,":password"),
+        pword_to_bind,
+        -1,
+        SQLITE_TRANSIENT);
+
+       if(sqlite3_step(verifystmt)!= SQLITE_ROW){return false;}
+       else return true;
+
+}
+
+bool DB::DBConnector::courseAlreadyExists(const Progrado::Course& t_course)
+{
+        sqlite3_stmt *verifystmt = nullptr;
+
+        int rc_verify = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                       Progrado::VERIFY_COURSE.c_str(),
+                        -1,
+                        &verifystmt,
+                        nullptr);
+        
+        if (rc_verify != SQLITE_OK) {std::cerr << "Couldn't verify course existence\n"; exit(-1);}
+
+        const char* stmt_to_bind =  t_course[Progrado::courseId].c_str();
+        
+       sqlite3_bind_text(
+        verifystmt,
+        sqlite3_bind_parameter_index(verifystmt,":courseId"),
+        stmt_to_bind,
+        -1,
+        SQLITE_TRANSIENT); 
+
+       std::string l_courseId;
+
+       int chk =  sqlite3_step(verifystmt);
+
+
+       if(chk != SQLITE_ROW){return false;}          
+       else {return true;}
+
+}
+
+
 int DB::DBConnector::addNewUser(const Progrado::User& t_user)
 {   
    sqlite3_stmt *addUserStmt = nullptr;
@@ -153,6 +220,8 @@ int DB::DBConnector::createCoursesTable()
 
 int DB::DBConnector::addCourse(const Progrado::Course& t_course)
 {
+
+        if(courseAlreadyExists(t_course)) {return Progrado::FAIL;}
     // must be guaranteed that course table is not empty. Verify from UI class
     sqlite3_stmt* addCourseStmt = nullptr;
 

@@ -45,11 +45,31 @@ auto DB_ptr = std::unique_ptr<DB::DBConnector>(new DB::DBConnector());
 DB_ptr->createCoursesTable();
 
 DB_ptr->addNewUser(*user_ptr);
-DB_ptr->addCourse(*course_ptr);
-DB_ptr->addCourse(*new_course_ptr2);
-DB_ptr->addCourse(*new_course_ptr3);
 
-DB_ptr->updateCourse(*course_ptr, *new_course_ptr1);
+//login:
+std::string uname;
+std::string pword;
+
+    std::cout << "Enter username: ";
+    std::getline(std::cin, uname);
+    std::cout << "Enter password: ";
+    std::getline(std::cin, pword);
+
+while (!DB_ptr->verifyUserCredentials(uname, pword))
+{
+
+    std::cout << "Username and/or password incorrect\n";
+    std::cout << "Enter username: ";
+    std::getline(std::cin, uname);
+    std::cout << "Enter password: ";
+    std::getline(std::cin, pword);
+
+    
+
+
+}
+
+
 //std::cout << DB_ptr->removeCourse(*course_ptr) << std::endl;
 
 std::string ansr = "yes";
@@ -58,6 +78,7 @@ while (ansr == "yes")
 {
     std::vector<std::string> add_course_vector(5);
     int l_credits = 0;
+
 
     using namespace Progrado;
     std::cout << "Enter course details for course you want to add\n";
@@ -68,8 +89,36 @@ while (ansr == "yes")
     std::cout << "Year: "; std::getline(std::cin, add_course_vector[yearOffered]);
     std::cout << "Credits: "; std::cin >> l_credits;
 
-    if(l_credits == 0) DB_ptr->addCourse(Progrado::Course(add_course_vector));
-    else DB_ptr->addCourse(Progrado::Course(add_course_vector, l_credits));
+    if(l_credits == 0)
+    {
+         int k = DB_ptr->addCourse(Progrado::Course(add_course_vector));
+         if(k != Progrado::SUCCESS) 
+       {
+           std::cout << "Oops! seems the course you want to add already exists. Do you want to try again?[yes/no]\n";
+            std::string ans;
+            std::cin >> ans;
+            if(ans == "yes") continue;
+            else break;
+
+       }
+
+
+    }
+    else 
+    {
+       int z = DB_ptr->addCourse(Progrado::Course(add_course_vector, l_credits));
+
+       if(z != Progrado::SUCCESS) 
+       {
+           std::cout << "Oops! seems the course you want to add already exists. Do you want to try again?[yes/no]\n";
+            std::string ans;
+            std::cin >> ans;
+            if(ans == "yes") continue;
+            else break;
+           
+       }
+
+    }   
     
     std::cout << "Add another course? [yes/no] ";
     std::cin >> ansr;
@@ -88,7 +137,15 @@ for(int i = 0; i < v.size(); i++)
 {
     v[i]->displayCourse();
 }
+auto _v = DB_ptr->getScheduleSummary();
 
+for(int j = 0; j < _v.size(); j++)
+{
+    for(int i = 0; i < _v[j].size(); i++)
+{
+    _v[j][i]->displayCourse();
+}
+}
 //////////////////////////
 
 return 0;

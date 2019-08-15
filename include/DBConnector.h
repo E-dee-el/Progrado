@@ -28,6 +28,8 @@ public:
     DBConnector();
     ~DBConnector();
 
+    bool courseAlreadyExists(const Progrado::Course&);
+    bool verifyUserCredentials(const std::string&, const std::string&);
     bool userTableExists();
     bool coursesTableExists();
     int createUserTable();

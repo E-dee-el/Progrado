@@ -50,7 +50,11 @@ namespace Progrado
                                "minor TEXT)";
     const std::string INSERT_NEW_USER = 
     "INSERT INTO user (lastName, firstName, yearInCollege, userName, password, major, minor) "
-    " VALUES(:lastName, :firstName, :yearInCollege, :userName, :password, :major, :minor)";                           
+    " VALUES(:lastName, :firstName, :yearInCollege, :userName, :password, :major, :minor)";    
+
+    // verify user login details
+
+    const std::string VERIFY_USER = "SELECT userName, password FROM user WHERE userName = :userName AND password = :password";                       
 
 
     /****** INPUTTING***/
@@ -72,6 +76,11 @@ namespace Progrado
 
     // use this to delete an existing course, HANDLE WITH CARE                                                          
     const std::string REMOVE_COURSE = "DELETE FROM courses WHERE courseId = :courseId";
+
+    // verify if course already exists
+
+    const std::string VERIFY_COURSE = "SELECT courseId FROM courses WHERE courseId = :courseId";
+
 
 
     /****** OUTPUTTING***/
