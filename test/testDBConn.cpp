@@ -82,7 +82,7 @@ while (ansr == "yes")
 // v is a vector of smart pointers to Course objects
 std::vector<std::shared_ptr<Progrado::Course> > v;
 
-v = DB_ptr->getCoursesMatching(Progrado::FRESHMAN_FALL);
+v = DB_ptr->getCoursesMatching(Progrado::FRESHMAN_JTERM);
 
 for(int i = 0; i < v.size(); i++)
 {

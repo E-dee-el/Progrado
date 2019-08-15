@@ -330,6 +330,15 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 
             break;
 
+    case(FRESHMAN_JTERM):
+            sqlite3_prepare_v2(
+            m_ptr_progradoDatabase,
+            GET_FRHMN_JTERM_COURSES.c_str(),
+            -1,
+            &getCoursesStmt,
+            nullptr);
+
+            break;            
 
     case (FRESHMAN_SPRING):
             sqlite3_prepare_v2(
@@ -340,6 +349,16 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
             nullptr);
 
             break;
+
+    case (FRESHMAN_SUMMER):
+            sqlite3_prepare_v2(
+            m_ptr_progradoDatabase,
+            GET_FRHMN_SUMMER_COURSES.c_str(),
+            -1,
+            &getCoursesStmt,
+            nullptr);
+
+            break;            
 
 
     case(SOPH_FALL):
@@ -352,6 +371,15 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 
             break;
 
+    case(SOPH_JTERM):
+            sqlite3_prepare_v2(
+            m_ptr_progradoDatabase,
+            GET_SOPH_JTERM_COURSES.c_str(),
+            -1,
+            &getCoursesStmt,
+            nullptr);
+
+            break;
 
     case(SOPH_SPRING):
             sqlite3_prepare_v2(
@@ -363,6 +391,15 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 
             break;
 
+    case(SOPH_SUMMER):
+            sqlite3_prepare_v2(
+            m_ptr_progradoDatabase,
+            GET_SOPH_SUMMER_COURSES.c_str(),
+            -1,
+            &getCoursesStmt,
+            nullptr);
+
+            break;
 
     case(JUNIOR_FALL):
             sqlite3_prepare_v2(
@@ -374,6 +411,15 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 
             break;
 
+    case(JUNIOR_JTERM):
+            sqlite3_prepare_v2(
+            m_ptr_progradoDatabase,
+            GET_JUN_JTERM_COURSES.c_str(),
+            -1,
+            &getCoursesStmt,
+            nullptr);
+
+            break; 
 
     case(JUNIOR_SPRING):
             sqlite3_prepare_v2(
@@ -385,6 +431,15 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 
             break;
 
+    case(JUNIOR_SUMMER):
+            sqlite3_prepare_v2(
+            m_ptr_progradoDatabase,
+            GET_JUN_SUMMER_COURSES.c_str(),
+            -1,
+            &getCoursesStmt,
+            nullptr);
+
+            break;
 
     case(SENIOR_FALL):
             sqlite3_prepare_v2(
@@ -451,12 +506,12 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
             else  /* cast const unsigned char* returned by sqlite3_column_text to const char* */    
                 l_course.push_back(std::string(reinterpret_cast<const char*>(sqlite3_column_text(getCoursesStmt, i))));
             
-        }
+        } // end for
 
         r_CoursesVector.push_back(
         std::make_shared<Progrado::Course>(l_course, l_numCredits)
         );
-    }    
+    } // end while   
 
     return r_CoursesVector;
 
