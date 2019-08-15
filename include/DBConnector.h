@@ -37,29 +37,8 @@ public:
     int addCourse(const Progrado::Course&);
     int updateCourse(const Progrado::Course&, const Progrado::Course&);
     int removeCourse(const Progrado::Course&);
-/*    std::vector< std::shared_ptr<Progrado::Course> >
-    getAllCourses();
-    std::vector< std::shared_ptr<Progrado::Course> >
-     getFreshmanFallCourses();
-    std::vector< std::shared_ptr<Progrado::Course> >
-    getFreshmanSprgCourses();
-    std::vector< std::shared_ptr<Progrado::Course> >
-    getSophFallCourses();
-    std::vector< std::shared_ptr<Progrado::Course> >
-    getSophSprgCourses();
-    std::vector< std::shared_ptr<Progrado::Course> >
-    getJunFallCourses();
-    std::vector< std::shared_ptr<Progrado::Course> >
-    getJunSprgCourses();
-    std::vector< std::shared_ptr<Progrado::Course> >
-    getSenFallCourses();
-    std::vector< std::shared_ptr<Progrado::Course> >
-    getSenSprgCourses();    
-*/
-   
     std::vector< std::shared_ptr<Progrado::Course> >
     getCoursesMatching(const int); // Argument is a type of Terms, an enum class in namespace Progrado
-
  // the foll. returns a vector of vectors (i.e. a 2d vector) of smart pointers to course objects
     std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
     getScheduleSummary();

@@ -518,3 +518,27 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 
 
 } // getCoursesMatching
+
+std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
+DB::DBConnector::getScheduleSummary()
+{
+        std::vector < std::vector< std::shared_ptr<Progrado::Course> > > r_TermVector;
+        using namespace Progrado;
+
+        r_TermVector.push_back(getCoursesMatching(FRESHMAN_FALL));
+        r_TermVector.push_back(getCoursesMatching(FRESHMAN_JTERM));
+        r_TermVector.push_back(getCoursesMatching(FRESHMAN_SPRING));
+        r_TermVector.push_back(getCoursesMatching(FRESHMAN_SUMMER));
+        r_TermVector.push_back(getCoursesMatching(SOPH_FALL));
+        r_TermVector.push_back(getCoursesMatching(SOPH_JTERM));
+        r_TermVector.push_back(getCoursesMatching(SOPH_SPRING));
+        r_TermVector.push_back(getCoursesMatching(SOPH_SUMMER));
+        r_TermVector.push_back(getCoursesMatching(JUNIOR_FALL));
+        r_TermVector.push_back(getCoursesMatching(JUNIOR_JTERM));
+        r_TermVector.push_back(getCoursesMatching(JUNIOR_SPRING));
+        r_TermVector.push_back(getCoursesMatching(JUNIOR_SUMMER));
+        r_TermVector.push_back(getCoursesMatching(SENIOR_FALL));
+        r_TermVector.push_back(getCoursesMatching(SENIOR_SPRING));
+
+        return r_TermVector;
+}
