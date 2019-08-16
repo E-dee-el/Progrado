@@ -85,7 +85,7 @@ bool DB::DBConnector::courseAlreadyExists(const Progrado::Course& t_course)
         
         if (rc_verify != SQLITE_OK) {std::cerr << "Couldn't verify course existence\n"; exit(-1);}
 
-        const char* stmt_to_bind =  t_course[Progrado::courseId].c_str();
+        const char* stmt_to_bind =  t_course[Progrado::courseId].c_str();  // overloaded [] operator
         
        sqlite3_bind_text(
         verifystmt,
@@ -144,7 +144,7 @@ int DB::DBConnector::addNewUser(const Progrado::User& t_user)
 
   for(int i = 0; i < t_user.get_countUserDetails(); i++)
   {
-    std::string str = t_user[i];
+    std::string str = t_user[i];  // overloaded [] operator
     const char* str_to_bind = str.c_str();
     
     std::string str_bind_parameter = t_user.get_BindParam(i);
@@ -239,7 +239,7 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
     // bind course name
     for (int i = 0; i < t_course.getCountCourseDetails(); i++)
     {    
-        std::string str =  t_course[i];
+        std::string str =  t_course[i];  // overloaded [] operator
         const char* str_to_bind = str.c_str();
 
         std::string bind_str = t_course.getCourseBindParam(i);
@@ -295,7 +295,7 @@ int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
 
     for(int i = 0; i < t_newCourse.getCountCourseDetails(); ++i)
     {
-        std::string str_new_course_detail = t_newCourse[i];
+        std::string str_new_course_detail = t_newCourse[i];  // overloaded [] operator
         const char* bind_new_course_detail = str_new_course_detail.c_str();
         
         std::string str_bind_param = t_newCourse.getCourseBindParam(i);
@@ -591,8 +591,9 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
 DB::DBConnector::getScheduleSummary()
 {
-        std::vector < std::vector< std::shared_ptr<Progrado::Course> > > r_TermVector;
+        
         using namespace Progrado;
+        std::vector < std::vector< std::shared_ptr<Course> > > r_TermVector;
 
         r_TermVector.push_back(getCoursesMatching(FRESHMAN_FALL));
         r_TermVector.push_back(getCoursesMatching(FRESHMAN_JTERM));

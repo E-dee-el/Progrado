@@ -40,7 +40,7 @@ public:
     int updateCourse(const Progrado::Course&, const Progrado::Course&);
     int removeCourse(const Progrado::Course&);
     std::vector< std::shared_ptr<Progrado::Course> >
-    getCoursesMatching(const int); // Argument is a type of Terms, an enum class in namespace Progrado
+    getCoursesMatching(const int); // Argument is a type of Terms, from enum Term in namespace Progrado
  // the foll. returns a vector of vectors (i.e. a 2d vector) of smart pointers to course objects
     std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
     getScheduleSummary();
