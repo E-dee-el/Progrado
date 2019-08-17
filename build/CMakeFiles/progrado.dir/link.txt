@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/progrado.dir/src/main.cpp.o  -o bin/progrado lib/libprogrado_lib.a lib/libsqlite3.a -ldl -lpthread 
