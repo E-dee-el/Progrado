@@ -9,6 +9,7 @@ Copyright 2019
  */
 
 #include"AddCourseScreen.h"
+#include<iostream>
 
 Ui::AddCourseScreen::AddCourseScreen()
 {
@@ -22,5 +23,5 @@ Ui::AddCourseScreen::~AddCourseScreen()
 
 void Ui::AddCourseScreen::display()
 {
-
+    std::cout << "Override\n";
 }

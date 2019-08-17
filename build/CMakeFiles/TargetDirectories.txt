@@ -1,0 +1,9 @@
+/home/ibrahim/progrado/build/CMakeFiles/rebuild_cache.dir
+/home/ibrahim/progrado/build/CMakeFiles/progrado.dir
+/home/ibrahim/progrado/build/CMakeFiles/edit_cache.dir
+/home/ibrahim/progrado/build/src/CMakeFiles/rebuild_cache.dir
+/home/ibrahim/progrado/build/src/CMakeFiles/progrado_lib.dir
+/home/ibrahim/progrado/build/src/CMakeFiles/edit_cache.dir
+/home/ibrahim/progrado/build/src/sqlite/CMakeFiles/rebuild_cache.dir
+/home/ibrahim/progrado/build/src/sqlite/CMakeFiles/sqlite3.dir
+/home/ibrahim/progrado/build/src/sqlite/CMakeFiles/edit_cache.dir

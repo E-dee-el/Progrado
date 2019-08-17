@@ -10,6 +10,7 @@ Copyright 2019
 
 #ifndef ADD_COURSE_H
 #define ADD_COURSE_H
+#include"Screen.h"
 
 namespace Ui
 {

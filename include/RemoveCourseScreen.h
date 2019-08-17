@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef REMOVE_COURSE_H
 #define REMOVE_COURSE_H
 
+#include"Screen.h"
+
 namespace Ui
 {
   class RemoveCourseScreen;  

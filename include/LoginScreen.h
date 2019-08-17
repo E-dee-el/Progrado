@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef LOGIN_H
 #define LOGIN_H
 
+#include"Screen.h"
+
 namespace Ui
 {
   class LoginScreen;  

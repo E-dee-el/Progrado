@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef UPDATE_COURSE_H
 #define UPDATE_COURSE_H
 
+#include"Screen.h"
+
 namespace Ui
 {
   class UpdateCourseScreen;  

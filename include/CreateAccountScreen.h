@@ -12,6 +12,7 @@ Copyright 2019
 #define CREATE_ACCT_H
 
 #include"User.h"
+#include"Screen.h"
 
 namespace Ui
 {

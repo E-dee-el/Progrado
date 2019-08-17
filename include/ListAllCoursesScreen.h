@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef LIST_ALL_COURSES_H
 #define LIST_ALL_COURSES_H
 
+#include"Screen.h"
+
 namespace Ui
 {
   class ListAllCoursesScreen;  
