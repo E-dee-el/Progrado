@@ -10,6 +10,8 @@ Copyright 2019
 #ifndef SCREEN_
 #define SCREEN_
 
+#include"UserInterface.h"
+
 namespace Ui{
     class Screen;
 }

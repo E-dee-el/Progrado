@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef ADD_COURSE_H
 #define ADD_COURSE_H
 
+#include "Screen.h"
+
 namespace Ui
 {
   class AddCourseScreen;  
@@ -23,7 +25,7 @@ public:
     virtual ~AddCourseScreen();
     virtual void display()override;
 
-private:
+private: 
 // private members go here
 
 

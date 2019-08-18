@@ -17,7 +17,7 @@ Copyright 2019
 #include<iostream>
 #include<memory>
 #include<iomanip>
-
+   
 namespace DB{
     class DBConnector;
 }
@@ -29,21 +29,21 @@ public:
     ~DBConnector();
 
     bool courseAlreadyExists(const Progrado::Course&);
-    bool verifyUserCredentials(const std::string&, const std::string&);
+    bool verifyUserCredentials(const std::string&, const std::string&); //used
     bool userTableExists();
     bool coursesTableExists();
-    int createUserTable();
-    int addNewUser(const Progrado::User&);
+    int createUserTable();  //used
+    int addNewUser(const Progrado::User&); //used
     int modifyUserDetails(const Progrado::User&); 
-    int createCoursesTable();
-    int addCourse(const Progrado::Course&);
-    int updateCourse(const Progrado::Course&, const Progrado::Course&);
-    int removeCourse(const Progrado::Course&);
+    int createCoursesTable();  //used
+    int addCourse(const Progrado::Course&); //used
+    int updateCourse(const Progrado::Course&, const Progrado::Course&); //used
+    int removeCourse(const Progrado::Course&);  //used
     std::vector< std::shared_ptr<Progrado::Course> >
-    getCoursesMatching(const int); // Argument is a type of Terms, from enum Term in namespace Progrado
+    getCoursesMatching(const int); // Argument is a type of Terms, from enum Term in namespace Progrado    //used
  // the foll. returns a vector of vectors (i.e. a 2d vector) of smart pointers to course objects
     std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
-    getScheduleSummary();
+    getScheduleSummary();   //used
 
     
 

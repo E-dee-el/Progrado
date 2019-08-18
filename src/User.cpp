@@ -10,6 +10,7 @@ Copyright 2019
 
 
 #include"User.h"
+#include <iostream>
 
 // not safe , doesnt check for size 
 // maybe we should be using std::array for this
@@ -43,7 +44,24 @@ const std::string& t_password
     m_userData[password] = t_password;
 
 }
- 
+
+bool Progrado::User::setUp_account()
+{
+    std::cout << "Please enter your last name\n"; getline(std::cin, m_lastName);
+    std::cout << "Please enter your first name\n"; getline(std::cin, m_firstName);
+    std::cout << "Please enter your year in college\n"; getline(std::cin, m_yearInCollege);
+    std::cout << "Please enter your major/anticipated major\n"; getline(std::cin, m_major);
+    std::cout << "Please enter your minor/anticipated minor\n"; getline(std::cin, m_minor);
+    std::cout << "Please enter a username\n"; getline(std::cin, m_username);
+    std::cout << "Please enter a password\n"; getline(std::cin, m_password);
+
+   //ensure that entered value are stored
+    if(std::cin.good())
+    {
+        return 1;
+    }
+    return 0;
+}
 
 Progrado::User::~User()
 {

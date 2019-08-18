@@ -275,7 +275,7 @@ int DB::DBConnector::addCourse(const Progrado::Course& t_course)
         
 }
 
-/// UPDATE A COURSE : CAUTION CALL WITH CARE
+/// UPDATE A COURSE : CAUTION: CALL WITH CARE
 int DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
                                    const Progrado::Course& t_newCourse)
 {
@@ -354,7 +354,7 @@ int DB::DBConnector::removeCourse(const Progrado::Course& t_course)
                        -1,
                        &removeCourseStmt,    
                         nullptr);
-
+ 
     if(rc_delete != SQLITE_OK) {return Progrado::FAIL;}
 
     // bind courseid for WHERE clause
@@ -416,7 +416,7 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
             -1,
             &getCoursesStmt,
             nullptr);
-
+ 
             break;
 
     case (FRESHMAN_SUMMER):

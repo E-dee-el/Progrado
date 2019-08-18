@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef MAIN_MENU_H
 #define MAIN_MENU_H
 
+#include"Screen.h"
+
 namespace Ui
 {
   class MainMenuScreen;  

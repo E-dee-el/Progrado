@@ -33,6 +33,19 @@ namespace Progrado
 
     enum CourseDetails {courseName, semesterOffered, yearOffered, courseId, courseType}; 
 
+
+    enum Screen
+    {
+        add_course,
+        remove_course,
+        update_course,
+        list_course,
+        schedule_summary,
+        login,
+        login_error,
+        create_account,
+        main_menu
+    };
     // since some of these strings are very long. We dont want to even contemplate stackoverflow, 
     //hence we use const std::string 
     //instead of const char* since it manages its resources on the heap

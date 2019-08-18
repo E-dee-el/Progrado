@@ -49,6 +49,22 @@ m_numCredits(t_credits)
 {
 
 }
+
+//-----------------------------------------------------------------------
+
+void Progrado::Course::setUpCourse()
+{
+    std::cout << " Please enter the course name (e.g Computer Programming)\n"; std::cin >> m_course_name;
+    std::cout << " Please enter the semester in which you are taking the course (Fall,Spring, or J-Term)\n"; std::cin >> m_semesterOffered;
+    std::cout << " Please enter the year in which you are taking the course\n"; std::cin >> m_yearOffered;
+    std::cout << " Please enter the course ID (e.g. ENGR 1001)\n"; std::cin >> m_courseID;
+    std::cout << " Please enter the course type (major, minor, general elective, physical education, audit)\n"; std::cin >> m_course_name;
+    std::cout << " Please enter number of course credit (2 or 4)\n"; std::cin >> m_credits;
+}
+ 
+//-----------------------------------------------------------------------
+
+
 std::string Progrado::Course::getCourseName() const { return m_courseDetails[courseName];}
 
 std::string Progrado::Course::getSemesterOffered() const { return m_courseDetails[semesterOffered];}

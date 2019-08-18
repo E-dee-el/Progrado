@@ -15,14 +15,20 @@ Copyright 2019
 #include<string>
 #include<vector>
 #include<iostream>
+#include"UserInterface.h"
 #include"Progrado.h"
 
 namespace Progrado{
     class Course;
 }
 
-
+ 
 class Progrado::Course{
+
+    friend Ui::AddCourseScreen;
+    friend Ui::UpdateCourseScreen;
+    friend Ui::RemoveCourseScreen; 
+
     public:
         Course();
         ~Course();
@@ -39,7 +45,11 @@ class Progrado::Course{
           const std::string& operator [] (int)const;
           void displayCourse()const;
 
-    private:
+          void setUpCourse();
+
+    private:  
+        std::string m_course_name, m_semesterOffered, m_yearOffered, m_courseID, m_course_type;
+        int m_credits;
         
         std::vector<std::string> m_courseDetails;
         const std::vector<std::string> m_CourseBindParams = {":courseName", ":semesterOffered", ":yearOffered",

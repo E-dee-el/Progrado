@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef LOGIN_ERROR_H
 #define LOGIN_ERROR_H
 
+#include"Screen.h"
+
 namespace Ui
 {
   class LoginErrorScreen;  

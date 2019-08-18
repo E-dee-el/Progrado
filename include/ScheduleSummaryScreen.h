@@ -11,6 +11,8 @@ Copyright 2019
 #ifndef SCHEDULE_SUMMARY_H
 #define SCHEDULE_SUMMARY_H
 
+#include"UserInterface.h" 
+
 namespace Ui
 {
   class ScheduleSummaryScreen;  
