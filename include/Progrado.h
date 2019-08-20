@@ -9,6 +9,9 @@ namespace Progrado
 
     const int FAIL = -1; // return this on any failed procedures
     const int SUCCESS = 0;     // return this on any successful procedures   
+    const int EXIT = 1;   //return this at any point to exit
+    const int DONE = 2;
+    const int toCREATEACCT = 3;
 
     // PROGRADO GLOBAL ENUMS
  

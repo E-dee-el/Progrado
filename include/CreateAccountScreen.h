@@ -15,7 +15,7 @@ Copyright 2019
 
 namespace Ui
 {
-  class CreateAccountScreen;  
+  class CreateAccountScreen; 
 } 
 
 class Ui::CreateAccountScreen : public Ui::Screen{
@@ -23,11 +23,22 @@ class Ui::CreateAccountScreen : public Ui::Screen{
 public:
     CreateAccountScreen();
     virtual ~CreateAccountScreen();
-    virtual void display()override;
+    virtual int display()override;
+    virtual int getUserInput()override;
+    virtual int exitOrMoveBack()override;
+    virtual int checkSuccess()override;
+
 
 private:
 // private members go here
-Progrado::User *m_user;
+int m_verify;
+int m_verify1;
+int m_choice2;
+int m_checkExitOrMoveBack;
+
+std::unique_ptr<Progrado::UserInterface> m_ptr_accessDBptr;
+std::unique_ptr<Progrado::User> m_ptr_access_User;
+std::shared_ptr<DB::DBConnector> m_ptr_access_toAccessDatabase;
 
 
 };

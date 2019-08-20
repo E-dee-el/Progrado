@@ -12,10 +12,9 @@ Copyright 2019
 #ifndef USER_H
 #define USER_H
 
-#include<string>
-#include<vector>
 #include"UserInterface.h"
-#include"CreateAccountScreen.h" 
+#include<vector>
+
 
 namespace Progrado{
     class User;

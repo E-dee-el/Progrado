@@ -23,12 +23,18 @@ class Ui::MainMenuScreen : public Ui::Screen{
 public:
     MainMenuScreen();
     virtual ~MainMenuScreen();
-    virtual void display()override;
-
+    virtual int display()override;
+    virtual int getUserInput()override;
+    virtual int exitOrMoveBack()override;
+    virtual int checkSuccess()override;
+    
 private:
 // private members go here
+int m_choice;
+int m_checkInstantiate;
 
-
+std::unique_ptr<Progrado::UserInterface> m_ptr_accessUserInterface;
+std::unique_ptr<Progrado::UserInterface> m_ptr_toAccessInstantiate;
 
 
 };

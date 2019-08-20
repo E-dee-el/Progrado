@@ -10,25 +10,60 @@ Copyright 2019
 
 #include"UserInterface.h" 
 
-
+//-------------------------------------------------------------------------------------//
 
 Ui::CreateAccountScreen::CreateAccountScreen()
 {
     //default constructor
 }
 
+//-------------------------------------------------------------------------------------//
+
 Ui::CreateAccountScreen::~CreateAccountScreen()
 {
     //destructor
 }
 
-void Ui::CreateAccountScreen::display()
-{
-        //class CreateAccountScreen is a Friend of Class User and Class UserInterface
-    std::unique_ptr<Progrado::UserInterface> m_ptr_access_toAccessInstantiate (new Progrado::UserInterface()); //pointer of class UserInterfacefor accessing DBConnector public functions
-    std::unique_ptr<Progrado::User> m_ptr_access_User (new Progrado::User()); //pointer of class User for accessing User public functions
-    std::unique_ptr<DB::DBConnector> m_ptr_access_toAccessDatabase(new DB::DBConnector());
+//-------------------------------------------------------------------------------------//
 
+int Ui::CreateAccountScreen::display()
+{
+    //class CreateAccountScreen is a Friend of Class User and Class UserInterface
+    m_ptr_accessDBptr.reset(new Progrado::UserInterface()); 
+    m_ptr_access_User.reset(new Progrado::User()); 
+    m_ptr_access_toAccessDatabase =  m_ptr_accessDBptr->m_ptr_DBConnector; 
+
+    // getInput
+    this->getUserInput();
+
+    //create object with default constructor (that uses a vector)
+    std::unique_ptr<Progrado::User> m_ptr_access_User1 (new Progrado::User(m_ptr_access_User->m_userData));
+
+    //add new user
+    m_verify1 =  m_ptr_access_toAccessDatabase->addNewUser(*m_ptr_access_User1); 
+
+
+    //check account creation 
+    this->checkSuccess();
+
+    //Exit/Back
+    m_checkExitOrMoveBack = this->exitOrMoveBack();
+
+    //move to MainMenu
+    if (m_checkExitOrMoveBack == Progrado::DONE)
+    {
+        return Progrado::DONE;
+    }
+    else if (m_checkExitOrMoveBack == Progrado::EXIT)
+    {
+        return Progrado::EXIT;
+    } 
+}
+
+//-------------------------------------------------------------------------------------//
+
+int Ui::CreateAccountScreen::getUserInput()
+{
     std::cout << "In order to create a ProGrado account, the followin information are required: \n";
     std::cout << "      user's last name\n";
     std::cout << "      user's first name\n";
@@ -38,49 +73,60 @@ void Ui::CreateAccountScreen::display()
     std::cout << "      a username\n";
     std::cout << "      a password\n";
 
-    int m_verify;
-    int m_verify1;
+    m_ptr_access_User->setUp_account();
 
-    m_verify = m_ptr_access_User->setUp_account();
+     //verify Input Success
+    m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_lastName);
+    m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_firstName);
+    m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_yearInCollege);
+    m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_username);
+    m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_major);
+    m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_minor);
+    m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_password);
 
-    if(m_verify == 1)
+    return Progrado::SUCCESS;
+}
+
+//-------------------------------------------------------------------------------------//
+
+int Ui::CreateAccountScreen::exitOrMoveBack()
+{
+    std::cout << "Enter -1 to go back to Main Menu, 0 to exit ProGrado\n";
+    std::cin >> m_choice2;
+    
+    while (m_choice2 != -1 || m_choice2 != 0)
     {
-        m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_lastName);
-        m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_firstName);
-        m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_yearInCollege);
-        m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_username);
-        m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_major);
-        m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_minor);
-        m_ptr_access_User->m_userData.push_back(m_ptr_access_User->m_password);
-
-        //create object with default constructor (that uses a vector)
-        std::unique_ptr<Progrado::User> m_ptr_access_User1 (new Progrado::User(m_ptr_access_User->m_userData));
-
-    //----------------------------------------------------------------------------------------
-
-    m_verify1 =  m_ptr_access_toAccessDatabase->addNewUser(*m_ptr_access_User1); 
+        std::cout << "Invalid choice\n";
+        std::cout << "Enter -1 to go back to Main Menu, 0 to exit ProGrado\n";
+        std::cin >> m_choice2; 
     }
+    if (m_choice2 == -1)
+    {
+        return Progrado::DONE;
+    }
+    else if(m_choice2 == 0)
+    {
+        std::cout << "You have exited Progrado\n";
+        return Progrado::EXIT;
+    } 
+}
 
+//-------------------------------------------------------------------------------------//
+
+int Ui::CreateAccountScreen::checkSuccess() 
+{
     if (m_verify1 == Progrado::SUCCESS)
-    {   
-        std::unique_ptr<DB::DBConnector> m_ptr_DB( new DB::DBConnector);
-        m_ptr_DB->createUserTable();
-
+    {  
         std::cout << "You have successfully created a ProGrado account\n"; 
-
+        return Progrado::SUCCESS;
     }
     
     else
     {
         std::cout << "Account creation failed\n";
         std::cout << "ProGrado will be shutting down\n";
-        exit(5);
+        return Progrado::FAIL; 
     } 
-
-    std::cout << "########################################################################\n";
-
-    //go to main menu after successfully creating an account
-    m_ptr_access_toAccessInstantiate->instantiateScreen(m_ptr_access_toAccessInstantiate->m_ptr_mainMenu, Progrado::Screen::main_menu);
-
-    
 }
+
+//-------------------------------------END--------------------------------------------//

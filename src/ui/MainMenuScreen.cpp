@@ -8,7 +8,7 @@ Copyright 2019
 ***************************************
  */
 
-#include"UserInterface.h"  
+#include"UserInterface.h"   
 
 
 //--------------------------------------------------------------------------------------
@@ -28,10 +28,96 @@ Ui::MainMenuScreen::~MainMenuScreen()
 //--------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------
 
-void Ui::MainMenuScreen::display()
+int Ui::MainMenuScreen::display() 
 {   
-    int m_choice;
+    m_ptr_accessUserInterface.reset(new Progrado::UserInterface()); 
+    
+    m_choice = 1;
+    
+    while (m_choice != 0)
+    {   
+        this->getUserInput();
 
+        switch (m_choice)
+        {
+            case 1:
+                m_checkInstantiate =  m_ptr_accessUserInterface->instantiateScreen(
+                                      m_ptr_accessUserInterface->m_ptr_addCourseScreen, Progrado::Screen::add_course);
+                
+                if (m_checkInstantiate == Progrado::DONE)
+                {
+                    break;
+                }
+                else if (m_checkInstantiate == Progrado::EXIT)
+                {
+                    return Progrado::EXIT;
+                }
+            
+            case 2:
+                m_checkInstantiate =  m_ptr_accessUserInterface->instantiateScreen(
+                                      m_ptr_accessUserInterface->m_ptr_RemoveCourseScreen, Progrado::Screen::add_course);
+                if (m_checkInstantiate == Progrado::DONE)
+                {
+                    break;
+                }
+                else if (m_checkInstantiate == Progrado::EXIT)
+                {
+                    return Progrado::EXIT;
+                }
+
+            case 3:
+                m_checkInstantiate =  m_ptr_accessUserInterface->instantiateScreen(
+                                      m_ptr_accessUserInterface->m_ptr_UpdateCourseScreen, Progrado::Screen::add_course);
+                if (m_checkInstantiate == Progrado::DONE)
+                {
+                    break;
+                }
+                else if (m_checkInstantiate == Progrado::EXIT)
+                {
+                    return Progrado::EXIT;
+                }
+
+            case 4:
+                m_checkInstantiate =  m_ptr_accessUserInterface->instantiateScreen(
+                                      m_ptr_accessUserInterface->m_ptr_listAllCoursesScreen, Progrado::Screen::add_course);
+                if (m_checkInstantiate == Progrado::DONE)
+                {
+                    break;
+                }
+                else if (m_checkInstantiate == Progrado::EXIT)
+                {
+                    return Progrado::EXIT;
+                }
+
+            case 5:
+                m_checkInstantiate =  m_ptr_accessUserInterface->instantiateScreen(
+                                      m_ptr_accessUserInterface->m_ptr_scheduleSummaryScreen, Progrado::Screen::add_course);
+                if (m_checkInstantiate == Progrado::DONE)
+                {
+                    break;
+                }
+                else if (m_checkInstantiate == Progrado::EXIT)
+                {
+                    return Progrado::EXIT;
+                }
+
+            case 0: 
+                return Progrado::EXIT; 
+            
+            default:
+                {
+                    std::cout << "Invalid choice entered\n";
+                    break;
+                }
+        }
+
+    }
+
+
+}
+
+int Ui::MainMenuScreen::getUserInput()
+{
     std::cout << "Welcome to your Progrado Workspace\n";
     std::cout << "Enter: \n";
     std::cout << "  1 --- to add a course\n";
@@ -39,47 +125,19 @@ void Ui::MainMenuScreen::display()
     std::cout << "  3 --- to update a course\n";
     std::cout << "  4 --- to list all your courses\n";
     std::cout << "  5 --- to view your schedule summary\n";
-    std::cout << "  00 --- to exit the program\n";
-
-    std::unique_ptr<Progrado::UserInterface> m_ptr_accessUserInterface (new Progrado::UserInterface()); 
-
+    std::cout << "  0 --- to exit the program\n"; 
 
     std::cin >> m_choice;
 
-    switch (m_choice)
-    {
-    case 1:
-        PrUs::instantiateScreen(m_ptr_accessUserInterface->m_ptr_addCourseScreen, Progrado::Screen::add_course);
-        break;
-    
-    case 2:
-        PrUs::instantiateScreen(m_ptr_accessUserInterface->m_ptr_RemoveCourseScreen, Progrado::Screen::add_course);
-        break;
+    return Progrado::SUCCESS;
+}
 
-    case 3:
-        PrUs::instantiateScreen(m_ptr_accessUserInterface->m_ptr_UpdateCourseScreen, Progrado::Screen::add_course);
-        break;
+int Ui::MainMenuScreen::exitOrMoveBack()
+{
+    return Progrado::SUCCESS;
+}
 
-    case 4:
-        PrUs::instantiateScreen(m_ptr_accessUserInterface->m_ptr_listAllCoursesScreen, Progrado::Screen::add_course);
-        break;
-
-    case 5:
-        PrUs::instantiateScreen(m_ptr_accessUserInterface->m_ptr_scheduleSummaryScreen, Progrado::Screen::add_course);
-        break;
-
-    case 00:
-        exit(2);
-    
-    default:
-        {
-            std::cout << "Invalid choice entered\n";
-            std::unique_ptr<Progrado::UserInterface> m_ptr_toAccessInstantiate (new Progrado::UserInterface()); //pointer of class DBconnector for accessing DBConnector public functions
-            m_ptr_toAccessInstantiate->instantiateScreen(m_ptr_toAccessInstantiate->m_ptr_mainMenu, Progrado::Screen::main_menu);
-            break;
-        }
-       
-    }
-
-
+int Ui::MainMenuScreen::checkSuccess()
+{
+    return Progrado::SUCCESS;
 }

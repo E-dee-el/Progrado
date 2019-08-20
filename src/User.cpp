@@ -9,8 +9,7 @@ Copyright 2019
  */
 
 
-#include"User.h"
-#include <iostream>
+#include"UserInterface.h" 
 
 // not safe , doesnt check for size 
 // maybe we should be using std::array for this
@@ -47,20 +46,20 @@ const std::string& t_password
 
 bool Progrado::User::setUp_account()
 {
-    std::cout << "Please enter your last name\n"; getline(std::cin, m_lastName);
-    std::cout << "Please enter your first name\n"; getline(std::cin, m_firstName);
-    std::cout << "Please enter your year in college\n"; getline(std::cin, m_yearInCollege);
-    std::cout << "Please enter your major/anticipated major\n"; getline(std::cin, m_major);
-    std::cout << "Please enter your minor/anticipated minor\n"; getline(std::cin, m_minor);
-    std::cout << "Please enter a username\n"; getline(std::cin, m_username);
-    std::cout << "Please enter a password\n"; getline(std::cin, m_password);
+    std::cout << "Please enter your last name\n"; std::getline(std::cin, m_lastName);
+    std::cout << "Please enter your first name\n"; std::getline(std::cin, m_firstName);
+    std::cout << "Please enter your year in college\n"; std::getline(std::cin, m_yearInCollege);
+    std::cout << "Please enter your major/anticipated major\n"; std::getline(std::cin, m_major);
+    std::cout << "Please enter your minor/anticipated minor\n"; std::getline(std::cin, m_minor);
+    std::cout << "Please enter a username\n"; std::getline(std::cin, m_username);
+    std::cout << "Please enter a password\n"; std::getline(std::cin, m_password);
 
    //ensure that entered value are stored
     if(std::cin.good())
     {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 Progrado::User::~User()

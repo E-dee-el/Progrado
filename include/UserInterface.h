@@ -13,6 +13,9 @@ Copyright 2019
 #define USER_INTERFACE_H
   
 #include <memory>
+#include<string>
+#include<cstdlib>
+#include<iostream>
 
 #include"Screen.h"
 #include"LoginScreen.h"
@@ -45,10 +48,10 @@ public:
     UserInterface();
     ~UserInterface();
     void setup();
-    void run();
+    int run();
     int connectToDatabase();
     int disconnectFromDatabase();
-    static void instantiateScreen(std::unique_ptr<Ui::Screen> &, Progrado::Screen); 
+    int instantiateScreen(std::unique_ptr<Ui::Screen> &, Progrado::Screen); 
     
     friend Ui::MainMenuScreen; 
     friend Ui::LoginScreen;
@@ -61,6 +64,9 @@ public:
     friend Ui::LoginErrorScreen;    
 
 private: 
+    int m_selection;
+    int m_displayChecker; 
+    int m_instantiateChecker;
 
     std::unique_ptr<Ui::Screen> m_ptr_addCourseScreen; 
     std::unique_ptr<Ui::Screen> m_ptr_mainMenu;
@@ -72,7 +78,7 @@ private:
     std::unique_ptr<Ui::Screen> m_ptr_UpdateCourseScreen;
     std::unique_ptr<Ui::Screen> m_ptr_RemoveCourseScreen;
     
-    std::unique_ptr<DB::DBConnector>  m_ptr_DBConnector;
+    std::shared_ptr<DB::DBConnector>  m_ptr_DBConnector;
 
 };
 

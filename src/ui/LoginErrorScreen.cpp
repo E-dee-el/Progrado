@@ -8,7 +8,7 @@ Copyright 2019
 ***************************************
  */
 
-#include"LoginErrorScreen.h"
+#include"UserInterface.h"
 
 Ui::LoginErrorScreen::LoginErrorScreen()
 {
@@ -20,7 +20,22 @@ Ui::LoginErrorScreen::~LoginErrorScreen()
     //destructor
 }
 
-void Ui::LoginErrorScreen::display()
+int Ui::LoginErrorScreen::display()
 {
+    return Progrado::SUCCESS;
+}
 
+int Ui::LoginErrorScreen::getUserInput()
+{
+    return Progrado::SUCCESS;
+}
+
+int Ui::LoginErrorScreen::exitOrMoveBack()
+{
+    return Progrado::SUCCESS;
+}
+
+int Ui::LoginErrorScreen::checkSuccess()
+{
+    return Progrado::SUCCESS;
 }
