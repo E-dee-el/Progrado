@@ -6,4 +6,4 @@
 ./build
 build
 *.csv
-
+*.db

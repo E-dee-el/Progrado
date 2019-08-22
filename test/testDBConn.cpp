@@ -39,6 +39,7 @@ auto user_ptr = std::unique_ptr<Progrado::User>
 "Suleiman", "Sophomore","ibrosule",
 "Electrical Engineering", "Computer Science", "admin"));
 
+try{
 // create DBConn with smart pointer
 auto DB_ptr = std::unique_ptr<DB::DBConnector>(new DB::DBConnector());
 
@@ -91,12 +92,13 @@ while (ansr == "yes")
 
     if(l_credits == 0)
     {
-         int k = DB_ptr->addCourse(Progrado::Course(add_course_vector));
-         if(k != Progrado::SUCCESS) 
+         bool k = DB_ptr->addCourse(Progrado::Course(add_course_vector));
+         if(!k) 
        {
            std::cout << "Oops! seems the course you want to add already exists. Do you want to try again?[yes/no]\n";
             std::string ans;
             std::cin >> ans;
+            std::cin.ignore();
             if(ans == "yes") continue;
             else break;
 
@@ -106,9 +108,9 @@ while (ansr == "yes")
     }
     else 
     {
-       int z = DB_ptr->addCourse(Progrado::Course(add_course_vector, l_credits));
+       bool z = DB_ptr->addCourse(Progrado::Course(add_course_vector, l_credits));
 
-       if(z != Progrado::SUCCESS) 
+       if(!z) 
        {
            std::cout << "Oops! seems the course you want to add already exists. Do you want to try again?[yes/no]\n";
             std::string ans;
@@ -131,12 +133,13 @@ while (ansr == "yes")
 // v is a vector of smart pointers to Course objects
 std::vector<std::shared_ptr<Progrado::Course> > v;
 
-v = DB_ptr->getCoursesMatching(Progrado::FRESHMAN_JTERM);
-
+v = DB_ptr->getCoursesMatching(Progrado::SOPH_SPRING);
+ 
 for(int i = 0; i < v.size(); i++)
 {
     v[i]->displayCourse();
 }
+/*
 auto _v = DB_ptr->getScheduleSummary();
 
 for(int j = 0; j < _v.size(); j++)
@@ -145,8 +148,13 @@ for(int j = 0; j < _v.size(); j++)
 {
     _v[j][i]->displayCourse();
 }
-}
+}*/
 //////////////////////////
+}
+catch (std::runtime_error a)
+{
+    std::cout << a.what() ;
+}
 
 return 0;
 }

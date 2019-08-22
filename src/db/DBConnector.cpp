@@ -569,8 +569,8 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
     } // switch (t_flag)
 
 
-        if(sqlite3_step(getCoursesStmt) != SQLITE_OK)
-                throw std::runtime_error("DB::DBConnector::getCoursesMatching(): DB Failed query preparation");
+        if(sqlite3_step(getCoursesStmt) != SQLITE_ROW)
+                std::cout << "No course Matching this term\n";
         // reset statement for execution anew
         sqlite3_reset(getCoursesStmt);  
 
