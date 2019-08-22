@@ -8,7 +8,9 @@ namespace Progrado
 {
 
     const int FAIL = -1; // return this on any failed procedures
-    const int SUCCESS = 0;     // return this on any successful procedures   
+    const int SUCCESS = 0; 
+    const bool FALSE = false;
+    const bool TRUE = true;    // return this on any successful procedures   
 
     // PROGRADO GLOBAL ENUMS
  
@@ -37,7 +39,7 @@ namespace Progrado
     //hence we use const std::string 
     //instead of const char* since it manages its resources on the heap
 
-    const std::string DB_LOCATION = "progrado.db"; 
+    const std::string DB_LOCATION = ".progrado.db"; 
 
     const std::string CHECK_IF_USER_TABLE_EXISTS = "SELECT * FROM user"; 
     const std::string NEW_USER_TABLE = 

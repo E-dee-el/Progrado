@@ -32,13 +32,13 @@ public:
     bool verifyUserCredentials(const std::string&, const std::string&);
     bool userTableExists();
     bool coursesTableExists();
-    int createUserTable();
-    int addNewUser(const Progrado::User&);
-    int modifyUserDetails(const Progrado::User&); 
-    int createCoursesTable();
-    int addCourse(const Progrado::Course&);
-    int updateCourse(const Progrado::Course&, const Progrado::Course&);
-    int removeCourse(const Progrado::Course&);
+    void createUserTable();
+    void addNewUser(const Progrado::User&);
+    void modifyUserDetails(const Progrado::User&); 
+    void createCoursesTable();
+    bool addCourse(const Progrado::Course&);
+    bool updateCourse(const Progrado::Course&, const Progrado::Course&);
+    void removeCourse(const Progrado::Course&);
     std::vector< std::shared_ptr<Progrado::Course> >
     getCoursesMatching(const int); // Argument is a type of Terms, from enum Term in namespace Progrado
  // the foll. returns a vector of vectors (i.e. a 2d vector) of smart pointers to course objects
