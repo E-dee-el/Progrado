@@ -18,7 +18,7 @@ Copyright 2019
 #include"Progrado.h"
 
 namespace Progrado{
-    class Course;
+    class Course; //
 }
 
 
