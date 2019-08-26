@@ -24,6 +24,7 @@ public:
     UpdateCourseScreen();
     virtual ~UpdateCourseScreen();
     virtual void display()override;
+    Progrado::Course getInput();
 
 private:
 // private members go here

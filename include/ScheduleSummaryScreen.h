@@ -24,6 +24,7 @@ public:
     ScheduleSummaryScreen();
     virtual ~ScheduleSummaryScreen();
     virtual void display()override;
+    int getInput();
 
 private:
 // private members go here

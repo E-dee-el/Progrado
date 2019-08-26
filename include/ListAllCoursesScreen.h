@@ -24,6 +24,7 @@ public:
     ListAllCoursesScreen();
     virtual ~ListAllCoursesScreen();
     virtual void display()override;
+    int getInput();
 
 private:
 // private members go here
