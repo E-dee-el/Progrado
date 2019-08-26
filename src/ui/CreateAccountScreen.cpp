@@ -9,15 +9,10 @@ Copyright 2019
  */
 
 #include"CreateAccountScreen.h"
-<<<<<<< HEAD
-#include "Progrado.h"
 #include"Course.h"
-#include<iostream>
-=======
 #include<iostream>
 #include"Progrado.h"
 #include"User.h"
->>>>>>> 739bf89f7601565aafb6da478f4b77737491cae9
 
 Ui::CreateAccountScreen::CreateAccountScreen()
 {
@@ -36,8 +31,6 @@ void Ui::CreateAccountScreen::display()
 
 Progrado::User Ui::CreateAccountScreen::getInput()
 {
-<<<<<<< HEAD
-=======
     std::string last_name, first_name, major, minor, college_yr, username, password;
 
     std::cout << "Enter Last Name: "; std::getline(std::cin, last_name);
@@ -49,6 +42,5 @@ Progrado::User Ui::CreateAccountScreen::getInput()
     std::cout << "Choose a Password: "; std::getline(std::cin, password);
 
     return Progrado::User(last_name, first_name,college_yr, username, major, minor, password);
->>>>>>> 739bf89f7601565aafb6da478f4b77737491cae9
     
 }

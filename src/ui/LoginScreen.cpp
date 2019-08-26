@@ -9,10 +9,7 @@ Copyright 2019
  */
 
 #include"LoginScreen.h" 
-<<<<<<< HEAD
-=======
 #include<iostream>
->>>>>>> 739bf89f7601565aafb6da478f4b77737491cae9
 #include<string>
 
 Ui::LoginScreen::LoginScreen()

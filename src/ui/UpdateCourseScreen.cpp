@@ -27,7 +27,7 @@ Ui::UpdateCourseScreen::~UpdateCourseScreen()
 
 void Ui::UpdateCourseScreen::display()
 {
-
+    std::cout << "*********UPDATE COURSE**************\n";
 }
 
 Progrado::Course Ui::UpdateCourseScreen::getOldCourse()
