@@ -9,6 +9,9 @@ Copyright 2019
  */
 
 #include"CreateAccountScreen.h"
+#include "Progrado.h"
+#include"Course.h"
+#include<iostream>
 
 Ui::CreateAccountScreen::CreateAccountScreen()
 {
@@ -27,5 +30,5 @@ void Ui::CreateAccountScreen::display()
 
 Progrado::User Ui::CreateAccountScreen::getInput()
 {
-    ////
+    
 }

@@ -9,7 +9,10 @@ Copyright 2019
  */
 
 #include"AddCourseScreen.h"
+#include "Progrado.h"
+#include"Course.h"
 #include<iostream>
+
 
 Ui::AddCourseScreen::AddCourseScreen()
 {

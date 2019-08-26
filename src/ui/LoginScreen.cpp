@@ -9,6 +9,7 @@ Copyright 2019
  */
 
 #include"LoginScreen.h" 
+#include<string>
 
 Ui::LoginScreen::LoginScreen()
 {
