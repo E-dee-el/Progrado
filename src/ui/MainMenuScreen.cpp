@@ -24,3 +24,8 @@ void Ui::MainMenuScreen::display()
 {
 
 }
+
+int Ui::MainMenuScreen::getSelection()
+{
+    
+}

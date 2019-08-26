@@ -24,3 +24,8 @@ void Ui::UpdateCourseScreen::display()
 {
 
 }
+
+Progrado::Course Ui::UpdateCourseScreen getInput();
+{
+    
+}

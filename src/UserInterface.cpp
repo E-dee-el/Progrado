@@ -172,8 +172,8 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
                 // RemoveCourseScreen
                 
                 screen_ptr.reset(new Ui::RemoveCourseScreen);
-                //std::unique_ptr<Ui::RemoveCourseScreen> m_ptr_lsScreen(dynamic_cast<Ui::RemoveCourseScreen*>(screen_ptr.get()));
-                m_displayChecker = screen_ptr->display();
+                std::unique_ptr<Ui::RemoveCourseScreen> m_ptr_lsScreen(dynamic_cast<Ui::RemoveCourseScreen*>(screen_ptr.get()));
+                screen_ptr->display();
                 break;
 
             }
@@ -183,8 +183,8 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
             // UpdateCourseScreen
             
             screen_ptr.reset(new Ui::UpdateCourseScreen);
-            //std::unique_ptr<Ui::UpdateCourseScreen> m_ptr_lsScreen(dynamic_cast<Ui::UpdateCourseScreen*>(screen_ptr.get()));
-            m_displayChecker = screen_ptr->display();
+            std::unique_ptr<Ui::UpdateCourseScreen> m_ptr_lsScreen(dynamic_cast<Ui::UpdateCourseScreen*>(screen_ptr.get()));
+            screen_ptr->display();
             break;
             }
 
@@ -193,8 +193,8 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
             // ListAllCoursesScreen
 
             screen_ptr.reset(new Ui::ListAllCoursesScreen);
-            //std::unique_ptr<Ui::ListAllCoursesScreen> m_ptr_lsScreen(dynamic_cast<Ui::ListAllCoursesScreen*>(screen_ptr.get()));
-            m_displayChecker = screen_ptr->display();
+            std::unique_ptr<Ui::ListAllCoursesScreen> m_ptr_lsScreen(dynamic_cast<Ui::ListAllCoursesScreen*>(screen_ptr.get()));
+            screen_ptr->display();
             break;
 
             }
@@ -205,7 +205,7 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
 
             screen_ptr.reset(new Ui::ScheduleSummaryScreen);
             std::unique_ptr<Ui::ScheduleSummaryScreen> m_ptr_lsScreen(dynamic_cast<Ui::ScheduleSummaryScreen*>(screen_ptr.get()));
-            m_displayChecker = screen_ptr->display();
+            screen_ptr->display();
             break;
 
             } 
@@ -215,8 +215,8 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
                 // LoginErrorScreen
 
                 screen_ptr.reset(new Ui::LoginErrorScreen);
-                //std::unique_ptr<Ui::LoginErrorScreen> m_ptr_lsScreen(dynamic_cast<Ui::LoginErrorScreen*>(screen_ptr.get()));
-                m_displayChecker = screen_ptr->display();
+                std::unique_ptr<Ui::LoginErrorScreen> m_ptr_lsScreen(dynamic_cast<Ui::LoginErrorScreen*>(screen_ptr.get()));
+                screen_ptr->display();
                 break;
             }
 
@@ -225,8 +225,8 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
                 // CreateAccountScreen
 
                 screen_ptr.reset(new Ui::CreateAccountScreen);
-                //std::unique_ptr<Ui::CreateAccountScreen> m_ptr_lsScreen(dynamic_cast<Ui::CreateAccountScreen*>(screen_ptr.get()));
-                m_displayChecker = screen_ptr->display();
+                std::unique_ptr<Ui::CreateAccountScreen> m_ptr_lsScreen(dynamic_cast<Ui::CreateAccountScreen*>(screen_ptr.get()));
+                screen_ptr->display();
                 break;
             }
 
@@ -235,26 +235,15 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
                 // MainMenuScreen
 
                 screen_ptr.reset(new Ui::MainMenuScreen);
-                //std::unique_ptr<Ui::MainMenuScreen> m_ptr_lsScreen(dynamic_cast<Ui::MainMenuScreen*>(screen_ptr.get()));
-                m_displayChecker = screen_ptr->display();
+                std::unique_ptr<Ui::MainMenuScreen> m_ptr_lsScreen(dynamic_cast<Ui::MainMenuScreen*>(screen_ptr.get()));
+                screen_ptr->display();
                 break;
             }
 
             
-    default:
+        default:
         break;
 
 
-    }
-
-    //CHECKER
-
-    if (m_displayChecker == Progrado::DONE)
-    {
-        return Progrado::DONE;
-    }
-    else if (m_displayChecker == Progrado::EXIT)
-    {
-        return Progrado::EXIT;
     }
 }

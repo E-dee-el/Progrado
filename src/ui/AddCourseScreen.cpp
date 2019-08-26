@@ -25,3 +25,9 @@ void Ui::AddCourseScreen::display()
 {
     std::cout << "Override\n";
 }
+
+Progrado::Course Ui::AddCourseScreen::getInput()
+{
+
+
+}

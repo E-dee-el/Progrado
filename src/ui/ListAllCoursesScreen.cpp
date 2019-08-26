@@ -24,3 +24,7 @@ void Ui::ListAllCoursesScreen::display()
 {
 
 }
+Progrado::Course Ui::ListAllCoursesScreen::getInput()
+{
+    ////
+}

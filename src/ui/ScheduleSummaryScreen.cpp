@@ -24,3 +24,8 @@ void Ui::ScheduleSummaryScreen::display()
 {
 
 }
+
+Progrado::Course Ui::ScheduleSummaryScreen getInput();
+{
+    
+}

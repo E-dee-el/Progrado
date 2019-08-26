@@ -8,7 +8,7 @@ Copyright 2019
 ***************************************
  */
 
-#include"LoginScreen.h"
+#include"LoginScreen.h" 
 
 Ui::LoginScreen::LoginScreen()
 {
@@ -21,6 +21,16 @@ Ui::LoginScreen::~LoginScreen()
 }
 
 void Ui::LoginScreen::display()
+{
+
+}
+
+std::string Ui::LoginScreen::getUserName()
+{
+    
+}
+
+std::string Ui::LoginScreen::getPassword()
 {
 
 }

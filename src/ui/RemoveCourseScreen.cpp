@@ -24,3 +24,8 @@ void Ui::RemoveCourseScreen::display()
 {
 
 }
+
+Progrado::Course Ui::RemoveCourseScreen getInput();
+{
+    
+}

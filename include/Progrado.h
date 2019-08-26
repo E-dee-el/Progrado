@@ -15,7 +15,7 @@ namespace Progrado
     // PROGRADO GLOBAL ENUMS
  
     enum Term
-    {
+    {  
     FRESHMAN_FALL,
     FRESHMAN_JTERM,
     FRESHMAN_SPRING,
