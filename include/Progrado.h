@@ -33,6 +33,18 @@ namespace Progrado
     ALL
     };
 
+    enum Screen
+    {
+        add_course,
+        remove_course,
+        update_course,
+        list_course,
+        schedule_summary,
+        login,
+        login_error,
+        create_account,
+        main_menu
+    };
     enum CourseDetails {courseName, semesterOffered, yearOffered, courseId, courseType}; 
 
     // since some of these strings are very long. We dont want to even contemplate stackoverflow, 

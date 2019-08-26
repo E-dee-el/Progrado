@@ -14,7 +14,8 @@ Copyright 2019
 #include<cstring>
 #include<stdexcept>
 #include<exception>
-
+#include"sqlite3.h"
+#include"Progrado.h"
 
 DB::DBConnector::DBConnector():
 m_ptr_progradoDatabase(nullptr) 
@@ -258,12 +259,12 @@ bool DB::DBConnector::addCourse(const Progrado::Course& t_course)
         (
         addCourseStmt, 
         sqlite3_bind_parameter_index(addCourseStmt, bind_param),
-        str_to_bind,
+        str_to_bind, 
         -1,
         SQLITE_TRANSIENT 
         );
 
-    }
+    }   
  
     sqlite3_bind_int
     (

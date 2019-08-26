@@ -20,6 +20,8 @@ class Ui::Screen{
         Screen();
         virtual ~Screen();
         virtual void display() = 0;
+
+    
 };
 
 #endif

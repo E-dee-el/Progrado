@@ -33,40 +33,228 @@ Progrado::UserInterface::~UserInterface()
     //destructor 
     std::cout << "User Interface destroyed\n"; // for testing purposes only
 }
+void Progrado::UserInterface::login(int t_selection)
+{
+    while(t_selection != 1 || t_selection != 2)
+    {
+    
+        std::cout << "Invalid choice\n";
+        std::cin >> t_selection;
+        std::cin.ignore();
+
+        if(t_selection == 0) return;
+    }
+
+        if(t_selection == 1) 
+        {
+            m_ptr_loginScreen = std::make_unique<Ui::LoginScreen>();
+            m_ptr_loginScreen->display();
+        
+            bool chk = m_ptr_DBConnector->verifyUserCredentials(
+                m_ptr_loginScreen->getUserName(),
+                m_ptr_loginScreen->getPassword()
+                );
+            int login_count = 0;
+            while(!chk)
+            {   
+
+                if(login_count > 3)
+                {
+                    std::cout << "Too many failed attempts! Closing Progrado\n";
+                    return;
+                }
+                chk = m_ptr_DBConnector->verifyUserCredentials(
+                m_ptr_loginScreen->getUserName(),
+                m_ptr_loginScreen->getPassword()
+                ); 
+
+                login_count++;
+            }    
+        }
+
+}
 
 void Progrado::UserInterface::setup()
 {
     // set up application 
+
+    //print welcome message
+
+    m_ptr_DBConnector = std::make_unique<DB::DBConnector>();
+    
+
 }
 void Progrado::UserInterface::run()
 {
     //run the application/the user interface
-}
+try{
+    std::cout << "Kindly enter 1 to login, and 2 to create an account\n";
+    int l_selection;
+    std::cin >> l_selection;
+    std::cin.ignore();
 
+    while(l_selection != 1 || l_selection != 2)
+    {
+    
+        std::cout << "Invalid choice\n";
+        std::cin >> l_selection;
+        std::cin.ignore();
 
-void Progrado::UserInterface::instatiateScreen(const Ui::Screen* screen_ptr)
-{
-    /*  instantiate an appropriate screen using only this one function
-        make sure to call new to make the pointer point to an appropraite screen
-        before passing it to this function. For example, in the main app event loop,
-        if we want to instantiate addCourse screen. do:
+        if(l_selection == 0) return;
+    }
 
-            m_ptr_addCourseScreen = new addCourseScreen();
-
-             // this is OK, since addCourseScreen derives from Screen
-               // then pass m_ptr_addCourseScreen to this function like so:
-
-            app->instantiateScreen(m_ptr_addCourseScreen);
-
-            // since this will display the screen, the display() method
-            // of addCourseScreen will be called (recall that the Screen display()
-            // method is pure virtual and must be overridden)
+        if(l_selection == 1) login(l_selection);
+        else if(l_selection == 2)
+        {
+             m_ptr_createAccountScreen = std::make_unique<Ui::CreateAccountScreen>();
+             m_ptr_createAccountScreen->display();
+             
+            {   
+                dynamic_cast<Ui::AddCourseScreen*>(m_ptr_addCourseScreen.get());
+                auto l_new_user = 
+                std::make_unique<Progrado::User>(new Progrado::User(m_ptr_createAccountScreen->getInput()));
+                m_ptr_DBConnector->addNewUser(*l_new_user);
+            } // artificial scope to delete l_new_user
             
-            // from here on, if you need to use any specific methods of addCourseScreen,
-            you must use dynamic cast to cast the pointer from type Ui::Screen* to 
-            Ui::addCourseScreen*
+            // Log the user in here
+
+            login(l_selection);
+        }
+
+        m_ptr_mainMenu = std::make_unique<Ui::MainMenuScreen>();
+        int sln = m_ptr_mainMenu->getSelection();
+
+        switch (sln)
+        {
+        case 1:
+            m_ptr_addCourseScreen = std::make_unique<Ui::AddCourseScreen>();
+            m_ptr_addCourseScreen->display();     
+            auto new_course = std::make_unique<Course>(m_ptr_addCourseScreen->getInput());
+
+            break;
+        
+        default:
+            break;
+        }
 
 
-    */
 
+} // end try
+catch(std::runtime_error err)
+{
+    std::cerr << err.what() << std::endl;
+} // end catch
+} // run
+
+
+void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & screen_ptr,int t_screen) 
+{ 
+   
+   switch (t_screen)
+    {   
+        case Progrado::add_course:  
+            {
+                // AddCourseScreen
+
+                screen_ptr.reset(new Ui::AddCourseScreen);
+
+                std::unique_ptr<Ui::AddCourseScreen> l_AddCourseScreen(dynamic_cast<Ui::AddCourseScreen*>(screen_ptr.get())); 
+
+                l_AddCourseScreen->display();
+                l_AddCourseScreen->getInput();
+
+
+                break;
+            }
+        
+        case Progrado::Screen::remove_course:   
+            {
+                // RemoveCourseScreen
+                
+                screen_ptr.reset(new Ui::RemoveCourseScreen);
+                //std::unique_ptr<Ui::RemoveCourseScreen> m_ptr_lsScreen(dynamic_cast<Ui::RemoveCourseScreen*>(screen_ptr.get()));
+                m_displayChecker = screen_ptr->display();
+                break;
+
+            }
+        
+        case Progrado::Screen::update_course:
+            {
+            // UpdateCourseScreen
+            
+            screen_ptr.reset(new Ui::UpdateCourseScreen);
+            //std::unique_ptr<Ui::UpdateCourseScreen> m_ptr_lsScreen(dynamic_cast<Ui::UpdateCourseScreen*>(screen_ptr.get()));
+            m_displayChecker = screen_ptr->display();
+            break;
+            }
+
+        case Progrado::Screen::list_course:
+            {
+            // ListAllCoursesScreen
+
+            screen_ptr.reset(new Ui::ListAllCoursesScreen);
+            //std::unique_ptr<Ui::ListAllCoursesScreen> m_ptr_lsScreen(dynamic_cast<Ui::ListAllCoursesScreen*>(screen_ptr.get()));
+            m_displayChecker = screen_ptr->display();
+            break;
+
+            }
+
+        case Progrado::Screen::schedule_summary:
+            {
+            // ScheduleSummaryScreen
+
+            screen_ptr.reset(new Ui::ScheduleSummaryScreen);
+            std::unique_ptr<Ui::ScheduleSummaryScreen> m_ptr_lsScreen(dynamic_cast<Ui::ScheduleSummaryScreen*>(screen_ptr.get()));
+            m_displayChecker = screen_ptr->display();
+            break;
+
+            } 
+
+        case login_error:
+            {
+                // LoginErrorScreen
+
+                screen_ptr.reset(new Ui::LoginErrorScreen);
+                //std::unique_ptr<Ui::LoginErrorScreen> m_ptr_lsScreen(dynamic_cast<Ui::LoginErrorScreen*>(screen_ptr.get()));
+                m_displayChecker = screen_ptr->display();
+                break;
+            }
+
+        case create_account:
+            {
+                // CreateAccountScreen
+
+                screen_ptr.reset(new Ui::CreateAccountScreen);
+                //std::unique_ptr<Ui::CreateAccountScreen> m_ptr_lsScreen(dynamic_cast<Ui::CreateAccountScreen*>(screen_ptr.get()));
+                m_displayChecker = screen_ptr->display();
+                break;
+            }
+
+        case main_menu:
+            {
+                // MainMenuScreen
+
+                screen_ptr.reset(new Ui::MainMenuScreen);
+                //std::unique_ptr<Ui::MainMenuScreen> m_ptr_lsScreen(dynamic_cast<Ui::MainMenuScreen*>(screen_ptr.get()));
+                m_displayChecker = screen_ptr->display();
+                break;
+            }
+
+            
+    default:
+        break;
+
+
+    }
+
+    //CHECKER
+
+    if (m_displayChecker == Progrado::DONE)
+    {
+        return Progrado::DONE;
+    }
+    else if (m_displayChecker == Progrado::EXIT)
+    {
+        return Progrado::EXIT;
+    }
 }

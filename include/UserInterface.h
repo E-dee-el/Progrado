@@ -23,6 +23,7 @@ Copyright 2019
 #include"UpdateCourseScreen.h"
 #include"RemoveCourseScreen.h"
 #include"DBConnector.h"
+#include<memory>
 
 namespace Progrado
 {
@@ -40,21 +41,23 @@ public:
     void run();
     int connectToDatabase();
     int disconnectFromDatabase();
-    void instatiateScreen(const Ui::Screen*); 
+    void login(int);
+    void instantiateScreen(std::unique_ptr<Ui::Screen>&, int); 
+
 
 private:
 
-    Ui::Screen       *m_ptr_addCourseScreen;
-    Ui::Screen       *m_ptr_mainMenu;
-    Ui::Screen       *m_ptr_loginScreen;
-    Ui::Screen       *m_ptr_createAccountScreen;
-    Ui::Screen       *m_ptr_loginErrorScreen;
-    Ui::Screen       *m_ptr_listAllCoursesScreen;
-    Ui::Screen       *m_ptr_scheduleSummaryScreen;
-    Ui::Screen       *m_ptr_UpdateCourseScreen;
-    Ui::Screen       *m_ptr_RemoveCourseScreen;
-    std::unique_ptr<Ui::Screen> m_ptr_FindFriend;
-    DB::DBConnector  *m_ptr_DBConnector;
+    std::unique_ptr<Ui::Screen>        m_ptr_addCourseScreen;
+    std::unique_ptr<Ui::Screen>         m_ptr_mainMenu;
+    std::unique_ptr<Ui::Screen>            m_ptr_loginScreen;
+    std::unique_ptr<Ui::Screen>    m_ptr_createAccountScreen;
+    std::unique_ptr<Ui::Screen>       m_ptr_loginErrorScreen;
+    std::unique_ptr<Ui::Screen>   m_ptr_listAllCoursesScreen;
+    std::unique_ptr<Ui::Screen>  m_ptr_scheduleSummaryScreen;
+    std::unique_ptr<Ui::Screen>     m_ptr_UpdateCourseScreen;
+    std::unique_ptr<Ui::Screen>     m_ptr_RemoveCourseScreen;
+    
+    std::unique_ptr<DB::DBConnector>  m_ptr_DBConnector;
 
 };
 

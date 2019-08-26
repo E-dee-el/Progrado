@@ -24,3 +24,8 @@ void Ui::CreateAccountScreen::display()
 {
 
 }
+
+Progrado::User Ui::CreateAccountScreen::getInput()
+{
+    ////
+}

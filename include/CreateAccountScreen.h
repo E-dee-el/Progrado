@@ -25,10 +25,11 @@ public:
     CreateAccountScreen();
     virtual ~CreateAccountScreen();
     virtual void display()override;
+    Progrado::User getInput();
 
 private:
 // private members go here
-Progrado::User *m_user;
+//Progrado::User *m_user;
 
 
 };

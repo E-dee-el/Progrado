@@ -24,6 +24,7 @@ public:
     MainMenuScreen();
     virtual ~MainMenuScreen();
     virtual void display()override;
+    int getSelection();
 
 private:
 // private members go here

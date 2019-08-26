@@ -24,6 +24,8 @@ public:
     LoginScreen();
     virtual ~LoginScreen();
     virtual void display()override;
+    std::string getUserName();
+    std::string getPassword();
 
 private:
 // private members go here
