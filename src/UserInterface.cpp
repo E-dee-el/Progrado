@@ -121,21 +121,8 @@ try{
             login(l_selection);
         }
 
-        m_ptr_mainMenu = std::make_unique<Ui::MainMenuScreen>();
-        int sln = m_ptr_mainMenu->getSelection();
-
-        switch (sln)
-        {
-        case 1:
-            m_ptr_addCourseScreen = std::make_unique<Ui::AddCourseScreen>();
-            m_ptr_addCourseScreen->display();     
-            auto new_course = std::make_unique<Course>(m_ptr_addCourseScreen->getInput());
-
-            break;
-        
-        default:
-            break;
-        }
+ 
+    
 
 
 
