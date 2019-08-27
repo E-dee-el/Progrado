@@ -134,7 +134,7 @@ catch(std::runtime_error err)
 } // run
 
 
-void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & screen_ptr,int t_screen) 
+void Progrado::UserInterface::executeScreen(std::unique_ptr<Ui::Screen> & screen_ptr,int t_screen) 
 { 
    
    switch (t_screen)
@@ -159,10 +159,11 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
                 // RemoveCourseScreen
                 
                 screen_ptr.reset(new Ui::RemoveCourseScreen);
-                std::unique_ptr<Ui::RemoveCourseScreen> m_ptr_lsScreen(dynamic_cast<Ui::RemoveCourseScreen*>(screen_ptr.get()));
-                screen_ptr->display();
-                break;
+                std::unique_ptr<Ui::RemoveCourseScreen> l_RemoveCourseScreen(dynamic_cast<Ui::RemoveCourseScreen*>(screen_ptr.get()));
 
+                l_RemoveCourseScreen->display();
+                l_RemoveCourseScreen->getInput();
+                break;
             }
         
         case Progrado::Screen::update_course:
@@ -170,8 +171,10 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
             // UpdateCourseScreen
             
             screen_ptr.reset(new Ui::UpdateCourseScreen);
-            std::unique_ptr<Ui::UpdateCourseScreen> m_ptr_lsScreen(dynamic_cast<Ui::UpdateCourseScreen*>(screen_ptr.get()));
-            screen_ptr->display();
+            std::unique_ptr<Ui::UpdateCourseScreen> l_UpdateCourseScreen(dynamic_cast<Ui::UpdateCourseScreen*>(screen_ptr.get()));
+            l_UpdateCourseScreen->display();
+            l_UpdateCourseScreen->getOldCourse();
+            l_UpdateCourseScreen->getNewCourse();
             break;
             }
 
@@ -180,8 +183,9 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
             // ListAllCoursesScreen
 
             screen_ptr.reset(new Ui::ListAllCoursesScreen);
-            std::unique_ptr<Ui::ListAllCoursesScreen> m_ptr_lsScreen(dynamic_cast<Ui::ListAllCoursesScreen*>(screen_ptr.get()));
-            screen_ptr->display();
+            std::unique_ptr<Ui::ListAllCoursesScreen> l_ListCourseScreen(dynamic_cast<Ui::ListAllCoursesScreen*>(screen_ptr.get()));
+            l_ListCourseScreen->display();
+            l_ListCourseScreen->getInput();
             break;
 
             }
@@ -191,8 +195,9 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
             // ScheduleSummaryScreen
 
             screen_ptr.reset(new Ui::ScheduleSummaryScreen);
-            std::unique_ptr<Ui::ScheduleSummaryScreen> m_ptr_lsScreen(dynamic_cast<Ui::ScheduleSummaryScreen*>(screen_ptr.get()));
-            screen_ptr->display();
+            std::unique_ptr<Ui::ScheduleSummaryScreen> l_scheduleSummaryScreen(dynamic_cast<Ui::ScheduleSummaryScreen*>(screen_ptr.get()));
+            l_scheduleSummaryScreen->display();
+            l_scheduleSummaryScreen->getInput();
             break;
 
             } 
@@ -202,8 +207,8 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
                 // LoginErrorScreen
 
                 screen_ptr.reset(new Ui::LoginErrorScreen);
-                std::unique_ptr<Ui::LoginErrorScreen> m_ptr_lsScreen(dynamic_cast<Ui::LoginErrorScreen*>(screen_ptr.get()));
-                screen_ptr->display();
+                std::unique_ptr<Ui::LoginErrorScreen> l_loginErrorScreen(dynamic_cast<Ui::LoginErrorScreen*>(screen_ptr.get()));
+                l_loginErrorScreen->display();
                 break;
             }
 
@@ -212,8 +217,9 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
                 // CreateAccountScreen
 
                 screen_ptr.reset(new Ui::CreateAccountScreen);
-                std::unique_ptr<Ui::CreateAccountScreen> m_ptr_lsScreen(dynamic_cast<Ui::CreateAccountScreen*>(screen_ptr.get()));
-                screen_ptr->display();
+                std::unique_ptr<Ui::CreateAccountScreen> l_createAccountScreen(dynamic_cast<Ui::CreateAccountScreen*>(screen_ptr.get()));
+                l_createAccountScreen->display();
+                l_createAccountScreen->getInput();
                 break;
             }
 
@@ -222,8 +228,9 @@ void Progrado::UserInterface::instantiateScreen(std::unique_ptr<Ui::Screen> & sc
                 // MainMenuScreen
 
                 screen_ptr.reset(new Ui::MainMenuScreen);
-                std::unique_ptr<Ui::MainMenuScreen> m_ptr_lsScreen(dynamic_cast<Ui::MainMenuScreen*>(screen_ptr.get()));
-                screen_ptr->display();
+                std::unique_ptr<Ui::MainMenuScreen> l_mainMenuScreen(dynamic_cast<Ui::MainMenuScreen*>(screen_ptr.get()));
+                l_mainMenuScreen->display();
+                l_mainMenuScreen->getSelection();
                 break;
             }
 
