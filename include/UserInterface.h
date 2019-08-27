@@ -42,7 +42,7 @@ public:
     int connectToDatabase();
     int disconnectFromDatabase();
     void login(int);
-    void instantiateScreen(std::unique_ptr<Ui::Screen>&, int); 
+    void executeScreen(std::unique_ptr<Ui::Screen>&, int); 
 
 
 private:
@@ -53,7 +53,7 @@ private:
     std::unique_ptr<Ui::Screen>    m_ptr_createAccountScreen;
     std::unique_ptr<Ui::Screen>       m_ptr_loginErrorScreen;
     std::unique_ptr<Ui::Screen>   m_ptr_listAllCoursesScreen;
-    std::unique_ptr<Ui::Screen>  m_ptr_scheduleSummaryScreen;
+    std::unique_ptr<Ui::Screen>   m_ptr_scheduleSummaryScreen;
     std::unique_ptr<Ui::Screen>     m_ptr_UpdateCourseScreen;
     std::unique_ptr<Ui::Screen>     m_ptr_RemoveCourseScreen;
     

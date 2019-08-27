@@ -49,10 +49,12 @@ void Progrado::UserInterface::login(int t_selection)
         {
             m_ptr_loginScreen = std::make_unique<Ui::LoginScreen>();
             m_ptr_loginScreen->display();
-        
+
+            auto login_ptr = dynamic_cast<Ui::LoginScreen*>(m_ptr_loginScreen.get());
+
             bool chk = m_ptr_DBConnector->verifyUserCredentials(
-                m_ptr_loginScreen->getUserName(),
-                m_ptr_loginScreen->getPassword()
+                login_ptr->getUserName(),
+                login_ptr->getPassword()
                 );
             int login_count = 0;
             while(!chk)
@@ -64,8 +66,8 @@ void Progrado::UserInterface::login(int t_selection)
                     return;
                 }
                 chk = m_ptr_DBConnector->verifyUserCredentials(
-                m_ptr_loginScreen->getUserName(),
-                m_ptr_loginScreen->getPassword()
+                login_ptr->getUserName(),
+                login_ptr->getPassword()
                 ); 
 
                 login_count++;
@@ -110,10 +112,9 @@ try{
              m_ptr_createAccountScreen->display();
              
             {   
-                dynamic_cast<Ui::AddCourseScreen*>(m_ptr_addCourseScreen.get());
-                auto l_new_user = 
-                std::make_unique<Progrado::User>(new Progrado::User(m_ptr_createAccountScreen->getInput()));
-                m_ptr_DBConnector->addNewUser(*l_new_user);
+                auto createAcctptr = dynamic_cast<Ui::CreateAccountScreen*>(m_ptr_createAccountScreen.get());
+                auto l_new_user = createAcctptr->getInput();
+                m_ptr_DBConnector->addNewUser(l_new_user);
             } // artificial scope to delete l_new_user
             
             // Log the user in here
