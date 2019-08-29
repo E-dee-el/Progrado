@@ -27,7 +27,7 @@ class DB::DBConnector{
 public:
     DBConnector();
     ~DBConnector();
-
+    /*change to static methods so an instance is not required*/
     bool courseAlreadyExists(const Progrado::Course&);
     bool verifyUserCredentials(const std::string&, const std::string&);
     bool userTableExists();
