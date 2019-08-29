@@ -20,7 +20,7 @@ m_numCredits(4)
     m_courseDetails[courseId] = "Not set";
     m_courseDetails[semesterOffered] = "not set";
     m_courseDetails[courseType] = "Major";
-    m_courseDetails[yearOffered] = "Freshman";
+    m_courseDetails[yearOffered] = "Freshman";  // default to freshman
 }
 
 Progrado::Course::Course(
