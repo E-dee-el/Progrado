@@ -1,13 +1,4 @@
 
-/*
-**************************************
-*************PROGRADO*****************
-**************************************
-Course header file
-Authors: Ibrahim Suleiman, Yusuf Jimoh
-Copyright 2019
-***************************************
- */
 
 #ifndef COURSE_H
 #define COURSE_H

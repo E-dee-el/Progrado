@@ -1,12 +1,4 @@
-/*
-**************************************
-*************PROGRADO*****************
-**************************************
-DBConnector header file
-Authors: Ibrahim Suleiman, Yusuf Jimoh
-Copyright 2019
-***************************************
- */
+
 #ifndef DBCONNECTOR_H
 #define DBCONNECTOR_H
 
