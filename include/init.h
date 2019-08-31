@@ -16,8 +16,7 @@ namespace Progrado{
             ~init();
             void execute();
         private:
-            std::unique_ptr<create_account> m_ptr_create_acct;  /*handler to create acct screen*/
-            std::unique_ptr<login> m_ptr_login;                 /*handler to login screen*/
+
             
 
                 

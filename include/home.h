@@ -2,6 +2,7 @@
 #ifndef HOME_H
 #define HOME_H
 
+
 #include"add_course.h"
 #include"remove_course.h"
 #include"modify_course.h"
@@ -10,7 +11,8 @@
 #include"retrieve_user_details.h"
 #include"view_course.h"
 #include"view_user_details.h"
-#include"search.h"
+#include"search_course.h"
+#include"screen.h"
 #include<memory>
 #include<iostream>
 
@@ -22,7 +24,7 @@ namespace Progrado{
         public:
             home();
             ~home();
-            void intialize_screen(const int); /*initialize a screen by passing an enum type from the enum below*/
+            void initialize_screen(const UI::screen& t_scrn)const; /*call from execute: initialize app. scrn*/
             void execute();
             void display_home_options();
 
