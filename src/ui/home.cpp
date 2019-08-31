@@ -8,10 +8,6 @@ void home::execute()
 {
     display_home_options();
 
-    int choice;
-    std::cin >> choice;
-    std::cin.ignore();
-
     
    do{   
             int choice;
