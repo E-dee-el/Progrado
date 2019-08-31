@@ -23,6 +23,8 @@ namespace Progrado{
             home();
             ~home();
             void intialize_screen(const int); /*initialize a screen by passing an enum type from the enum below*/
+            void execute();
+            void display_home_options();
 
 
 

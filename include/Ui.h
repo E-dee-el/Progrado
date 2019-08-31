@@ -13,8 +13,6 @@ namespace Progrado{
         public:
             Ui();
             ~Ui();
-            void create_db_connection();          /*establish a database conn*/
-            void close_db_connection();           /*close a database connection*/
             void setup();                         /*pass control to class init*/
             void run();                           /*run main application logic*/
             void print_welcome_message();         /*prints welcome or help message*/
@@ -25,6 +23,7 @@ namespace Progrado{
         
         std::unique_ptr<init> m_ptr_init;    /*smart pointer to an init instance*/
         std::unique_ptr<home> m_ptr_home;    /*smart pointer to a home instance*/
+        std::unique_ptr<DB::DBConnector> m_ptr_db; /*database connection handler*/
         
 
     }; // class Ui
