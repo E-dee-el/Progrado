@@ -15,7 +15,8 @@ void add_course::print_instructions()const
     std::cout << 
     "ADD COURSE\n"
     "============================\n"
-    "Please enter the following details for the course you want to add\n";
+    "Please enter the following details for the course you want to add\n"
+    "type \"return\" to go back to home\n";
 }
 
 void add_course::execute()const
@@ -50,9 +51,9 @@ void add_course::execute()const
                                         course_type, semester, 
                                         year, num_credits));
 
-        DB::DBConnector::addCourse(*course);
+        DB::DBConnector::addCourse(*course); /*add a course to the database*/
 
-        std::cout << "Do you want to add another course?\n";
+        std::cout << "Do you want to add another course? [yes/no]\n";
         std::getline(std::cin, response);
 
     }

@@ -25,6 +25,7 @@ void home::execute()
 
         /*initiallize the appropriate screen depending on user input*/
         /*Note: artificial scopes are within this switch statements!*/
+        /*without these braces, the code will not compile!*/
         switch(choice)
         {
             case add_course_screen:
