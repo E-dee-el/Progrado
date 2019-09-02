@@ -29,7 +29,7 @@ public:
     static void modifyUserDetails(const Progrado::User&); 
     static void createCoursesTable();
     static bool addCourse(const Progrado::Course&);
-    static bool updateCourse(const Progrado::Course&, const Progrado::Course&);
+    static bool updateCourse(const std::string&, const Progrado::Course&);
     static void removeCourse(const Progrado::Course&);
     static std::vector< std::shared_ptr<Progrado::Course> >
     getCoursesMatching(const int); // Argument is a type of Terms, from enum Term in namespace Progrado
@@ -44,7 +44,7 @@ public:
 
 private: 
 
-static const sqlite3* const m_ptr_progradoDatabase; // sqlite3 DB connection handler
+sqlite3* m_ptr_progradoDatabase; // sqlite3 DB connection handler
 
 
 };

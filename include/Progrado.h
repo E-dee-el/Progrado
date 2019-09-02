@@ -86,7 +86,7 @@ namespace Progrado
     const std::string UPDATE_COURSE = "UPDATE courses SET courseName = :courseName, "
                                 "semesterOffered = :semesterOffered, courseId = :courseId, courseType = :courseType,"
                                 " numCredits = :numCredits "
-                                " WHERE courseId = :OldCourseId";  
+                                " WHERE courseName = :OldCourseName";  
 
     // use this to delete an existing course, HANDLE WITH CARE                                                          
     const std::string REMOVE_COURSE = "DELETE FROM courses WHERE courseId = :courseId";

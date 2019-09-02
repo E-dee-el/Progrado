@@ -285,7 +285,7 @@ bool DB::DBConnector::addCourse(const Progrado::Course& t_course)
 }
 
 /// UPDATE A COURSE : CAUTION CALL WITH CARE
-bool DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
+bool DB::DBConnector::updateCourse(const std::string& t_oldCourseName,
                                    const Progrado::Course& t_newCourse)
 {       
         // prevent duplicates
@@ -330,18 +330,17 @@ bool DB::DBConnector::updateCourse(const Progrado::Course& t_oldCourse,
     (
     updateCourseStmt,
     sqlite3_bind_parameter_index(updateCourseStmt, ":numCredits"),
-    t_oldCourse.getNumCredits()
+    t_newCourse.getNumCredits()
     );                   
     
     // old course for WHERE clause
-    std::string str_old_course_id =  t_oldCourse.getCourseId();
-    const char* old_course_id = str_old_course_id.c_str();
+    const char* old_course_name = t_oldCourseName.c_str();
 
     sqlite3_bind_text
     (
     updateCourseStmt, 
-    sqlite3_bind_parameter_index(updateCourseStmt, ":OldCourseId"),
-    old_course_id,
+    sqlite3_bind_parameter_index(updateCourseStmt, ":OldCourseName"),
+    old_course_name,
     -1,
     SQLITE_STATIC
     );

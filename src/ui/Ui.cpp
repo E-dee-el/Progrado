@@ -11,7 +11,7 @@ Ui::~Ui() {};
 void Ui::setup()
 { 
     print_welcome_message();
-    m_ptr_db = std::make_unique<DBConnector>();
+    m_ptr_db = std::make_unique<DBConnector>(); /*connection should be established automatically*/
 }
 
 void Ui::run()
