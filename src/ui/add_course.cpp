@@ -4,10 +4,11 @@
 #include"Course.h"
 #include<iostream>
 #include<cstdlib>
+#include<string>
 
 using namespace Progrado::UI;
 
-add_course::add_course(){}
+
 add_course::~add_course(){}
 
 void add_course::print_instructions()const

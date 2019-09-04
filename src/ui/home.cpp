@@ -13,6 +13,14 @@ void home::initialize_screen(const UI::screen& t_scrn)const
     t_scrn.execute();
 }
 
+void home::display_home_options()
+{
+    /*needs fixing*/
+    std::cout << 
+    "Options: \n"
+    "0. add course\n"
+    "2. modify course\n";
+}
 void home::execute()
 {
     display_home_options();
@@ -82,7 +90,11 @@ void home::execute()
             default:
                 return;               
         }// switch(choice)
-
+        
+        display_home_options();
+        std::cout << "selection: ";
+        std::cin >> choice;
+        
     }while(choice != -1); // end do-while
     
 

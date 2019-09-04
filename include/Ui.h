@@ -5,6 +5,7 @@
 #include<memory>
 #include"home.h"
 #include"init.h"
+#include"DBConnector.h"
 
 /*namespace Progrado contains all progrado-specific classes*/
 namespace Progrado{

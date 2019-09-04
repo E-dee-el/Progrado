@@ -7,10 +7,9 @@ namespace Progrado{
     namespace UI{
         class add_course : public screen{
             public:
-                add_course();
-                ~add_course();
-                virtual void print_instructions()const;
-                virtual void execute()const;
+                virtual ~add_course();
+                virtual void print_instructions()const override;
+                virtual void execute()const override;
             private:
 
         };

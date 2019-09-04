@@ -26,6 +26,7 @@ DB::DBConnector::DBConnector()
        throw std::runtime_error("Couldn't open database; Progrado has to quit\n");
     }
 
+        createCoursesTable();
 }
 
 DB::DBConnector::~DBConnector()

@@ -12,9 +12,8 @@ namespace Progrado{
 /*class init handles login & acct creation for 1st-timers*/
     class init{
         public:
-            init();
             ~init();
-            void execute();
+            bool execute();
         private:
 
             

@@ -7,12 +7,15 @@
 using namespace Progrado;
 using namespace DB;
 
+login::login(){}
+login::~login(){}
+
 void login::prompt_user()const
 {
     std::cout <<
     "\tLOGIN\n"
-    "*******************"
-    "Enter your username and password below to login";
+    "*******************\n"
+    "Enter your username and password below to login\n";
 }
 
 void login::execute()const
@@ -41,6 +44,6 @@ void login::execute()const
         std::getline(std::cin, p_word);
     }
 
-    if (attempts != 0) std::cout << "Login Successful!";
+    if (attempts != 0) std::cout << "Login Successful!\n";
     else std::cerr << "Login attempts exceeded\n";
 }

@@ -7,10 +7,9 @@ namespace Progrado{
     namespace UI{
         class delete_acct : public screen{
             public:
-                delete_acct();
-                ~delete_acct();
-                virtual void print_instructions()const;
-                virtual void execute()const;
+                virtual ~delete_acct();
+                virtual void print_instructions()const override;
+                virtual void execute()const override;
             private:
 
         };

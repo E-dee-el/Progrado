@@ -10,7 +10,6 @@
 using namespace Progrado::UI;
 using namespace DB;
 
-create_account::create_account(){}
 create_account::~create_account(){}
 
 void create_account::print_instructions()const
@@ -32,7 +31,7 @@ void create_account::execute()const
     std::cout << "Enter First Name: ";
     std::getline(std::cin, first_name);
 
-    std::cout << "Enter  Major: ";
+    std::cout << "Enter Major: ";
     std::getline(std::cin, major);
 
     std::cout << "Enter Minor: ";
@@ -65,7 +64,7 @@ void create_account::execute()const
     {
         std::cerr << "An account could not be created at this time\n";
         /*rethrow this exception until it reaches main*/
-        throw std::runtime_error("Failes to add new User");
+        throw std::runtime_error("Failed to add new User");
     }
 
 }

@@ -3,6 +3,8 @@
 using namespace Progrado;
 using namespace Progrado::UI;
 
+retrieve_user_details::~retrieve_user_details(){}
+
 void retrieve_user_details::print_instructions()const
 {
 

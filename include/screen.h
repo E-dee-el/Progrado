@@ -6,7 +6,6 @@ namespace Progrado{
     namespace UI{
         class screen{
             public:
-                screen();
                 virtual ~screen() = 0;
                 virtual void print_instructions()const;
                 virtual void execute()const;

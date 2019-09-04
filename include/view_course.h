@@ -7,10 +7,9 @@ namespace Progrado{
     namespace UI{
         class view_course :public screen{
             public:
-                view_course();
-                ~view_course();
-                virtual void print_instructions()const;
-                virtual void execute()const;
+                virtual ~view_course();
+                virtual void print_instructions()const override;
+                virtual void execute()const override;
             private:
 
         };

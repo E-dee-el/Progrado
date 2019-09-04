@@ -8,6 +8,12 @@ using DB::DBConnector;
 Ui::Ui(): m_ptr_db(nullptr), m_ptr_home(nullptr), m_ptr_init(nullptr) {};
 Ui::~Ui() {};
 
+void Ui::print_welcome_message()
+{
+    std::cout <<
+    "WELCOME TO PROGRADO\n"
+    "**********************\n";
+}
 void Ui::setup()
 { 
     print_welcome_message();
@@ -17,7 +23,8 @@ void Ui::setup()
 void Ui::run()
 
 {   m_ptr_init = std::make_unique<init>();
-    m_ptr_init->execute(); /*transfer control to init*/
+
+    if(!m_ptr_init->execute()) return; /*transfer control to init*/
 
     m_ptr_home = std::make_unique<home>();
     m_ptr_home->execute(); /*transfer control to class home*/

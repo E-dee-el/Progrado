@@ -5,7 +5,6 @@
 
 using namespace Progrado::UI;
 
-modify_course::modify_course(){};
 modify_course::~modify_course(){};
 
 void modify_course::print_instructions()const

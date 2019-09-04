@@ -7,10 +7,9 @@ namespace Progrado{
     namespace UI{
         class modify_user_details : public screen{
             public:
-                modify_user_details();
-                ~modify_user_details();
-                virtual void print_instructions()const;
-                virtual void execute()const;
+                virtual ~modify_user_details();
+                virtual void print_instructions()const override;
+                virtual void execute()const override;
             private:
 
         };

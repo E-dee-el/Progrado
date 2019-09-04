@@ -2,6 +2,7 @@ set(sources User.cpp
 	db/Course.cpp
 	db/DBConnector.cpp
 	ui/Ui.cpp
+	ui/screen.cpp
 	ui/login.cpp
 	ui/init.cpp
 	ui/add_course.cpp
