@@ -17,7 +17,7 @@ void Ui::setup()
 void Ui::run()
 
 {   m_ptr_init = std::make_unique<init>();
-    m_ptr_init->execute();
+    m_ptr_init->execute(); /*transfer control to init*/
 
     m_ptr_home = std::make_unique<home>();
     m_ptr_home->execute(); /*transfer control to class home*/

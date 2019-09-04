@@ -1,12 +1,3 @@
-/*
-**************************************
-*************PROGRADO*****************
-**************************************
-DBConnector Implementation
-Authors: Ibrahim Suleiman, Yusuf Jimoh
-Copyright 2019
-***************************************
- */
 
 #include"DBConnector.h"
 #include"Course.h"
@@ -17,8 +8,10 @@ Copyright 2019
 #include"sqlite3.h"
 #include"Progrado.h"
 
-DB::DBConnector::DBConnector():
-m_ptr_progradoDatabase(nullptr) 
+/*database handle: initialize to nullptr*/
+sqlite3* DB::DBConnector::m_ptr_progradoDatabase = nullptr;
+
+DB::DBConnector::DBConnector() 
 {
     // open DB connection
     sqlite3_initialize();

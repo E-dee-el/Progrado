@@ -3,14 +3,13 @@
 
 namespace Progrado{
     /*class login handles a login session*/
-    /*it recieves from and returns control to Ui*/
+    /*it recieves from and returns control to init*/
     class login{
         public:
             login();
             ~login();
-            void prompt_user();
-            void verify_details();
-            void execute();
+            void prompt_user()const;
+            void execute()const;
         private:
 
     }; //login

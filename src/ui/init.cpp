@@ -10,13 +10,12 @@ using namespace Progrado::UI;
 void init::execute()
 {   
     int response = 0;
-    int login_attempts = 3;
     std::cout << 
     "Type 1 to login\n"
     "New user? Type 2 to create an account\n"
     "Type 0 to exit\n";
 
-    while(login_attempts > 0 && response != 0)
+    while(response != 0)
     {
         if(response == 1)
         {
@@ -33,7 +32,7 @@ void init::execute()
             return;
         else
         {
-                std::cerr << "Invalid response: " << --login_attempts << " attempts left\n";
+                std::cerr << "Invalid response. Try again or enter 0 to exit\n";
         }
             
     }

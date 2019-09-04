@@ -43,11 +43,10 @@ public:
 
 
 private: 
-
-sqlite3* m_ptr_progradoDatabase; // sqlite3 DB connection handler
+/*remember to initialize somewhere: to null_ptr*/
+static sqlite3* m_ptr_progradoDatabase; // sqlite3 DB connection handler
 
 
 };
-
 
 #endif //endif
