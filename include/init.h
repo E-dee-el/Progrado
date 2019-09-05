@@ -14,6 +14,7 @@ class init {
 public:
     ~init();
     bool execute();
+    bool is_new_user();
 private:
 
 

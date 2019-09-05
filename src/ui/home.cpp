@@ -18,8 +18,13 @@ void home::display_home_options()
     /*needs fixing*/
     std::cout <<
               "Options: \n"
-              "0. add course\n"
-              "2. modify course\n";
+              "0. Add Course\n"
+              "1. Modify Course\n"
+              "2. View Courses\n"
+              "3. Search Course\n"
+              "4. Delete Course\n"
+              "5. Retrieve your details\n"
+              "6. Modify your details\n";
 }
 void home::execute()
 {
