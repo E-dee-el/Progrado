@@ -9,19 +9,19 @@
 using namespace Progrado::UI;
 
 
-add_course::~add_course(){}
+add_course::~add_course() {}
 
 void add_course::print_instructions()const
 {
-    std::cout << 
-    "ADD COURSE\n"
-    "============================\n"
-    "Please enter the following details for the course you want to add\n"
-    "type \"return\" to go back to home\n";
+    std::cout <<
+              "ADD COURSE\n"
+              "============================\n"
+              "Please enter the following details for the course you want to add\n"
+              "type \"return\" to go back to home\n";
 }
 
 void add_course::execute()const
-{   
+{
     std::string response = "yes";
 
     while(response == "yes" || response == "y")
@@ -49,8 +49,8 @@ void add_course::execute()const
         std::cin.ignore();
 
         auto course = std::unique_ptr<Course>(new Course(course_name, course_id,
-                                        course_type, semester, 
-                                        year, num_credits));
+                                              course_type, semester,
+                                              year, num_credits));
 
         DB::DBConnector::addCourse(*course); /*add a course to the database*/
 
@@ -58,5 +58,5 @@ void add_course::execute()const
         std::getline(std::cin, response);
 
     }
-                                           
+
 }

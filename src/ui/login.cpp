@@ -7,15 +7,15 @@
 using namespace Progrado;
 using namespace DB;
 
-login::login(){}
-login::~login(){}
+login::login() {}
+login::~login() {}
 
 void login::prompt_user()const
 {
     std::cout <<
-    "\tLOGIN\n"
-    "*******************\n"
-    "Enter your username and password below to login\n";
+              "\tLOGIN\n"
+              "*******************\n"
+              "Enter your username and password below to login\n";
 }
 
 void login::execute()const
@@ -32,11 +32,11 @@ void login::execute()const
     int attempts = 3;
 
     while(!DBConnector::verifyUserCredentials(u_name, p_word)
-          &&
-          attempts != 0)
+            &&
+            attempts != 0)
     {
         std::cout << "username and/or password wrong. "
-        << --attempts << " attempts left\n";
+                  << --attempts << " attempts left\n";
 
         std::cout << "username: ";
         std::getline(std::cin, u_name);

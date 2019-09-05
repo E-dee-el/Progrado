@@ -7,20 +7,20 @@
 #include"create_account.h"
 #include"login.h"
 
-namespace Progrado{
+namespace Progrado {
 
 /*class init handles login & acct creation for 1st-timers*/
-    class init{
-        public:
-            ~init();
-            bool execute();
-        private:
-
-            
-
-                
+class init {
+public:
+    ~init();
+    bool execute();
+private:
 
 
-    };
+
+
+
+
+};
 }
 #endif

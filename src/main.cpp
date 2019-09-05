@@ -7,7 +7,7 @@ using namespace Progrado::UI;
 int main(int argc, char **argv)
 
 {
-    try{
+    try {
 
         std::unique_ptr<Ui> app(new Ui());
 
@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 
     }
     catch(std::runtime_error t_err)
-    {
+    {   std::cout << "From main\n";
         std::cout << t_err.what() << std::endl;
     }
     return 0;
