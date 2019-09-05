@@ -5,15 +5,14 @@
 
 using namespace Progrado::UI;
 
-modify_course::modify_course(){};
-modify_course::~modify_course(){};
+modify_course::~modify_course() {};
 
 void modify_course::print_instructions()const
 {
-    std::cout << 
-    "\t\tMODIFY COURSE\n"
-    "\t=================\n"
-    "Enter the name of the course you want to modify\n";
+    std::cout <<
+              "\t\tMODIFY COURSE\n"
+              "\t=================\n"
+              "Enter the name of the course you want to modify\n";
 }
 
 void modify_course::execute()const
@@ -26,7 +25,7 @@ void modify_course::execute()const
         int num_credits;
 
         std::getline(std::cin, old_course_name);
-        
+
         std::cout << "Course Name: ";
         std::getline(std::cin, course_name);
 
@@ -47,8 +46,8 @@ void modify_course::execute()const
         std::cin.ignore();
 
         auto course = std::unique_ptr<Course>(new Course(course_name, course_id,
-                                        course_type, semester, 
-                                        year, num_credits));
+                                              course_type, semester,
+                                              year, num_credits));
 
         DB::DBConnector::updateCourse(old_course_name, *course);
 

@@ -1,25 +1,23 @@
-/*
-**************************************
-*************PROGRADO*****************
-**************************************
-main function: program entry point
-Authors: Ibrahim Suleiman, Yusuf Jimoh
-Copyright 2019
-***************************************
- */
-#include"UserInterface.h"
+
+#include"Ui.h"
 
 using namespace Progrado;
-using namespace Ui;
+using namespace Progrado::UI;
 
 int main(int argc, char **argv)
 
 {
-    UserInterface* app = new UserInterface();
+    try {
 
-    app->setup();
-    app->run();
+        std::unique_ptr<Ui> app(new Ui());
 
-    delete app;
+        app->setup();
+        app->run();
+
+    }
+    catch(std::runtime_error t_err)
+    {   std::cout << "From main\n";
+        std::cout << t_err.what() << std::endl;
+    }
     return 0;
 }

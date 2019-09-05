@@ -5,19 +5,18 @@
 
 #include"screen.h"
 
-namespace Progrado{
-    namespace UI{
-        class create_account : public screen{
-            public:
-                create_account();
-                ~create_account();
-                virtual void print_instructions()const;
-                virtual void execute()const; 
-            private:
+namespace Progrado {
+namespace UI {
+class create_account : public screen {
+public:
+    virtual ~create_account();
+    virtual void print_instructions()const override;
+    virtual void execute()const override;
+private:
 
-    };    
+};
 
-    }
+}
 
 
 }// namespace progrado

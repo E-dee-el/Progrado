@@ -10,11 +10,11 @@
 #include<memory>
 #include<iomanip>
 
-namespace DB{
-    class DBConnector;
+namespace DB {
+class DBConnector;
 }
 
-class DB::DBConnector{
+class DB::DBConnector {
 
 public:
     DBConnector();
@@ -26,28 +26,27 @@ public:
     static bool coursesTableExists();
     static void createUserTable();
     static void addNewUser(const Progrado::User&);
-    static void modifyUserDetails(const Progrado::User&); 
+    static void modifyUserDetails(const Progrado::User&);
     static void createCoursesTable();
     static bool addCourse(const Progrado::Course&);
     static bool updateCourse(const std::string&, const Progrado::Course&);
     static void removeCourse(const Progrado::Course&);
     static std::vector< std::shared_ptr<Progrado::Course> >
     getCoursesMatching(const int); // Argument is a type of Terms, from enum Term in namespace Progrado
-    
- // the foll. returns a vector of vectors (i.e. a 2d vector) of smart pointers to course objects
+
+// the foll. returns a vector of vectors (i.e. a 2d vector) of smart pointers to course objects
     static std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
     getScheduleSummary();
 
-    
 
 
 
-private: 
 
-sqlite3* m_ptr_progradoDatabase; // sqlite3 DB connection handler
+private:
+    /*remember to initialize somewhere: to null_ptr*/
+    static sqlite3* m_ptr_progradoDatabase; // sqlite3 DB connection handler
 
 
 };
-
 
 #endif //endif

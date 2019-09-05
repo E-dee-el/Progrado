@@ -18,36 +18,36 @@
 
 
 /*namespace Progrado contains all progrado-specific classes*/
-namespace Progrado{
+namespace Progrado {
 
-    class home{
-        public:
-            home();
-            ~home();
-            void initialize_screen(const UI::screen& t_scrn)const; /*call from execute: initialize app. scrn*/
-            void execute();
-            void display_home_options(); 
+class home {
+public:
+    home();
+    ~home();
+    void initialize_screen(const UI::screen& t_scrn)const; /*call from execute: initialize app. scrn*/
+    void execute();
+    void display_home_options();
 
 
 
-        private:
+private:
 
-        /*pass as arguments to the initialize_screen method*/
-                enum  
-                {
-                    add_course_screen,
-                    remove_course_screen,
-                    modify_course_screen,
-                    delete_acct_screen,
-                    view_course_screen,
-                    search_course_screen,
-                    view_user_details_screen,
-                    modify_user_screen,
-                    retrieve_user_details_screen
-                };
+    /*pass as arguments to the initialize_screen method*/
+    enum
+    {
+        add_course_screen,
+        remove_course_screen,
+        modify_course_screen,
+        delete_acct_screen,
+        view_course_screen,
+        search_course_screen,
+        view_user_details_screen,
+        modify_user_screen,
+        retrieve_user_details_screen
+    };
 
-                
 
-    }; // class home
+
+}; // class home
 } // namespace progrado
 #endif

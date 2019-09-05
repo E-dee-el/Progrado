@@ -1,12 +1,3 @@
-/*
-**************************************
-*************PROGRADO*****************
-**************************************
-DBConnector Implementation
-Authors: Ibrahim Suleiman, Yusuf Jimoh
-Copyright 2019
-***************************************
- */
 
 #include"DBConnector.h"
 #include"Course.h"
@@ -17,8 +8,10 @@ Copyright 2019
 #include"sqlite3.h"
 #include"Progrado.h"
 
-DB::DBConnector::DBConnector():
-m_ptr_progradoDatabase(nullptr) 
+/*database handle: initialize to nullptr*/
+sqlite3* DB::DBConnector::m_ptr_progradoDatabase = nullptr;
+
+DB::DBConnector::DBConnector()
 {
     // open DB connection
     sqlite3_initialize();
@@ -26,13 +19,14 @@ m_ptr_progradoDatabase(nullptr)
                              &m_ptr_progradoDatabase,
                              SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
                              NULL
-                             );
+                            );
 
     if(rc != SQLITE_OK)
     {
-       throw std::runtime_error("Couldn't open database; Progrado has to quit\n");
+        throw std::runtime_error("Couldn't open database; Progrado has to quit\n");
     }
 
+    createCoursesTable();
 }
 
 DB::DBConnector::~DBConnector()
@@ -43,89 +37,95 @@ DB::DBConnector::~DBConnector()
 
 
 bool DB::DBConnector::verifyUserCredentials(const std::string& t_uname, const std::string& t_pword)
-{       
-        sqlite3_stmt *verifystmt = nullptr;
+{
+    sqlite3_stmt *verifystmt = nullptr;
 
-        int rc_verify = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                       Progrado::VERIFY_USER.c_str(),
-                        -1,
-                        &verifystmt,
-                        nullptr);
-        
-        if (rc_verify != SQLITE_OK)
-                throw std::runtime_error("DB::DBConnector::verifyUserCredentials():Database failed query\n");
+    int rc_verify = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                                       Progrado::VERIFY_USER.c_str(),
+                                       -1,
+                                       &verifystmt,
+                                       nullptr);
 
-        const char* uname_to_bind =  t_uname.c_str();
-        const char* pword_to_bind = t_pword.c_str();
-       
-       // bind username and password from input 
-       sqlite3_bind_text(
+    if (rc_verify != SQLITE_OK)
+        throw std::runtime_error("DB::DBConnector::verifyUserCredentials():Database failed query\n");
+
+    const char* uname_to_bind =  t_uname.c_str();
+    const char* pword_to_bind = t_pword.c_str();
+
+    // bind username and password from input
+    sqlite3_bind_text(
         verifystmt,
         sqlite3_bind_parameter_index(verifystmt,":userName"),
         uname_to_bind,
         -1,
         SQLITE_TRANSIENT);
 
-        sqlite3_bind_text(
+    sqlite3_bind_text(
         verifystmt,
         sqlite3_bind_parameter_index(verifystmt,":password"),
         pword_to_bind,
         -1,
         SQLITE_TRANSIENT);
 
-       if(sqlite3_step(verifystmt)!= SQLITE_ROW){return false;}
-       else return true;
+    if(sqlite3_step(verifystmt)!= SQLITE_ROW) {
+        return false;
+    }
+    else return true;
 
 }
 
 bool DB::DBConnector::courseAlreadyExists(const Progrado::Course& t_course)
 {
-        sqlite3_stmt *verifystmt = nullptr;
+    sqlite3_stmt *verifystmt = nullptr;
 
-        int rc_verify = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                       Progrado::VERIFY_COURSE.c_str(),
-                        -1,
-                        &verifystmt,
-                        nullptr);
-        
-        if (rc_verify != SQLITE_OK) 
-                throw std::runtime_error("DB::DBConnector::courseAlreadyExists:Database failed query\n");
+    int rc_verify = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                                       Progrado::VERIFY_COURSE.c_str(),
+                                       -1,
+                                       &verifystmt,
+                                       nullptr);
 
-        const char* stmt_to_bind =  t_course[Progrado::courseId].c_str();  // overloaded [] operator
-        
-       sqlite3_bind_text(
+    if (rc_verify != SQLITE_OK)
+        throw std::runtime_error("DB::DBConnector::courseAlreadyExists:Database failed query\n");
+
+    const char* stmt_to_bind =  t_course[Progrado::courseId].c_str();  // overloaded [] operator
+
+    sqlite3_bind_text(
         verifystmt,
         sqlite3_bind_parameter_index(verifystmt,":courseId"),
         stmt_to_bind,
         -1,
-        SQLITE_TRANSIENT); 
+        SQLITE_TRANSIENT);
 
-       std::string l_courseId;
+    std::string l_courseId;
 
-       int chk =  sqlite3_step(verifystmt);
+    int chk =  sqlite3_step(verifystmt);
 
 
-       if(chk != SQLITE_ROW){return false;}          
-       else {return true;}
+    if(chk != SQLITE_ROW) {
+        return false;
+    }
+    else {
+        return true;
+    }
 
 }
 
 
 void DB::DBConnector::addNewUser(const Progrado::User& t_user)
-{   
-   sqlite3_stmt *addUserStmt = nullptr;
+{
+    sqlite3_stmt *addUserStmt = nullptr;
 
     // prepare SQL create statement
-   int rc_create = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                       Progrado::NEW_USER_TABLE.c_str(),
-                        -1,
-                        &addUserStmt,
-                        nullptr);
+    int rc_create = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+                                       Progrado::NEW_USER_TABLE.c_str(),
+                                       -1,
+                                       &addUserStmt,
+                                       nullptr);
 
     if(rc_create != SQLITE_OK)
-     throw std::runtime_error("DB::DBConnector::addNewUser(): Database failed query\n");
+        throw std::runtime_error("DB::DBConnector::addNewUser(): Database failed query\n");
 
-    
+
     if(sqlite3_step(addUserStmt) != SQLITE_DONE)
         throw std::runtime_error("DB::DBConnector::addNewUser(): Database failed query\n");
 
@@ -133,48 +133,48 @@ void DB::DBConnector::addNewUser(const Progrado::User& t_user)
 
     addUserStmt = nullptr; // reset addUserStmt to null
     int rc_insert = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                                        Progrado::INSERT_NEW_USER.c_str(),
-                                        -1,            // negative parameter makes sqlite calculate addUserStmt size automatically
-                                        &addUserStmt,
-                                        nullptr);
+                                       Progrado::INSERT_NEW_USER.c_str(),
+                                       -1,            // negative parameter makes sqlite calculate addUserStmt size automatically
+                                       &addUserStmt,
+                                       nullptr);
 
-     if(rc_insert != SQLITE_OK)
+    if(rc_insert != SQLITE_OK)
         throw std::runtime_error("DB::DBConnector::addNewUser():Database failed query\n");
 
 
     // bind the values here
 
     // t_user.get_lastName returns a temporary and the results of c_str is
-    // only valid throughout the lifetime of the temporary/ 
+    // only valid throughout the lifetime of the temporary/
     // end of the full expression (i.e. semi colon)
 
 
-  for(int i = 0; i < t_user.get_countUserDetails(); i++)
-  {
-    std::string str = t_user[i];  // overloaded [] operator
-    const char* str_to_bind = str.c_str();
-    
-    std::string str_bind_parameter = t_user.get_BindParam(i);
-    const char* bind_parameter = str_bind_parameter.c_str();
+    for(int i = 0; i < t_user.get_countUserDetails(); i++)
+    {
+        std::string str = t_user[i];  // overloaded [] operator
+        const char* str_to_bind = str.c_str();
 
-    sqlite3_bind_text
-    (addUserStmt,
-    sqlite3_bind_parameter_index(addUserStmt, bind_parameter),
-    str_to_bind,
-    -1, 
-    SQLITE_TRANSIENT  // tells SQLITE that str_to_bind won't be alive when the stmt is executed
-    );
+        std::string str_bind_parameter = t_user.get_BindParam(i);
+        const char* bind_parameter = str_bind_parameter.c_str();
+
+        sqlite3_bind_text
+        (addUserStmt,
+         sqlite3_bind_parameter_index(addUserStmt, bind_parameter),
+         str_to_bind,
+         -1,
+         SQLITE_TRANSIENT  // tells SQLITE that str_to_bind won't be alive when the stmt is executed
+        );
 
     }
 
-    // execute statement                                   
-     if(sqlite3_step(addUserStmt) != SQLITE_DONE)
-         throw std::runtime_error("DB::DBConnector::addNewUser(): Bind Failed"); 
+    // execute statement
+    if(sqlite3_step(addUserStmt) != SQLITE_DONE)
+        throw std::runtime_error("DB::DBConnector::addNewUser(): Bind Failed");
 
     // finalize statement and release resources
-     sqlite3_finalize(addUserStmt);
-     
-      
+    sqlite3_finalize(addUserStmt);
+
+
 }
 
 bool DB::DBConnector::coursesTableExists()
@@ -185,19 +185,23 @@ bool DB::DBConnector::coursesTableExists()
     bool exists =  false;
 
     int rc_exists = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                        Progrado::CHECK_IF_COURSE_TABLE_EXISTS.c_str(),
-                        -1,
-                        &coursesExists,
-                        nullptr);
+                                       Progrado::CHECK_IF_COURSE_TABLE_EXISTS.c_str(),
+                                       -1,
+                                       &coursesExists,
+                                       nullptr);
 
     // yes, table doesnot exits
-    if(rc_exists != SQLITE_OK) 
-        throw std::runtime_error("DB::DBConnector::courseTableExists(): Database failed query\n"); 
+    if(rc_exists != SQLITE_OK)
+        throw std::runtime_error("DB::DBConnector::courseTableExists(): Database failed query\n");
 
     int rc_exec = sqlite3_step(coursesExists);
 
-    if(rc_exec != SQLITE_DONE) {exists = false;}
-    else {exists = true;}
+    if(rc_exec != SQLITE_DONE) {
+        exists = false;
+    }
+    else {
+        exists = true;
+    }
 
     sqlite3_finalize(coursesExists);
 
@@ -215,39 +219,39 @@ void DB::DBConnector::createCoursesTable()
                                          nullptr );
 
     if(rc_create != SQLITE_OK)
-     throw std::runtime_error("DB::DBConnector::createCoursesTable(): DB Failed query");
+        throw std::runtime_error("DB::DBConnector::createCoursesTable(): DB Failed query");
 
     int rc_exec = sqlite3_step(createCoursesTable);
 
     if(rc_exec != SQLITE_DONE)
-     throw std::runtime_error("DB::DBConnector::createCoursesTable(): DB Failed query execution");    
+        throw std::runtime_error("DB::DBConnector::createCoursesTable(): DB Failed query execution");
 
-    sqlite3_finalize(createCoursesTable);  
+    sqlite3_finalize(createCoursesTable);
 
 }
 
 bool DB::DBConnector::addCourse(const Progrado::Course& t_course)
 {
 
-        if(courseAlreadyExists(t_course)) return false;
+    if(courseAlreadyExists(t_course)) return false;
     // must be guaranteed that course table is not empty. Verify from UI class
     sqlite3_stmt* addCourseStmt = nullptr;
 
     int rc_insert = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                    Progrado::INSERT_NEW_COURSE.c_str(),
-                    -1,
-                    &addCourseStmt,
-                     nullptr);
+                                       Progrado::INSERT_NEW_COURSE.c_str(),
+                                       -1,
+                                       &addCourseStmt,
+                                       nullptr);
 
     if(rc_insert != SQLITE_OK)
         throw std::runtime_error("DB::DBConnector::addCourse(): DB Failed query preparation");
 
 
     // binding the values
-   
+
     // bind course name
     for (int i = 0; i < t_course.getCountCourseDetails(); i++)
-    {    
+    {
         std::string str =  t_course[i];  // overloaded [] operator
         const char* str_to_bind = str.c_str();
 
@@ -257,20 +261,20 @@ bool DB::DBConnector::addCourse(const Progrado::Course& t_course)
 
         sqlite3_bind_text
         (
-        addCourseStmt, 
-        sqlite3_bind_parameter_index(addCourseStmt, bind_param),
-        str_to_bind, 
-        -1,
-        SQLITE_TRANSIENT 
+            addCourseStmt,
+            sqlite3_bind_parameter_index(addCourseStmt, bind_param),
+            str_to_bind,
+            -1,
+            SQLITE_TRANSIENT
         );
 
-    }   
- 
+    }
+
     sqlite3_bind_int
     (
-     addCourseStmt,
-     sqlite3_bind_parameter_index(addCourseStmt, ":numCredits"),
-     t_course.getNumCredits()
+        addCourseStmt,
+        sqlite3_bind_parameter_index(addCourseStmt, ":numCredits"),
+        t_course.getNumCredits()
     );
 
 
@@ -281,23 +285,23 @@ bool DB::DBConnector::addCourse(const Progrado::Course& t_course)
 
     sqlite3_finalize(addCourseStmt);
 
-        return true;
+    return true;
 }
 
 /// UPDATE A COURSE : CAUTION CALL WITH CARE
 bool DB::DBConnector::updateCourse(const std::string& t_oldCourseName,
                                    const Progrado::Course& t_newCourse)
-{       
-        // prevent duplicates
-        if(courseAlreadyExists(t_newCourse)) return false;
+{
+    // prevent duplicates
+    if(courseAlreadyExists(t_newCourse)) return false;
 
     sqlite3_stmt* updateCourseStmt = nullptr;
 
     int rc_update = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                       Progrado::UPDATE_COURSE.c_str(),
-                       -1,
-                       &updateCourseStmt,    
-                        nullptr);
+                                       Progrado::UPDATE_COURSE.c_str(),
+                                       -1,
+                                       &updateCourseStmt,
+                                       nullptr);
 
     if(rc_update != SQLITE_OK)
         throw std::runtime_error("DB::DBConnector::updateCourse(): DB Failed query preparation");
@@ -310,39 +314,39 @@ bool DB::DBConnector::updateCourse(const std::string& t_oldCourseName,
     {
         std::string str_new_course_detail = t_newCourse[i];  // overloaded [] operator
         const char* bind_new_course_detail = str_new_course_detail.c_str();
-        
+
         std::string str_bind_param = t_newCourse.getCourseBindParam(i);
         const char* bind_param = str_bind_param.c_str();
 
         sqlite3_bind_text
         (
-        updateCourseStmt, 
-        sqlite3_bind_parameter_index(updateCourseStmt, bind_param),
-        bind_new_course_detail,
-        -1,
-        SQLITE_TRANSIENT
+            updateCourseStmt,
+            sqlite3_bind_parameter_index(updateCourseStmt, bind_param),
+            bind_new_course_detail,
+            -1,
+            SQLITE_TRANSIENT
         );
     }
 
-  
- // bind num credits
+
+// bind num credits
     sqlite3_bind_int
     (
-    updateCourseStmt,
-    sqlite3_bind_parameter_index(updateCourseStmt, ":numCredits"),
-    t_newCourse.getNumCredits()
-    );                   
-    
+        updateCourseStmt,
+        sqlite3_bind_parameter_index(updateCourseStmt, ":numCredits"),
+        t_newCourse.getNumCredits()
+    );
+
     // old course for WHERE clause
     const char* old_course_name = t_oldCourseName.c_str();
 
     sqlite3_bind_text
     (
-    updateCourseStmt, 
-    sqlite3_bind_parameter_index(updateCourseStmt, ":OldCourseName"),
-    old_course_name,
-    -1,
-    SQLITE_STATIC
+        updateCourseStmt,
+        sqlite3_bind_parameter_index(updateCourseStmt, ":OldCourseName"),
+        old_course_name,
+        -1,
+        SQLITE_STATIC
     );
 
     //execute
@@ -354,20 +358,20 @@ bool DB::DBConnector::updateCourse(const std::string& t_oldCourseName,
     sqlite3_finalize(updateCourseStmt);
 
     return true;
-  
+
 }
 
-//CAUTION: CALL WITH CARE | DELETE A COURSE  
+//CAUTION: CALL WITH CARE | DELETE A COURSE
 void DB::DBConnector::removeCourse(const Progrado::Course& t_course)
-{   
-    
+{
+
     sqlite3_stmt* removeCourseStmt = nullptr;
 
     int rc_delete = sqlite3_prepare_v2(m_ptr_progradoDatabase,
-                       Progrado::REMOVE_COURSE.c_str(),
-                       -1,
-                       &removeCourseStmt,    
-                        nullptr);
+                                       Progrado::REMOVE_COURSE.c_str(),
+                                       -1,
+                                       &removeCourseStmt,
+                                       nullptr);
 
     if(rc_delete != SQLITE_OK)
         throw std::runtime_error("DB::DBConnector::removeCourse(): DB Failed query preparation");
@@ -378,18 +382,18 @@ void DB::DBConnector::removeCourse(const Progrado::Course& t_course)
 
     sqlite3_bind_text
     (
-    removeCourseStmt,
-    sqlite3_bind_parameter_index(removeCourseStmt, ":courseId"),
-    course_id,
-    -1,
-    SQLITE_STATIC
+        removeCourseStmt,
+        sqlite3_bind_parameter_index(removeCourseStmt, ":courseId"),
+        course_id,
+        -1,
+        SQLITE_STATIC
     );
 
     // execute
     int rc_exec = sqlite3_step(removeCourseStmt);
 
     if(rc_exec != SQLITE_DONE)
-        throw std::runtime_error("DB::DBConnector::addCourse(): DB Failed query execution");                
+        throw std::runtime_error("DB::DBConnector::addCourse(): DB Failed query execution");
 }
 
 
@@ -399,208 +403,208 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
     sqlite3_stmt* getCoursesStmt = nullptr;
 
     using namespace Progrado;
-    
+
 
     switch (t_flag)
     {
     case(FRESHMAN_FALL):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_FRHMN_FALL_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case(FRESHMAN_JTERM):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_FRHMN_JTERM_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;            
+        break;
 
     case (FRESHMAN_SPRING):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_FRHMN_SPRG_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case (FRESHMAN_SUMMER):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_FRHMN_SUMMER_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;            
+        break;
 
 
     case(SOPH_FALL):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_SOPH_FALL_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case(SOPH_JTERM):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_SOPH_JTERM_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case(SOPH_SPRING):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_SOPH_SPRG_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case(SOPH_SUMMER):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_SOPH_SUMMER_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case(JUNIOR_FALL):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_JUN_FALL_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case(JUNIOR_JTERM):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_JUN_JTERM_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break; 
+        break;
 
     case(JUNIOR_SPRING):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_JUN_SPRG_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case(JUNIOR_SUMMER):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_JUN_SUMMER_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     case(SENIOR_FALL):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_SEN_FALL_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
 
     case(SENIOR_SPRING):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_SEN_SPRG_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
 
     case(ALL):
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_ALL_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;                                          
+        break;
 
     default:
-            sqlite3_prepare_v2(
+        sqlite3_prepare_v2(
             m_ptr_progradoDatabase,
             GET_ALL_COURSES.c_str(),
             -1,
             &getCoursesStmt,
             nullptr);
 
-            break;
+        break;
 
     } // switch (t_flag)
 
 
-        if(sqlite3_step(getCoursesStmt) != SQLITE_ROW)
-                std::cout << "No course Matching this term\n";
-        // reset statement for execution anew
-        sqlite3_reset(getCoursesStmt);  
+    if(sqlite3_step(getCoursesStmt) != SQLITE_ROW)
+        std::cout << "No course Matching this term\n";
+    // reset statement for execution anew
+    sqlite3_reset(getCoursesStmt);
 
     std::vector< std::shared_ptr<Progrado::Course> > r_CoursesVector;
 
-     while (sqlite3_step(getCoursesStmt) == SQLITE_ROW)
-    {   
+    while (sqlite3_step(getCoursesStmt) == SQLITE_ROW)
+    {
         int ct = sqlite3_column_count(getCoursesStmt);
-        
+
 
         std::vector<std::string> l_course;
         int l_numCredits(0);
-        
+
         for( int i = 0; i < ct; i++ )
-        {   
+        {
             /* the following if statement assumes the last column is always Progrado::Course::numCredits
             sqlite3_column_decltype should be the appropriate method, but it doesn't work for
             some reason. Will try to fix this. */
-            
-            if(ct - 1 == i) 
+
+            if(ct - 1 == i)
                 l_numCredits = sqlite3_column_int(getCoursesStmt, i);
-            else  /* cast const unsigned char* returned by sqlite3_column_text to const char* */    
+            else  /* cast const unsigned char* returned by sqlite3_column_text to const char* */
                 l_course.push_back(std::string(reinterpret_cast<const char*>(sqlite3_column_text(getCoursesStmt, i))));
-            
+
         } // end for
 
         r_CoursesVector.push_back(
-        std::make_shared<Progrado::Course>(l_course, l_numCredits)
+            std::make_shared<Progrado::Course>(l_course, l_numCredits)
         );
-    } // end while   
+    } // end while
 
     return r_CoursesVector;
 
@@ -609,25 +613,25 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
 DB::DBConnector::getScheduleSummary()
 {
-        
-        using namespace Progrado;
-        std::vector < std::vector< std::shared_ptr<Course> > > r_TermVector;
 
-        // this->getCoursesMatching(PARAMETER) is implicit here
-        r_TermVector.push_back(getCoursesMatching(FRESHMAN_FALL));
-        r_TermVector.push_back(getCoursesMatching(FRESHMAN_JTERM));
-        r_TermVector.push_back(getCoursesMatching(FRESHMAN_SPRING));
-        r_TermVector.push_back(getCoursesMatching(FRESHMAN_SUMMER));
-        r_TermVector.push_back(getCoursesMatching(SOPH_FALL));
-        r_TermVector.push_back(getCoursesMatching(SOPH_JTERM));
-        r_TermVector.push_back(getCoursesMatching(SOPH_SPRING));
-        r_TermVector.push_back(getCoursesMatching(SOPH_SUMMER));
-        r_TermVector.push_back(getCoursesMatching(JUNIOR_FALL));
-        r_TermVector.push_back(getCoursesMatching(JUNIOR_JTERM));
-        r_TermVector.push_back(getCoursesMatching(JUNIOR_SPRING));
-        r_TermVector.push_back(getCoursesMatching(JUNIOR_SUMMER));
-        r_TermVector.push_back(getCoursesMatching(SENIOR_FALL));
-        r_TermVector.push_back(getCoursesMatching(SENIOR_SPRING));
+    using namespace Progrado;
+    std::vector < std::vector< std::shared_ptr<Course> > > r_TermVector;
 
-        return r_TermVector;
+    // this->getCoursesMatching(PARAMETER) is implicit here
+    r_TermVector.push_back(getCoursesMatching(FRESHMAN_FALL));
+    r_TermVector.push_back(getCoursesMatching(FRESHMAN_JTERM));
+    r_TermVector.push_back(getCoursesMatching(FRESHMAN_SPRING));
+    r_TermVector.push_back(getCoursesMatching(FRESHMAN_SUMMER));
+    r_TermVector.push_back(getCoursesMatching(SOPH_FALL));
+    r_TermVector.push_back(getCoursesMatching(SOPH_JTERM));
+    r_TermVector.push_back(getCoursesMatching(SOPH_SPRING));
+    r_TermVector.push_back(getCoursesMatching(SOPH_SUMMER));
+    r_TermVector.push_back(getCoursesMatching(JUNIOR_FALL));
+    r_TermVector.push_back(getCoursesMatching(JUNIOR_JTERM));
+    r_TermVector.push_back(getCoursesMatching(JUNIOR_SPRING));
+    r_TermVector.push_back(getCoursesMatching(JUNIOR_SUMMER));
+    r_TermVector.push_back(getCoursesMatching(SENIOR_FALL));
+    r_TermVector.push_back(getCoursesMatching(SENIOR_SPRING));
+
+    return r_TermVector;
 }

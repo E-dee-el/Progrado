@@ -4,19 +4,18 @@
 
 #include"screen.h"
 
-namespace Progrado{
-    namespace UI{
-        class retrieve_user_details : public screen{
-            public:
-                retrieve_user_details();
-                ~retrieve_user_details();
-                virtual void print_instructions()const;
-                virtual void execute()const;
-            private:
+namespace Progrado {
+namespace UI {
+class retrieve_user_details : public screen {
+public:
+    virtual ~retrieve_user_details();
+    virtual void print_instructions()const override;
+    virtual void execute()const override;
+private:
 
-        };
+};
 
-    }
+}
 }
 
 #endif

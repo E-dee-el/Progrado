@@ -1,15 +1,21 @@
 set(sources User.cpp
-	UserInterface.cpp
 	db/Course.cpp
 	db/DBConnector.cpp
-	ui/AddCourseScreen.cpp
-	ui/CreateAccountScreen.cpp
-	ui/ListAllCoursesScreen.cpp
-	ui/LoginErrorScreen.cpp
-	ui/MainMenuScreen.cpp
-	ui/RemoveCourseScreen.cpp
-	ui/ScheduleSummaryScreen.cpp
-	ui/UpdateCourseScreen.cpp
+	ui/Ui.cpp
+	ui/screen.cpp
+	ui/login.cpp
+	ui/init.cpp
+	ui/add_course.cpp
+	ui/create_account.cpp
+	ui/delete_acct.cpp
+	ui/modify_course.cpp
+	ui/view_course.cpp
+	ui/home.cpp
+	ui/remove_course.cpp
+	ui/view_user_details.cpp
+	ui/search_course.cpp
+	ui/retrieve_user_details.cpp
+	ui/modify_user_details.cpp
 	)
 
 set(CMAKE_CXX_STANDARD 14)
