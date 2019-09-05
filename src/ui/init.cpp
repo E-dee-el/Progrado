@@ -41,7 +41,7 @@ bool init::execute()
         else
         {
             std::cerr << "Invalid response. Try again or enter 0 to exit\n";
-            return false;
+            //return false;
         }
 
     }

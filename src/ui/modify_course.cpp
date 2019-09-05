@@ -43,11 +43,11 @@ void modify_course::execute()const
 
         std::cout << "Credits: ";
         std::cin >> num_credits;
-        std::cin.ignore();
+        std::cin.ignore(); 
 
         auto course = std::unique_ptr<Course>(new Course(course_name, course_id,
                                               course_type, semester,
-                                              year, num_credits));
+                                              year, num_credits)); 
 
         DB::DBConnector::updateCourse(old_course_name, *course);
 

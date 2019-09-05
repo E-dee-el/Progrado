@@ -19,10 +19,10 @@ void home::display_home_options()
     std::cout <<
               "Options: \n"
               "0. add course\n"
-              "2. modify course\n";
+              "2. modify course\n"; 
 }
 void home::execute()
-{
+{ 
     display_home_options();
 
     int choice;
