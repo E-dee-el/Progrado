@@ -26,7 +26,7 @@ namespace Progrado{
             ~home();
             void initialize_screen(const UI::screen& t_scrn)const; /*call from execute: initialize app. scrn*/
             void execute();
-            void display_home_options();
+            void display_home_options(); 
 
 
 
