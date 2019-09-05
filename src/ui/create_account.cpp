@@ -6,6 +6,7 @@
 #include<string>
 #include<cstdlib>
 #include<stdexcept>
+#include<fstream>
 
 using namespace Progrado::UI;
 using namespace DB;
@@ -58,6 +59,7 @@ void create_account::execute()const
                                            password
                                        ));
         DBConnector::addNewUser(*new_user);
+        
 
     }
     catch(std::runtime_error)
@@ -67,4 +69,9 @@ void create_account::execute()const
         throw std::runtime_error("Failed to add new User");
     }
 
+        std::ofstream outfile(".acct_status.txt");
+
+        if(outfile.fail())
+            throw std::runtime_error("Failed to set .acct_status\n");
+        outfile << 1;    
 }

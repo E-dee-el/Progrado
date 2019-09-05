@@ -44,6 +44,6 @@ void login::execute()const
         std::getline(std::cin, p_word);
     }
 
-    if (attempts != 0) std::cout << "Login Successful!\n";
+    if (attempts != 0) std::cout << "Login Successful!\n*******************************\n";
     else std::cerr << "Login attempts exceeded\n";
 }

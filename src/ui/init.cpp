@@ -2,38 +2,42 @@
 #include"create_account.h"
 #include"login.h"
 #include<iostream>
+#include<fstream>
+#include<stdexcept>
 
 using namespace Progrado;
 using namespace Progrado::UI;
 
 init::~init() {}
+bool init::is_new_user()
+{
+    std::ifstream infile(".acct_status.txt");
+    if(infile.fail())
+        throw std::runtime_error("init::is_new_user(): Unable to verify acct status\n");
+    int x;
+    infile >> x;
+
+    return x == 0;
+}
 bool init::execute()
 {
-    int response = 0;
-    std::cout <<
-              "Type 1 to login\n"
-              "New user? Type 2 to create an account\n"
-              "Type 0 to exit\n";
-
-    std::cin >> response;
-    std::cin.ignore();
-    while(response != 0)
+    if(is_new_user())
     {
-        if(response == 1)
-        {
-            auto transfer_to_login = std::make_unique<login>();
-            transfer_to_login->prompt_user();
-            transfer_to_login->execute();
-            return true;
-        }
-        else if (response == 2)
+        std::cout << "Create an account: enter any key to continue or 0 to exit\n";
+        std::string reply;
+        std::cin >> reply;
+        std::cin.ignore();
+
+        if(reply == "0") return false;
+        else
         {
             auto transfer_to_create_acct = std::make_unique<create_account>();
             transfer_to_create_acct->execute();
-            /* then login*/
+                /* then login*/
             auto transfer_to_login = std::make_unique<login>();
             transfer_to_login->prompt_user();
             transfer_to_login->execute();
+<<<<<<< HEAD
             return true;
         }
         else if(response == 0)
@@ -42,9 +46,31 @@ bool init::execute()
         {
             std::cerr << "Invalid response. Try again or enter 0 to exit\n";
             //return false;
+=======
+            return true;            
+>>>>>>> f8917177d94f4e8fb5d48eba7d31fe6e3417ae0b
         }
+        
 
+        
     }
+    else
+    {       std::cout << "LOGIN\n";
+            std::cout << "Hit any key and enter to continue, or 0 to exit\n"
+            "*******************************\n";
+            std::string choice;
+            std::cin >> choice;
+            std::cin.ignore();
 
-
+            if(choice == "0") return false;
+            else
+            {
+                auto transfer_to_login = std::make_unique<login>();
+                transfer_to_login->prompt_user();
+                transfer_to_login->execute();
+                return true;
+            }
+             
+    }
+    
 }
