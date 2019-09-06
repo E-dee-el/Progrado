@@ -68,9 +68,10 @@ void create_account::execute()const
         
 
     }
-    catch(std::runtime_error)
+    catch(std::runtime_error t)
     {
         std::cerr << "An account could not be created at this time\n";
+    std::cerr << t.what();
         /*rethrow this exception until it reaches main*/
         throw std::runtime_error("Failed to add new User");
     }

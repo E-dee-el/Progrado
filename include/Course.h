@@ -29,6 +29,7 @@ public:
     std::string getCourseBindParam(int idx) const;
     const std::string& operator [] (int idx)const;
     void displayCourse()const;
+    void printCourse()const;
 
 private:
 

@@ -2,6 +2,7 @@
 #include"Course.h"
 #include<iomanip>
 #include<fstream>
+#include<iostream>
 
 Progrado::Course::Course():
     m_courseDetails(5),
@@ -72,8 +73,16 @@ std::string Progrado::Course::getCourseBindParam(int idx)const {
     return m_CourseBindParams[idx];
 }
 
+void Progrado::Course::printCourse()const
+{
+    for(auto i: m_courseDetails)
+    {
+        std::cout<<"*"<<std::setw(35)<<std::left<< i << "*\n";
+    }
+    std::cout <<"*"<<std::left<<"Credits: " << m_numCredits << "                         *\n";
 
-/// testing only
+}
+
 void Progrado::Course::displayCourse()const
 {
     std::ofstream outfile;

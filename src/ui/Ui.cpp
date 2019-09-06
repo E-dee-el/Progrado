@@ -11,8 +11,11 @@ Ui::~Ui() {};
 void Ui::print_welcome_message()
 {
     std::cout <<
-              "WELCOME TO PROGRADO\n"
-              "**********************\n";
+              "*********************\n"
+              "*                   *\n"
+              "*WELCOME TO PROGRADO*\n"
+              "*                   *\n"              
+              "*********************\n";
 }
 void Ui::setup()
 {

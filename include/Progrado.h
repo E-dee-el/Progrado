@@ -77,8 +77,8 @@ const std::string UPDATE_COURSE = "UPDATE courses SET courseName = :courseName, 
 const std::string REMOVE_COURSE = "DELETE FROM courses WHERE courseId = :courseId";
 
 // verify if course already exists
-
 const std::string VERIFY_COURSE = "SELECT courseId FROM courses WHERE courseId = :courseId";
+const std::string SEARCH_COURSE = "SELECT * FROM courses WHERE courseName LIKE :searchTerm";
 
 
 
