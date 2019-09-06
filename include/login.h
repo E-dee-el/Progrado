@@ -9,7 +9,7 @@ public:
     login();
     ~login();
     void prompt_user()const;
-    bool execute()const;
+    int execute()const; 
 private:
 
 }; //login

@@ -24,7 +24,7 @@ void create_account::print_instructions()const
 
 void create_account::execute()const
 {
-    std::string last_name, first_name, major, minor, college_yr, username, password;
+    std::string last_name, first_name, major, minor, college_yr, username, password, security_question;
 
     std::cout << "Enter Last Name: ";
     std::getline(std::cin, last_name);
@@ -46,6 +46,12 @@ void create_account::execute()const
 
     std::cout << "Choose a Password: ";
     std::getline(std::cin, password);
+
+    std::cout << "Please provide an answer to the decurity question below\n"
+                 "In what city were you born? \n";
+    std::getline(std::cin, security_question);
+
+
 
     try {
         /*unique ptr to new user object*/
@@ -70,6 +76,8 @@ void create_account::execute()const
     }
 
         std::ofstream outfile(".acct_status.txt");
+        std::ofstream sec_qtn(".security_question.txt");
+        sec_qtn << security_question;
 
         if(outfile.fail())
             throw std::runtime_error("Failed to set .acct_status\n");

@@ -23,7 +23,7 @@ public:
     static bool verifyUserCredentials(const std::string& t_uname, const std::string& t_pword);
     static bool userTableExists();
     static bool coursesTableExists();
-    static void createUserTable();
+    static void createUserTable(); 
     static void addNewUser(const Progrado::User& t_user);
     static void modifyUserDetails(const Progrado::User&);
     static void createCoursesTable();
