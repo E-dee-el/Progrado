@@ -9,6 +9,7 @@ using namespace Progrado;
 using namespace Progrado::UI;
 
 init::~init() {}
+
 bool init::is_new_user()
 {
     /*this works (yay!), but it's a rough patch*/
@@ -21,7 +22,7 @@ bool init::is_new_user()
         if(outfile.fail())
             throw std::runtime_error("Can't verify acct status: init file creation failed");
         outfile << 0;
-        outfile.close();
+        outfile.close(); 
 
         infile.open(".acct_status.txt");
     }
@@ -59,7 +60,7 @@ bool init::execute()
     else
     {       std::cout << "LOGIN\n";
             std::cout << "Hit any key and enter to continue, or 0 to exit\n"
-            "**************************************\n";
+            "**************************************\n"; 
             std::string choice;
             std::cin >> choice;
             std::cin.ignore();

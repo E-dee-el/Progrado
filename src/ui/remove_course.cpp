@@ -12,7 +12,7 @@ void remove_course::print_instructions()const
 {
     std::cout << "\t\tREMOVE COURSE\n"
                  "\t===============\n"
-                 "Please enter the name of the course you would like to remove";
+                 "Please enter the name of the course you would like to remove\n\n";
 }
 
 void remove_course::execute()const
@@ -34,5 +34,5 @@ void remove_course::execute()const
         std::cout << "Do you wish to remove another course? [yes/no]\n";
 
         std::getline(std::cin, response);
-    }
+    } 
 }

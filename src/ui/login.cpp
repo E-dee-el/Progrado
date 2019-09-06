@@ -29,7 +29,7 @@ bool login::execute()const
     std::cout << "password: ";
     std::getline(std::cin, p_word);
 
-    int attempts = 3;
+    int attempts = 3; 
 
     while(!DBConnector::verifyUserCredentials(u_name, p_word)
             &&
