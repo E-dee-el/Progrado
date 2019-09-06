@@ -38,12 +38,13 @@ private:
         add_course_screen,
         remove_course_screen,
         modify_course_screen,
-        delete_acct_screen,
         view_course_screen,
-        search_course_screen,
+        search_course_screen,                
         view_user_details_screen,
         modify_user_screen,
-        retrieve_user_details_screen
+        delete_acct_screen,
+        retrieve_user_details_screen,
+        
     };
 
 

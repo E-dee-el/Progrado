@@ -17,7 +17,7 @@ void create_account::print_instructions()const
 {
     std::cout <<
               "\t\tCREATE ACCOUNT\n"
-              "====================="
+              "**************************************\n"
               "Enter the following details to create a new Progrado account\n";
 
 }

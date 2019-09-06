@@ -12,13 +12,26 @@ init::~init() {}
 
 bool init::is_new_user()
 {
-    std::ifstream infile(".acct_status.txt"); 
-    if(infile.fail()) 
-        throw std::runtime_error("init::is_new_user(): Unable to verify acct status\n"); 
+    /*this works (yay!), but it's a rough patch*/
+    /*the following creates a file on inital start of progrado*/
+    /*that it will eventually use to check if an acct exists*/
+    std::ifstream infile(".acct_status.txt");
+    if(infile.fail())
+    {
+        std::ofstream outfile(".acct_status.txt");
+        if(outfile.fail())
+            throw std::runtime_error("Can't verify acct status: init file creation failed");
+        outfile << 0;
+        outfile.close(); 
+
+        infile.open(".acct_status.txt");
+    }
+
     int x;
     infile >> x;
 
-    return x == 0; 
+    infile.close();
+    return x == 0;
 }
 bool init::execute()
 {
@@ -37,17 +50,17 @@ bool init::execute()
                 /* then login*/
             auto transfer_to_login = std::make_unique<login>();
             transfer_to_login->prompt_user();
-            transfer_to_login->execute();
-            return true;            
-        }
-        
 
-        
+            if(!transfer_to_login->execute()) return false;
+            
+            return true; 
+        }
+     
     }
     else
     {       std::cout << "LOGIN\n";
             std::cout << "Hit any key and enter to continue, or 0 to exit\n"
-            "*******************************\n";
+            "**************************************\n"; 
             std::string choice;
             std::cin >> choice;
             std::cin.ignore();
@@ -57,7 +70,7 @@ bool init::execute()
             {
                 auto transfer_to_login = std::make_unique<login>();
                 transfer_to_login->prompt_user();
-                transfer_to_login->execute();
+                if(!transfer_to_login->execute()) return false;
                 return true;
             }
              

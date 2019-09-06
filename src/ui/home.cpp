@@ -15,17 +15,18 @@ void home::initialize_screen(const UI::screen& t_scrn)const
 
 void home::display_home_options()
 {
-    /*needs fixing*/
+    std::cout << "HOME\n";
+    std::cout << "**************************************\n";
     std::cout <<
               "Options: \n"
               "0. Add Course\n"
-              "1. Modify Course\n"
-              "2. View Courses\n"
-              "3. Search Course\n"
-              "4. Delete Course\n"
-              "5. Retrieve your details\n"
-              "6. Modify your details\n"
-              "7. Remove a course\n";  
+              "1. Remove Course\n"
+              "2. Modify Courses\n"
+              "3. View Course\n"
+              "4. Search Course\n"
+              "5. View your details\n"
+              "6. Modify your details\n";
+              "7. Delete your account\n";
 }
 void home::execute()
 { 
