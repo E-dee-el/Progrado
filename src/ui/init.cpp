@@ -9,15 +9,16 @@ using namespace Progrado;
 using namespace Progrado::UI;
 
 init::~init() {}
+
 bool init::is_new_user()
 {
-    std::ifstream infile(".acct_status.txt");
-    if(infile.fail())
-        throw std::runtime_error("init::is_new_user(): Unable to verify acct status\n");
+    std::ifstream infile(".acct_status.txt"); 
+    if(infile.fail()) 
+        throw std::runtime_error("init::is_new_user(): Unable to verify acct status\n"); 
     int x;
     infile >> x;
 
-    return x == 0;
+    return x == 0; 
 }
 bool init::execute()
 {
@@ -37,18 +38,7 @@ bool init::execute()
             auto transfer_to_login = std::make_unique<login>();
             transfer_to_login->prompt_user();
             transfer_to_login->execute();
-<<<<<<< HEAD
-            return true;
-        }
-        else if(response == 0)
-            return false;
-        else
-        {
-            std::cerr << "Invalid response. Try again or enter 0 to exit\n";
-            //return false;
-=======
             return true;            
->>>>>>> f8917177d94f4e8fb5d48eba7d31fe6e3417ae0b
         }
         
 
