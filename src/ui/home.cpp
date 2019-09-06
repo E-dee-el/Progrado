@@ -19,18 +19,14 @@ void home::display_home_options()
     std::cout << "**************************************\n";
     std::cout <<
               "Options: \n"
-<<<<<<< HEAD
-              "0. add course\n"
-              "2. modify course\n"; 
-=======
               "0. Add Course\n"
-              "1. Modify Course\n"
-              "2. View Courses\n"
-              "3. Search Course\n"
-              "4. Delete Course\n"
-              "5. Retrieve your details\n"
+              "1. Remove Course\n"
+              "2. Modify Courses\n"
+              "3. View Course\n"
+              "4. Search Course\n"
+              "5. View your details\n"
               "6. Modify your details\n";
->>>>>>> f8917177d94f4e8fb5d48eba7d31fe6e3417ae0b
+              "7. Delete your account\n";
 }
 void home::execute()
 { 

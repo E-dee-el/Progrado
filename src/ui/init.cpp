@@ -11,12 +11,25 @@ using namespace Progrado::UI;
 init::~init() {}
 bool init::is_new_user()
 {
+    /*this works (yay!), but it's a rough patch*/
+    /*the following creates a file on inital start of progrado*/
+    /*that it will eventually use to check if an acct exists*/
     std::ifstream infile(".acct_status.txt");
     if(infile.fail())
-        throw std::runtime_error("init::is_new_user(): Unable to verify acct status\n");
+    {
+        std::ofstream outfile(".acct_status.txt");
+        if(outfile.fail())
+            throw std::runtime_error("Can't verify acct status: init file creation failed");
+        outfile << 0;
+        outfile.close();
+
+        infile.open(".acct_status.txt");
+    }
+
     int x;
     infile >> x;
 
+    infile.close();
     return x == 0;
 }
 bool init::execute()
