@@ -30,6 +30,7 @@ public:
     static bool addCourse(const Progrado::Course&);
     static bool updateCourse(const std::string& t_OldCourseName, const Progrado::Course& t_newCourse);
     static void removeCourse(const Progrado::Course& t_course);
+    static Progrado::Course searchCourse(const std::string& t_search_term);
     static std::vector< std::shared_ptr<Progrado::Course> >
     getCoursesMatching(const int t_flag); // Argument is a type of Terms, from enum Term in namespace Progrado
     static std::vector < std::vector< std::shared_ptr<Progrado::Course> > >

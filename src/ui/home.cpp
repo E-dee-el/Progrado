@@ -100,7 +100,6 @@ void home::execute()
 
         display_home_options();
         std::cout << "selection: ";
-        std::cin >> choice;
 
     } while(choice != -1); // end do-while
 

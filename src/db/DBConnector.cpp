@@ -574,7 +574,7 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
 
 
     if(sqlite3_step(getCoursesStmt) != SQLITE_ROW)
-        std::cout << "No course Matching this term\n";
+        std::cout << "-------\n**absence of course in some semesters\n";
     // reset statement for execution anew
     sqlite3_reset(getCoursesStmt);
 
@@ -609,6 +609,48 @@ DB::DBConnector::getCoursesMatching(const int t_flag)
     return r_CoursesVector;
 
 } // getCoursesMatching
+
+Progrado::Course DB::DBConnector::searchCourse(const std::string& t_search_term)
+{
+  sqlite3_stmt* search_stmt = nullptr;
+  int rc = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+  Progrado::SEARCH_COURSE.c_str(),
+  -1,
+  &search_stmt,
+  nullptr);
+
+  if (rc != SQLITE_OK) throw std::runtime_error("DBSearch: failed query\n");
+
+  sqlite3_bind_text(search_stmt,
+  sqlite3_bind_parameter_index(search_stmt,":searchTerm"),
+  t_search_term.c_str(),
+  -1,
+  SQLITE_TRANSIENT);
+
+        int ct = sqlite3_column_count(search_stmt);
+
+
+        std::vector<std::string> l_course;
+        int l_numCredits(0);
+
+  if(sqlite3_step(search_stmt)== SQLITE_ROW)
+  {
+         for( int i = 0; i < ct; i++ )
+        {
+            if(ct - 1 == i)
+                l_numCredits = sqlite3_column_int(search_stmt, i);
+            else  /* cast const unsigned char* returned by sqlite3_column_text to const char* */
+                l_course.push_back(std::string(reinterpret_cast<const char*>(sqlite3_column_text(search_stmt, i))));
+
+        } // end for
+               
+  }
+  std::unique_ptr<Progrado::Course> crs_ptr(new Progrado::Course(l_course, l_numCredits));
+  return *crs_ptr;
+
+}
+
+
 
 std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
 DB::DBConnector::getScheduleSummary()
