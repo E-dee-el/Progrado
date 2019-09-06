@@ -36,13 +36,12 @@ bool init::execute()
                 /* then login*/
             auto transfer_to_login = std::make_unique<login>();
             transfer_to_login->prompt_user();
+
             if(!transfer_to_login->execute()) return false;
             
             return true; 
         }
-        
-
-        
+     
     }
     else
     {       std::cout << "LOGIN\n";
