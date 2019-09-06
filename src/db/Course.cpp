@@ -1,12 +1,3 @@
-/*
-**************************************
-*************PROGRADO*****************
-**************************************
-Course implementation file
-Authors: Ibrahim Suleiman, Yusuf Jimoh
-Copyright 2019
-***************************************
- */
 
 #include"Course.h"
 #include<iomanip>
@@ -43,7 +34,7 @@ Progrado::Course::Course(
     m_courseDetails[yearOffered] = t_yr;
 }
 
-Progrado::Course::Course(std::vector<std::string> t_V, int t_credits):
+Progrado::Course::Course(std::vector<std::string>& t_V, int t_credits):
     m_courseDetails(t_V),
     m_numCredits(t_credits)
 {
@@ -89,6 +80,12 @@ void Progrado::Course::displayCourse()const
     outfile.open("result.csv", std::fstream::app);
 
     if(outfile.fail()) std:: cout << "error!\n";
+    
+    /*neat trick (?) to print header only once*/
+    static int trk = 0;
+    if(!trk--) 
+        outfile << "Course Name, Course ID, Semester Taken, Year Taken, Course Type, Number of Credits\n";
+    /**neat trick ends here*/
 
     for (int i = 0; i < m_courseDetails.size(); i++)
     {

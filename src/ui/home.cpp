@@ -15,7 +15,8 @@ void home::initialize_screen(const UI::screen& t_scrn)const
 
 void home::display_home_options()
 {
-    /*needs fixing*/
+    std::cout << "HOME\n";
+    std::cout << "**************************************\n";
     std::cout <<
               "Options: \n"
               "0. Add Course\n"

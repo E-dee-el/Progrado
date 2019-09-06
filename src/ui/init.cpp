@@ -36,8 +36,9 @@ bool init::execute()
                 /* then login*/
             auto transfer_to_login = std::make_unique<login>();
             transfer_to_login->prompt_user();
-            transfer_to_login->execute();
-            return true;            
+            if(!transfer_to_login->execute()) return false;
+            
+            return true; 
         }
         
 
@@ -46,7 +47,7 @@ bool init::execute()
     else
     {       std::cout << "LOGIN\n";
             std::cout << "Hit any key and enter to continue, or 0 to exit\n"
-            "*******************************\n";
+            "**************************************\n";
             std::string choice;
             std::cin >> choice;
             std::cin.ignore();
@@ -56,7 +57,7 @@ bool init::execute()
             {
                 auto transfer_to_login = std::make_unique<login>();
                 transfer_to_login->prompt_user();
-                transfer_to_login->execute();
+                if(!transfer_to_login->execute()) return false;
                 return true;
             }
              

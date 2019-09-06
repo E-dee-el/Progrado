@@ -14,11 +14,11 @@ void login::prompt_user()const
 {
     std::cout <<
               "\tLOGIN\n"
-              "*******************\n"
+              "**************************************\n"
               "Enter your username and password below to login\n";
 }
 
-void login::execute()const
+bool login::execute()const
 {
     using DB::DBConnector;
 
@@ -44,6 +44,13 @@ void login::execute()const
         std::getline(std::cin, p_word);
     }
 
-    if (attempts != 0) std::cout << "Login Successful!\n*******************************\n";
-    else std::cerr << "Login attempts exceeded\n";
+    if (attempts != 0) 
+    {
+        std::cout << "Login Successful!\n**************************************\n";
+        return true;
+    }
+    else {
+        std::cerr << "Login attempts exceeded\n";
+        return false;
+        };
 }
