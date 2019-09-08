@@ -10,6 +10,7 @@ Copyright 2019
 
 
 #include"User.h"
+#include<iostream>
 
 // not safe , doesnt check for size
 // maybe we should be using std::array for this
@@ -90,4 +91,14 @@ std::string Progrado::User::get_major() const {
 
 std::string Progrado::User::get_minor() const {
     return m_userData[minor];
+}
+
+void Progrado::User::display_user_details()const{
+    std::cout << "Name: " << m_userData[lastName] + " " + m_userData[firstName] << "\n";
+    std::cout << "Year: " << m_userData[yearInCollege] << "\n";
+    std::cout << "Major: " << m_userData[major] << "\n";
+    std::cout << "Minor: " << m_userData[minor] << "\n";
+    std::cout << "Username: " << m_userData[userName] << "\n";
+    std::cout << "Passworf: " << m_userData[password] << "\n";
+
 }

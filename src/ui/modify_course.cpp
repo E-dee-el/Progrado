@@ -10,8 +10,9 @@ modify_course::~modify_course() {};
 void modify_course::print_instructions()const
 {
     std::cout <<
-              "\t\tMODIFY COURSE\n"
-              "\t=================\n"
+              "===================\n"
+              "=   MODIFY COURSE =\n"
+              "===================\n"
               "Enter the name of the course you want to modify\n";
 }
 

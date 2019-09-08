@@ -144,7 +144,8 @@ const std::string GET_SEN_FALL_COURSES =
 const std::string GET_SEN_SPRG_COURSES =
     "SELECT * FROM COURSES WHERE (semesterOffered = 'Spring' OR semesterOffered = 'spring' OR semesterOffered = 'SPRING')"
     " AND (yearOffered = 'Senior' OR yearOffered = 'SENIOR' OR yearOffered = 'senior')";
-
+const std::string RETRIEVE_USER = 
+    "SELECT * FROM user";
 }
 
 #endif

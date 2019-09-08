@@ -22,9 +22,10 @@ class User;
 class Progrado::User
 {
 public:
-    User(const std::vector<std::string>&);
-    User(const std::string&, const std::string&, const std::string&,
-         const std::string&, const std::string&, const std::string&, const std::string&); // 7-arg constructor
+    User(const std::vector<std::string>& t_user);
+    User(const std::string& t_lastname, const std::string& t_firstname, const std::string& t_yearInCollege,
+        const std::string& t_userName, const std::string& t_major,
+        const std::string& t_minor, const std::string& t_password); // 7-arg constructor
     ~User();
     std::string get_lastName()const;
     std::string get_firstName()const;
@@ -33,10 +34,12 @@ public:
     std::string get_password()const;
     std::string get_major()const;
     std::string get_minor()const;
-    std::string get_BindParam(int)const;
+    std::string get_BindParam(int idx)const;
+    void display_user_details()const;
     int get_countUserDetails()const;
-    const std::string& operator [] (int)const;
+    const std::string& operator [] (int idx)const;
     int get_numUserDetails()const;
+    static const int num_user_details = 7;
 
 
 private:

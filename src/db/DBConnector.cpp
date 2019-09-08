@@ -640,7 +640,7 @@ Progrado::Course DB::DBConnector::searchCourse(const std::string& t_search_term)
             if(ct - 1 == i)
                 l_numCredits = sqlite3_column_int(search_stmt, i);
             else  /* cast const unsigned char* returned by sqlite3_column_text to const char* */
-                l_course.push_back(std::string(reinterpret_cast<const char*>(sqlite3_column_text(search_stmt, i))));
+                l_course.push_back(reinterpret_cast<const char*>(sqlite3_column_text(search_stmt, i)));
 
         } // end for
                
@@ -676,4 +676,31 @@ DB::DBConnector::getScheduleSummary()
     r_TermVector.push_back(getCoursesMatching(SENIOR_SPRING));
 
     return r_TermVector;
+}
+
+std::vector<std::string> DB::DBConnector::retrieveUserDetails()
+{
+    sqlite3_stmt* retrieveStmt = nullptr;
+    int rc = sqlite3_prepare_v2(m_ptr_progradoDatabase,
+    Progrado::RETRIEVE_USER.c_str(),
+    -1,
+    &retrieveStmt,
+    nullptr);
+
+    if(rc != SQLITE_OK)
+         throw std::runtime_error("User table does not exist, or query preparation failed\n");
+
+    std::vector<std::string> user_vector;
+
+   
+
+    while(sqlite3_step(retrieveStmt) == SQLITE_ROW)
+    {
+        for(int i = 0; i < Progrado::User::num_user_details; i++)
+        {
+            user_vector.push_back(reinterpret_cast<const char*>(sqlite3_column_text(retrieveStmt, i)));
+        }
+    }   
+
+    return user_vector;  
 }
