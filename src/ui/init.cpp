@@ -53,18 +53,18 @@ bool init::execute()
             transfer_to_login->prompt_user(); 
 
             int login_status = transfer_to_login->execute();
-
-            while (login_status != true)   //while login is unsuccessful
+            /*check if login was successful*/
+            while(login_status != 1)   
             {
-                if(login_status == false) return false; 
+                if(login_status == 0) return false; 
                 else if(login_status == 2)   
                 {   
-                    //allow user to change his details after answering a security question
-                    std::unique_ptr<retrieve_user_details> transfer_to_retrieve_acct;
+                    /*allow user to change his details after answering a security question*/
+                    auto transfer_to_retrieve_acct = std::make_unique<retrieve_user_details>();
                     transfer_to_retrieve_acct->print_instructions();
                     transfer_to_retrieve_acct->execute(); 
                     
-                    //take user to login after retrieving 
+                    /*take user to login after retrieving*/ 
                     transfer_to_login->prompt_user();
                     login_status = transfer_to_login->execute();  
                 }
@@ -88,7 +88,24 @@ bool init::execute()
             {
                 auto transfer_to_login = std::make_unique<login>();
                 transfer_to_login->prompt_user();
-                if(!transfer_to_login->execute()) return false;
+
+                int login_status = transfer_to_login->execute(); 
+
+                while(login_status != 1)   //while login is unsuccessful
+                {
+                    if(login_status == 0) return false; 
+                    else if(login_status == 2)   
+                    {   
+                        //allow user to change his details after answering a security question
+                        auto transfer_to_retrieve_acct = std::make_unique<retrieve_user_details>();
+                        transfer_to_retrieve_acct->print_instructions();
+                        transfer_to_retrieve_acct->execute(); 
+                        
+                        //take user to login after retrieving 
+                        transfer_to_login->prompt_user();
+                        login_status = transfer_to_login->execute();  
+                    }
+                }
                 return true;
             }
              

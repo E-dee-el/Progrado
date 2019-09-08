@@ -1,6 +1,8 @@
 #include"retrieve_user_details.h"
 #include <iostream>
 #include <fstream>
+#include"DBConnector.h"
+
 
 using namespace Progrado;
 using namespace Progrado::UI;
@@ -22,14 +24,28 @@ void retrieve_user_details::execute()const
 
     std::ifstream sec_question(".security_question.txt");
     std::string answer;
-    std::getline(sec_question, answer);
+    std::getline(sec_question, answer); 
 
+    int attempts  = 0;
     while (user_response != answer)
     {   
-        std::cout << "wrong password, kindly reenter the answer to the question below\n";
+        std::cout << "wrong answer, kindly provide the correct answer\n";
         std::cout << "In what city were you born\n";
         std::getline(std::cin, user_response); 
+        if (++attempts == 3)
+            break;
     }
 
-    //retrieve user details from database and print to user
+    if (user_response == answer)
+    {
+        auto user_details = DB::DBConnector::retrieveUserDetails();
+        std::cout << "Your username is: " << user_details[3] << std::endl;
+        std::cout << "Your password is: " << user_details[4] << std::endl; 
+        std::cout << "Press any key and then enter to continue\n";
+        std::cin.get();
+    }
+    else
+    {
+        std::cout << "exceeded number of allowed attempts for details recovery\n";
+    }  
 }

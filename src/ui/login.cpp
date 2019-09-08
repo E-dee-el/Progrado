@@ -26,7 +26,7 @@ int login::execute()const
     std::string u_name(" "), p_word(" ");
 
     std::cout << "username: ";
-    std::getline(std::cin, u_name);
+    std::cin >> u_name; std::cin.ignore();
     std::cout << "password: ";
     std::getline(std::cin, p_word);
 
@@ -39,15 +39,25 @@ int login::execute()const
         std::cout << "username and/or password wrong. "
                   << --attempts << " attempts left\n";
 
-        
-        int rtrv_acct;
+        std::cout << std::endl;
 
-        std::cout << "Forgotten password or username? enter 1 to retrieve your account or 0 to retry login in\n";
+        std::string rtrv_acct; 
+
+        std::cout << "Forgotten password or username?\n"
+                     "enter 1 to retrieve your account or 0 to retry login: \n";
 
         std::cin >> rtrv_acct;
-        std::cin.ignore();
+        std::cin.ignore(); 
 
-        if (rtrv_acct == 1)
+        while (rtrv_acct != "1" && rtrv_acct != "0")  
+        {
+            std::cout << "invalid input\n"
+                         "Please enter a valid input: \n";
+            std::cin >> rtrv_acct;
+            std::cin.ignore(); 
+        }
+
+        if (rtrv_acct == "1") 
         {
             return 2; 
         }
@@ -65,10 +75,10 @@ int login::execute()const
     if (attempts > 0) 
     {
         std::cout << "Login Successful!\n**************************************\n";
-        return true;
+        return 1;
     }
     else {
         std::cerr << "Login attempts exceeded\n";
-        return false;
+        return 0; 
         };
 }

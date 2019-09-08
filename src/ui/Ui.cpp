@@ -1,6 +1,7 @@
 
 #include"Ui.h"
 #include"DBConnector.h"
+#include<cstdlib>
 
 using namespace Progrado;
 using DB::DBConnector;
@@ -15,7 +16,9 @@ void Ui::print_welcome_message()
               "*                   *\n"
               "*WELCOME TO PROGRADO*\n"
               "*                   *\n"              
-              "*********************\n";
+              "*********************\n"; 
+
+
 }
 void Ui::setup()
 {
