@@ -1,5 +1,6 @@
 #include"login.h"
 #include"DBConnector.h"
+#include "retrieve_user_details.h"
 #include<iostream>
 #include<string>
 #include<cstring>
@@ -18,7 +19,7 @@ void login::prompt_user()const
               "Enter your username and password below to login\n";
 }
 
-bool login::execute()const
+int login::execute()const
 {
     using DB::DBConnector;
 
@@ -33,18 +34,35 @@ bool login::execute()const
 
     while(!DBConnector::verifyUserCredentials(u_name, p_word)
             &&
-            attempts != 0)
+            attempts > 0) 
     {
         std::cout << "username and/or password wrong. "
                   << --attempts << " attempts left\n";
 
-        std::cout << "username: ";
-        std::getline(std::cin, u_name);
-        std::cout << "password: ";
-        std::getline(std::cin, p_word);
+        
+        int rtrv_acct;
+
+        std::cout << "Forgotten password or username? enter 1 to retrieve your account or 0 to retry login in\n";
+
+        std::cin >> rtrv_acct;
+        std::cin.ignore();
+
+        if (rtrv_acct == 1)
+        {
+            return 2; 
+        }
+        else
+        {
+            std::cout << "username: ";
+            std::getline(std::cin, u_name);
+            std::cout << "password: ";
+            std::getline(std::cin, p_word); 
+        }
+        
+        
     }
 
-    if (attempts != 0) 
+    if (attempts > 0) 
     {
         std::cout << "Login Successful!\n**************************************\n";
         return true;
