@@ -24,10 +24,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 include_directories(${CMAKE_SOURCE_DIR}/include)	
 
-add_subdirectory(sqlite)
+#add_subdirectory(sqlite)
 
 add_library(progrado_lib ${sources})	
 
-target_link_libraries(progrado_lib sqlite3)	
+target_link_libraries(progrado_lib ${CMAKE_CURRENT_SOURCE_DIR}/sqlite/libsqlite3.a)	
 	
 	
