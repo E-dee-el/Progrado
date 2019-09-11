@@ -10,10 +10,9 @@ modify_course::~modify_course() {};
 void modify_course::print_instructions()const
 {
     std::cout <<
-              "===================\n"
-              "=   MODIFY COURSE =\n"
-              "===================\n"
-              "Enter the name of the course you want to modify\n";
+              "\n\t\tMODIFY COURSE\n"
+              "\n"
+              "Enter the name of the course you want to modify\n > ";
 }
 
 void modify_course::execute()const
@@ -26,6 +25,7 @@ void modify_course::execute()const
         int num_credits;
 
         std::getline(std::cin, old_course_name);
+        /*CHECK IF A COURSE WITH THAT NAME EXISTS*/
 
         std::cout << "Course Name: ";
         std::getline(std::cin, course_name);

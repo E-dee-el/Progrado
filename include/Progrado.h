@@ -4,11 +4,15 @@
 #define PROGRADO
 
 #include<string>
+#include<iostream>
+#include<chrono>
+#include<thread>
 namespace Progrado
 {
 
 const int FAIL = -1; // return this on any failed procedures
-const int SUCCESS = 0;
+const int SUCCESS = 1;
+const int PROG_EXIT = 0;
 const bool FALSE = false;
 const bool TRUE = true;    // return this on any successful procedures
 
@@ -146,6 +150,9 @@ const std::string GET_SEN_SPRG_COURSES =
     " AND (yearOffered = 'Senior' OR yearOffered = 'SENIOR' OR yearOffered = 'senior')";
 const std::string RETRIEVE_USER = 
     "SELECT * FROM user";
+
+void progrado_loading(int n);
+
 }
 
 #endif

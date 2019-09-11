@@ -1,9 +1,12 @@
 #include"login.h"
 #include"DBConnector.h"
-#include "retrieve_user_details.h"
+#include"Progrado.h"
+#include"retrieve_user_details.h"
 #include<iostream>
 #include<string>
 #include<cstring>
+
+
 
 using namespace Progrado;
 using namespace DB;
@@ -13,10 +16,8 @@ login::~login() {}
 
 void login::prompt_user()const
 {
-    std::cout <<
-              "\tLOGIN\n"
-              "**************************************\n"
-              "Enter your username and password below to login\n";
+    std::cout << "\t\t<progrado login>\n\n";
+              
 }
 
 int login::execute()const
@@ -25,9 +26,9 @@ int login::execute()const
 
     std::string u_name(" "), p_word(" ");
 
-    std::cout << "username: ";
+    std::cout << "username> ";
     std::cin >> u_name; std::cin.ignore();
-    std::cout << "password: ";
+    std::cout << "password> ";
     std::getline(std::cin, p_word);
 
     int attempts = 3; 
@@ -73,8 +74,10 @@ int login::execute()const
     }
 
     if (attempts > 0) 
-    {
-        std::cout << "Login Successful!\n**************************************\n";
+    {   
+        std::cout << "Logging you in";
+        progrado_loading(5); /*loading effect i.e. Loading....*/
+        std::cout << "\nLogin Successful!\n\n";
         return 1;
     }
     else {

@@ -1,4 +1,5 @@
 #include"home.h"
+#include"Progrado.h"
 
 using namespace Progrado;
 using namespace Progrado::UI;
@@ -25,8 +26,9 @@ void home::display_home_options()
               "3. View Course\n"
               "4. Search Course\n"
               "5. View your details\n"
-              "6. Modify your details\n";
-              "7. Delete your account\n";
+              "6. Modify your details\n"
+              "7. Delete your account\n"
+              "-1. Exit\n";
 }
 void home::execute()
 { 

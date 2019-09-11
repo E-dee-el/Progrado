@@ -20,24 +20,22 @@ Ui::~Ui() {};
 void Ui::print_welcome_message()
 {
     const std::time_t curr_time = system_clock::to_time_t(system_clock::now());
-
-    std::cout <<"Progrado version 0.1\n"
-              << std::ctime(&curr_time)
-              << "Enter 'help' for usage hints.\n";
+    
+      std::cout <<"Progrado version 0.1\n"
+                << std::ctime(&curr_time)
+                << "Enter 'help' for usage hints.\n";
 
 
 }
 
 void Ui::print_help_info()
 {
-    std::cout <<"\nusage\n"
-              "-- Enter 'help' to display this page\n"
-              "-- Enter 'add-course' to add a course\n"
-              "-- Enter 'search-course' to search a course\n"
-              "-- Enter 'view-courses' to view courses\n"
-              "-- Enter 'modify-course' to modify a course\n"
-              "-- Enter 'remove-course' to delete a course\n"
-              "-- Enter 'exit' to quit the program\n";
+        std::cout <<"\nusage\n" 
+                    "-- Enter 'help' to display this page\n"
+                     "-- Enter 'add-course' to add a course\n"
+                     "-- Enter 'search-course' to search a course\n" 
+                     "-- Enter 'view-courses' to view courses\n"
+                     "-- Enter 'exit' to quit the program\n";    
 
 }
 
@@ -76,17 +74,7 @@ int Ui::process_input(const std::string& s)
     else if(s == "view-courses")
     {
         auto view = std::shared_ptr<UI::screen>(new view_course());
-        initialize_screen(view);
-    }
-    else if(s == "modify-course")
-    {
-        auto modify = std::shared_ptr<UI::screen>(new modify_course());
-        initialize_screen(modify);        
-    }
-    else if(s == "remove-course")
-    {
-        auto remove = std::shared_ptr<UI::screen>(new remove_course());
-        initialize_screen(remove);        
+        initialize_screen(view);        
     }
     else
     {
@@ -101,23 +89,21 @@ int Ui::process_input(const std::string& s)
 
 void Ui::run()
 
-{   m_ptr_init = std::make_unique<init>();
+{   //m_ptr_init = std::make_unique<init>();
 
-    if(!m_ptr_init->execute()) return; /*transfer control to init*/
+    //if(!m_ptr_init->execute()) return; /*transfer control to init*/
 
-    print_welcome_message();
-
-    // m_ptr_home = std::make_unique<home>();
+   // m_ptr_home = std::make_unique<home>();
     //m_ptr_home->execute(); /*transfer control to class home*/
 
     /*loop and wait for command input*/
     for(std::string input_cmd;
-            std::cout << "\nprogrado >>> " && std::getline(std::cin, input_cmd); )
+        std::cout << "\nprogrado >>> " && std::getline(std::cin, input_cmd); )
     {
         if(!input_cmd.empty())
         {
             if(process_input(input_cmd) == PROG_EXIT) return;
-        }
+        } 
     }
 
 }

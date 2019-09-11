@@ -14,10 +14,7 @@ add_course::~add_course() {}
 void add_course::print_instructions()const
 {
     std::cout <<
-              "ADD COURSE\n"
-              "**************************************\n"
-              "Please enter the following details for the course you want to add\n"
-              "type \"return\" to go back to home\n";
+              "\nPlease enter the following details for the course you want to add\n\n";
 }
 
 void add_course::execute()const
@@ -29,22 +26,22 @@ void add_course::execute()const
         std::string course_name, course_id, semester, year, course_type;
         int num_credits;
 
-        std::cout << "Course Name: ";
+        std::cout << "Course Name> ";
         std::getline(std::cin, course_name);
 
-        std::cout << "Course ID: ";
+        std::cout << "Course ID> ";
         std::getline(std::cin, course_id);
 
-        std::cout << "Semester: ";
+        std::cout << "Semester> ";
         std::getline(std::cin, semester);
 
-        std::cout << "Year: ";
+        std::cout << "Year> ";
         std::getline(std::cin, year);
 
-        std::cout << "Course Type: ";
+        std::cout << "Course Type> ";
         std::getline(std::cin, course_type);
 
-        std::cout << "Credits: ";
+        std::cout << "Credits> ";
         std::cin >> num_credits;
         std::cin.ignore();
 
@@ -55,6 +52,9 @@ void add_course::execute()const
         if(!DB::DBConnector::addCourse(*course)) /*add a course to the database*/
          std::cout << 
          "Seems Like a course with the same ID already Exists\n"; 
+        else std::cout << "Course added sucessfully.\n"; 
+
+         
 
         std::cout << "Do you want to add another course? [yes/no]: ";
         std::getline(std::cin, response);

@@ -12,10 +12,10 @@ view_course::~view_course() {}
 void view_course::print_instructions()const
 {
     std::cout <<
-    "VIEW COURSES\n"
-    "****************************\n"
+    "\t\tVIEW COURSES\n"
+    "\n"
     "select which courses you want to view\n"
-    "The output will be in a file named results.csv in the same directory as progrado\n"
+    "The output will be in a file named 'results.csv' in the current working directory\n"
     "options:\n" 
     "0.  Freshman Fall Courses\n"
     "1.  Freshman J-term Courses\n"
@@ -32,8 +32,8 @@ void view_course::print_instructions()const
     "12. Senior Fall Courses\n"
     "13. Senior Spring Courses\n"
     "14. All Courses\n";
-    std::cout << "*************************\n";
-    std::cout << "your choice: ";
+    std::cout << "\n";
+    std::cout << "> ";
         
 }
 

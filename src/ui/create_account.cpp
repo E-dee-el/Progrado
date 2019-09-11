@@ -17,7 +17,7 @@ void create_account::print_instructions()const
 {
     std::cout <<
               "\t\tCREATE ACCOUNT\n"
-              "**************************************\n"
+              "\n"
               "Enter the following details to create a new Progrado account\n";
 
 }
@@ -26,29 +26,29 @@ void create_account::execute()const
 {
     std::string last_name, first_name, major, minor, college_yr, username, password, security_question;
 
-    std::cout << "Enter Last Name: ";
+    std::cout << "Enter Last Name> ";
     std::getline(std::cin, last_name);
 
-    std::cout << "Enter First Name: ";
+    std::cout << "Enter First Name> ";
     std::getline(std::cin, first_name);
 
-    std::cout << "Enter Major: ";
+    std::cout << "Enter Major> ";
     std::getline(std::cin, major);
 
-    std::cout << "Enter Minor: ";
+    std::cout << "Enter Minor> ";
     std::getline(std::cin, minor);
 
-    std::cout << "Enter year in College: ";
+    std::cout << "Enter year in College> ";
     std::getline(std::cin, college_yr);
 
-    std::cout << "Choose a username: ";
+    std::cout << "Choose a username> ";
     std::getline(std::cin, username);
 
-    std::cout << "Choose a Password: ";
+    std::cout << "Choose a Password> ";
     std::getline(std::cin, password);
 
-    std::cout << "Please provide an answer to the decurity question below\n"
-                 "In what city were you born? \n";
+    std::cout << "Please provide an answer to the security question below\n"
+                 "In what city were you born? \n > ";
     std::getline(std::cin, security_question);
 
 

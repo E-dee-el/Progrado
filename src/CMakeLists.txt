@@ -1,4 +1,5 @@
 set(sources User.cpp
+	progrado.cpp
 	db/Course.cpp
 	db/DBConnector.cpp
 	ui/Ui.cpp

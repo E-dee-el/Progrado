@@ -33,9 +33,9 @@ public:
     static std::vector<std::string> retrieveUserDetails(); 
     static Progrado::Course searchCourse(const std::string& t_search_term);
     static std::vector< std::shared_ptr<Progrado::Course> >
-    getCoursesMatching(const int t_flag); // Argument is a type of Terms, from enum Term in namespace Progrado
+            getCoursesMatching(const int t_flag); // Argument is a type of Terms, from enum Term in namespace Progrado
     static std::vector < std::vector< std::shared_ptr<Progrado::Course> > >
-    getScheduleSummary(); /*the foll. returns a vector of vectors (i.e. a 2d vector)
+            getScheduleSummary(); /*the foll. returns a vector of vectors (i.e. a 2d vector)
                           of smart pointers to course objects*/
 
 private:

@@ -1,0 +1,18 @@
+prompt >>>
+cmds:
+
+help
+-------------
+*display cmd list*
+
+add-course
+update-course
+remove-course [-name] 
+view-course [-semester]
+
+
+while true, do:
+    print prompt
+    read in from stdin into buff
+    if buff is not empty:
+        process_input(buff)

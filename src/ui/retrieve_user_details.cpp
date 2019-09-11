@@ -12,7 +12,7 @@ retrieve_user_details::~retrieve_user_details() {}
 void retrieve_user_details::print_instructions()const
 {
     std::cout << "\t\tRETRIEVE DETAILS\n"
-                 "\t===============\n"
+                 "\n"
                  "kindly provide answer to the security question below\n"; 
 }
 
@@ -39,6 +39,8 @@ void retrieve_user_details::execute()const
     if (user_response == answer)
     {
         auto user_details = DB::DBConnector::retrieveUserDetails();
+        std::cout << "retrieving";
+        Progrado::progrado_loading(3);
         std::cout << "Your username is: " << user_details[3] << std::endl;
         std::cout << "Your password is: " << user_details[4] << std::endl; 
         std::cout << "Press any key and then enter to continue\n";

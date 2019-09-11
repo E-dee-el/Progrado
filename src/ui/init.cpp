@@ -38,7 +38,7 @@ bool init::execute()
 {
     if(is_new_user())
     {
-        std::cout << "Create an account: enter any key to continue or 0 to exit\n";
+        std::cout << "Create an account to continue: enter any key or 0 to exit\n > ";
         std::string reply;
         std::cin >> reply;
         std::cin.ignore();
@@ -76,9 +76,8 @@ bool init::execute()
      
     }
     else
-    {       std::cout << "LOGIN\n";
-            std::cout << "Hit any key and enter to continue, or 0 to exit\n"
-            "**************************************\n"; 
+    {       std::cout << "\t\tLOGIN\n";
+            std::cout << "Hit any key and enter to continue, or 0 to exit\n > "; 
             std::string choice;
             std::cin >> choice;
             std::cin.ignore();
