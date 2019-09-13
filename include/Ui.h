@@ -18,9 +18,9 @@ public:
     void setup();                         /*pass control to class init*/
     void run();                           /*run main application logic*/
     void print_welcome_message();         /*prints welcome or help message*/
-    int process_input(const std::string& s);
     void print_help_info();
     void initialize_screen(const std::shared_ptr<UI::screen>& t_scrn)const; 
+    int process_input(const std::string& s);
 
 
 

@@ -1,5 +1,6 @@
 
 // Progrado "global" constants, functions declared here
+//// DO NOT EDIT THE STRINGS DECLARED HERE!
 #ifndef PROGRADO
 #define PROGRADO
 

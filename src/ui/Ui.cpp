@@ -20,7 +20,6 @@ Ui::~Ui() {};
 void Ui::print_welcome_message()
 {
     const std::time_t curr_time = system_clock::to_time_t(system_clock::now());
-
     std::cout <<"Progrado version 0.1\n"
               << std::ctime(&curr_time)
               << "Enter 'help' for usage hints.\n";
